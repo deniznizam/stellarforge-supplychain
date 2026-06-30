@@ -1,0 +1,29 @@
+name: Soroban Smart Contracts CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        target: wasm32-unknown-unknown
+
+    - name: Cargo Check
+      run: cargo check
+
+    - name: Run Contract Tests
+      run: cargo test

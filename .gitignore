@@ -1,0 +1,9 @@
+/target
+/frontend/.next
+/frontend/node_modules
+package-lock.json
+/frontend/package-lock.json
+node_modules/
+.DS_Store
+*.snapshot
+test_snapshots/
