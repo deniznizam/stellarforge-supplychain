@@ -14,18 +14,20 @@ interface Milestone {
 }
 
 interface Project {
-  id: number;
+  id: string;
   name: string;
   originPort: string;
   destPort: string;
+  originPortCode: string;
+  destPortCode: string;
   borrower: string;
   buyer: string;
   targetAmount: number;
   fundedAmount: number;
-  fundingDeadline: number; // relative hours
-  milestones: Milestone[];
+  fundingDeadline: number;
   status: "Pending" | "Active" | "Completed" | "Liquidated";
   collateralLocked: number;
+  milestones: Milestone[];
 }
 
 interface EventLog {
@@ -37,41 +39,42 @@ interface EventLog {
 // Translations dictionary
 const translations = {
   en: {
-    title: "StellarForge Finance",
-    tagline: "Industrial Trade & Supply Chain Finance",
+    title: "StellarForge",
+    tagline: "Supply Chain Escrow Finance",
     connectWallet: "Connect Wallet",
     walletConnected: "Wallet Connected",
-    activePipelines: "Active Pipelines",
+    activePipelines: "Active Projects",
     createNewPipeline: "Register Supply Trade",
     howItWorks: "How it works",
-    totalFinanced: "Total Financed Capital",
-    lockedCollateral: "Locked Collateral Pool",
-    avgYield: "Lender Yield Rate",
-    simulationPanel: "Simulation Controls",
-    ledgerTime: "Ledger Relative Time:",
+    totalPool: "Total Pool",
+    activeProjectsLabel: "Active Projects",
+    myInvestment: "My Investment",
+    expectedYield: "Expected Yield",
+    simulationPanel: "Developer Tools",
+    ledgerTime: "Ledger Time:",
     add24h: "+24 Hours",
     startDemo: "Run E2E Demo Simulation",
-    demoRunning: "Demo Yürütülüyor...",
+    demoRunning: "Demo Running...",
     roleSelector: "Active Account Role Simulator:",
     onChainLogs: "On-Chain Log Stream",
     clearLogs: "Clear",
     auditorVerified: "Oracle Verified",
-    atSea: "Cargo in transit",
-    fundedAmount: "Funded Capital",
-    lockedCollateralLabel: "Locked Collateral",
-    lenderYield: "Lender Yield",
-    milestoneProgress: "Milestone Progression Path",
-    statusPending: "Awaiting Funding Target",
-    statusActive: "Active Trade Execution",
-    statusCompleted: "Settled & Finalized",
-    statusLiquidated: "Default / Liquidated",
+    atSea: "Transit",
+    fundedAmount: "Funding progress",
+    lockedCollateralLabel: "Collateral",
+    lenderYield: "Yield Rate",
+    milestoneProgress: "Milestones",
+    statusPending: "Awaiting Funding",
+    statusActive: "Active",
+    statusCompleted: "Completed",
+    statusLiquidated: "Liquidated",
     supplier: "Supplier",
     buyer: "Buyer",
     lender: "Lender",
     validator: "Validator (Oracle)",
     liquidator: "Liquidator (Keeper)",
     projectDetails: "Trade finance project",
-    trustFooter: "3 independent oracle nodes verifying shipment proofs · last check 2 mins ago",
+    trustFooter: "3 independent oracle nodes verifying shipment proofs",
     createDesc: "Deploy a milestone-locked trade contract. 50% USDC security deposit will be locked in the Vault.",
     tradeTitle: "Trade Contract / Commodity Title",
     originPortLabel: "Origin Port / Dispatch Hub",
@@ -89,7 +92,7 @@ const translations = {
     rejectBtn: "Reject",
     approveBtn: "Approve & Payout",
     repaymentDescr: "Settlement & Liquidation Actions",
-    confirmRepay: "Confirm Delivery & Settle Trade",
+    confirmRepay: "Confirm Delivery & Settle",
     repayNote: "Awaiting all milestone approvals before buyer settlement is unlocked.",
     triggerLiq: "Trigger Default Liquidation",
     settledSuccess: "Trade settled successfully. Lenders reimbursed with yield, collateral returned to Supplier.",
@@ -120,41 +123,42 @@ const translations = {
     prev: "Previous"
   },
   tr: {
-    title: "StellarForge Finance",
-    tagline: "Endüstriyel Ticaret Finansmanı ve Lojistik Teminat Yönetimi",
+    title: "StellarForge",
+    tagline: "Tedarik Zinciri Finansmanı",
     connectWallet: "Cüzdanı Bağla",
     walletConnected: "Cüzdan Bağlandı",
-    activePipelines: "Aktif Finansmanlar",
+    activePipelines: "Aktif Projeler",
     createNewPipeline: "Yeni Ticari Finansman Kaydı",
     howItWorks: "Nasıl Çalışır",
-    totalFinanced: "Finanse Edilen Sermaye",
-    lockedCollateral: "Kilitli Teminat Havuzu",
-    avgYield: "Yatırımcı Getirisi",
-    simulationPanel: "Simülasyon Denetimleri",
-    ledgerTime: "Ledger Sanal Zamanı:",
-    add24h: "+24 Saat İlerlet",
+    totalPool: "TOPLAM HAVUZ",
+    activeProjectsLabel: "AKTİF PROJE",
+    myInvestment: "YATIRIMIM",
+    expectedYield: "BEKLENEN GETİRİ",
+    simulationPanel: "Geliştirici Araçları",
+    ledgerTime: "Ledger Zamanı:",
+    add24h: "+24 Saat",
     startDemo: "E2E Akıllı Demosu Başlat",
     demoRunning: "Demo Yürütülüyor...",
     roleSelector: "Aktif Hesap Rol Simülatörü:",
     onChainLogs: "Zincir Üstü Event Akışı",
     clearLogs: "Temizle",
-    auditorVerified: "Oracle doğrulamalı",
+    auditorVerified: "Oracle Doğrulamalı",
     atSea: "Açık denizde",
-    fundedAmount: "Toplanan fon",
-    lockedCollateralLabel: "Kilitli teminat",
-    lenderYield: "Yatırımcı getirisi",
-    milestoneProgress: "Kilometre taşı ilerlemesi",
-    statusPending: "Fon Toplanıyor",
-    statusActive: "Sevkiyat ve Yürütmede",
-    statusCompleted: "Ödendi & Kapatıldı",
-    statusLiquidated: "Temerrüt (Tasfiye)",
-    supplier: "Tedarikçi (Borçlu)",
-    buyer: "Alıcı (Yükümlü)",
-    lender: "Yatırımcı (Lender)",
-    validator: "Denetçi (Oracle)",
-    liquidator: "Likidatör (Keeper)",
+    fundedAmount: "FONLAMA",
+    lockedCollateralLabel: "Teminat",
+    lenderYield: "Getiri Oranı",
+    milestoneProgress: "KİLOMETRE TAŞLARI",
+    statusPending: "Beklemede",
+    statusActive: "Aktif",
+    statusCompleted: "Tamamlandı",
+    statusLiquidated: "Temerrüt",
+    supplier: "Tedarikçi",
+    buyer: "Alıcı",
+    lender: "Yatırımcı",
+    validator: "Doğrulayıcı",
+    liquidator: "Likidatör",
     projectDetails: "Tedarik finansmanı projesi",
-    trustFooter: "3 bağımsız denetçi tarafından doğrulanan kanıtlar · son işlem 2 saat önce",
+    trustFooter: "3 bağımsız denetçi tarafından doğrulanan kanıtlar",
     createDesc: "Milestone kilitli yeni bir ticaret finansmanı başlatın. Bütçenin %50'si güvence olarak kasada bloke edilir.",
     tradeTitle: "Ticari Sözleşme / Emtia Başlığı",
     originPortLabel: "Çıkış Limanı / Üretim Merkezi",
@@ -172,9 +176,9 @@ const translations = {
     rejectBtn: "Reddet",
     approveBtn: "Onayla & Öde",
     repaymentDescr: "Geri Ödeme & Tasfiye Yönetimi",
-    confirmRepay: "Teslimatı Onayla ve Öde",
+    confirmRepay: "Teslimatı Onayla",
     repayNote: "Alıcı ödemesinin açılması için tüm milestone hedeflerinin Onaylanması gerekir.",
-    triggerLiq: "Likidasyonu Tetikle (Temerrüt)",
+    triggerLiq: "Tasfiyeyi Tetikle",
     settledSuccess: "Geri Ödeme Tamamlandı. Yatırımcılara faizleri dağıtıldı, tedarikçinin teminatı serbest bırakıldı.",
     defaultedWarning: "Proje temerrüde düştü. Kilitli teminat tasfiye edildi ve yatırımcılara payları oranında iade edildi.",
     toastUSDC: "USDC Token sözleşmesi başarıyla başlatıldı.",
@@ -210,89 +214,183 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<"pipelines" | "create">("pipelines");
   
   // Wallet
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState("");
-  const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Supplier");
+  const [walletConnected, setWalletConnected] = useState(true);
+  const [walletAddress, setWalletAddress] = useState("GBQK...7JKL");
+  const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Buyer");
 
   // Time & Simulator
   const [currentTime, setCurrentTime] = useState(0);
   const [demoActive, setDemoActive] = useState(false);
   const [showSimPanel, setShowSimPanel] = useState(true);
 
-  // Onboarding Guide Slide Deck state
-  const [showGuide, setShowGuide] = useState(true);
+  // Onboarding Guide Slide Deck state (Off by default as in the screenshot, but triggerable)
+  const [showGuide, setShowGuide] = useState(false);
   const [guideSlide, setGuideSlide] = useState(0);
 
   // Active Project Selection
-  const [selectedProjectId, setSelectedProjectId] = useState<number>(1);
+  const [selectedProjectId, setSelectedProjectId] = useState<string>("SF-001");
 
-  // Trade Pipelines State
+  // Trade Pipelines State exactly mapping the Figma snapshot
   const [projects, setProjects] = useState<Project[]>([
     {
-      id: 1,
-      name: "Organik kahve ihracatı",
-      originPort: "Santos limanı",
-      destPort: "Rotterdam limanı",
+      id: "SF-001",
+      name: "Acme Logistics",
+      originPort: "Santos",
+      originPortCode: "SAN",
+      destPort: "Rotterdam",
+      destPortCode: "RTM",
       borrower: "GD...BrazilCoffee",
-      buyer: "GB...NestleBuyer",
-      targetAmount: 25000,
-      fundedAmount: 12000,
+      buyer: "MegaCorp Industries",
+      targetAmount: 10000,
+      fundedAmount: 10000,
       fundingDeadline: 24,
-      status: "Pending",
-      collateralLocked: 12500,
+      status: "Active",
+      collateralLocked: 5000,
       milestones: [
         {
           id: 1,
-          description: "Hammadde tedariki",
+          description: "Malzeme Tedariki",
           deadline: 48,
-          amountToRelease: 10000,
-          proofHash: "ipfs://santos-loading-bill-xml",
+          amountToRelease: 3000,
+          proofHash: "ipfs://procure-raw-cotton",
           status: "Approved",
         },
         {
           id: 2,
-          description: "Üretim ve paketleme",
+          description: "Bileşen Montajı",
           deadline: 96,
-          amountToRelease: 10000,
-          proofHash: "ipfs://nestle-qa-check",
-          status: "ProofSubmitted",
+          amountToRelease: 4000,
+          proofHash: "ipfs://assembly-check",
+          status: "Approved",
         },
         {
           id: 3,
-          description: "Liman teslimi",
+          description: "KK & Teslimat",
           deadline: 144,
-          amountToRelease: 5000,
+          amountToRelease: 3000,
           proofHash: "",
           status: "Pending",
         },
       ],
     },
     {
-      id: 2,
-      name: "Tekstil sevkiyatı",
-      originPort: "İstanbul limanı",
-      destPort: "Hamburg limanı",
+      id: "SF-002",
+      name: "Orion Textiles",
+      originPort: "İstanbul",
+      originPortCode: "IST",
+      destPort: "Hamburg",
+      destPortCode: "HAM",
       borrower: "GD...AcmeTextile",
-      buyer: "GB...ZaraGroup",
-      targetAmount: 10000,
-      fundedAmount: 10000,
+      buyer: "EuroFashion Group",
+      targetAmount: 25000,
+      fundedAmount: 17588,
       fundingDeadline: 48,
-      status: "Active",
-      collateralLocked: 5000,
+      status: "Pending",
+      collateralLocked: 12500,
       milestones: [
         {
           id: 1,
-          description: "Hammadde tedariki ve iplik alımı",
+          description: "Ham Madde Alımı",
           deadline: 72,
-          amountToRelease: 4000,
-          proofHash: "ipfs://procurement-docs",
+          amountToRelease: 8000,
+          proofHash: "",
+          status: "Pending",
+        },
+        {
+          id: 2,
+          description: "Dokuma & Boyama",
+          deadline: 120,
+          amountToRelease: 10000,
+          proofHash: "",
+          status: "Pending",
+        },
+        {
+          id: 3,
+          description: "Paket & Nakliye",
+          deadline: 168,
+          amountToRelease: 7000,
+          proofHash: "",
+          status: "Pending",
+        },
+      ],
+    },
+    {
+      id: "SF-003",
+      name: "Pacific Coffee Co.",
+      originPort: "Santos",
+      originPortCode: "SAN",
+      destPort: "Hamburg",
+      destPortCode: "HAM",
+      borrower: "GD...PacCoffee",
+      buyer: "NordRoast GmbH",
+      targetAmount: 15000,
+      fundedAmount: 15000,
+      fundingDeadline: 72,
+      status: "Completed",
+      collateralLocked: 7500,
+      milestones: [
+        {
+          id: 1,
+          description: "Hasat & Toplama",
+          deadline: 96,
+          amountToRelease: 5000,
+          proofHash: "ipfs://harvest-receipt",
           status: "Approved",
         },
         {
           id: 2,
-          description: "Konfeksiyon üretim aşaması",
+          description: "İşleme & Paket",
+          deadline: 144,
+          amountToRelease: 5500,
+          proofHash: "ipfs://qa-grade-a",
+          status: "Approved",
+        },
+        {
+          id: 3,
+          description: "Sevkiyat & Teslim",
+          deadline: 192,
+          amountToRelease: 4500,
+          proofHash: "ipfs://hamburg-port-bill",
+          status: "Approved",
+        },
+      ],
+    },
+    {
+      id: "SF-004",
+      name: "Meridian Electronics",
+      originPort: "Shenzhen",
+      originPortCode: "SZX",
+      destPort: "Dubai",
+      destPortCode: "DXB",
+      borrower: "GD...ShenzhenChip",
+      buyer: "GlobalTech Solutions",
+      targetAmount: 50000,
+      fundedAmount: 50000,
+      fundingDeadline: 96,
+      status: "Active",
+      collateralLocked: 25000,
+      milestones: [
+        {
+          id: 1,
+          description: "Bileşen Tedariki",
           deadline: 120,
-          amountToRelease: 6000,
+          amountToRelease: 18000,
+          proofHash: "ipfs://semiconductor-bill",
+          status: "Approved",
+        },
+        {
+          id: 2,
+          description: "Üretim & Test",
+          deadline: 180,
+          amountToRelease: 20000,
+          proofHash: "",
+          status: "Pending",
+        },
+        {
+          id: 3,
+          description: "Gümrük & Nakliye",
+          deadline: 240,
+          amountToRelease: 12000,
           proofHash: "",
           status: "Pending",
         },
@@ -304,8 +402,8 @@ export default function Home() {
 
   // Form State
   const [newProjName, setNewProjName] = useState("");
-  const [newProjOrigin, setNewProjOrigin] = useState("İzmir limanı");
-  const [newProjDest, setNewProjDest] = useState("Hamburg limanı");
+  const [newProjOrigin, setNewProjOrigin] = useState("İzmir");
+  const [newProjDest, setNewProjDest] = useState("Rotterdam");
   const [newProjSupplier, setNewProjSupplier] = useState("GDSupplierAddress...");
   const [newProjBuyer, setNewProjBuyer] = useState("GBBuyerAddress...");
   const [newProjTarget, setNewProjTarget] = useState(15000);
@@ -339,7 +437,6 @@ export default function Home() {
   const connectWallet = async () => {
     logEvent("info", lang === "tr" ? "Cüzdan bağlantısı başlatılıyor..." : "Initializing wallet connection...");
     
-    // Set a safety timeout of 500ms. If Freighter doesn't respond, immediately use mock address.
     let resolved = false;
     const timeoutPromise = new Promise<string | null>((resolve) => setTimeout(() => resolve(null), 500));
 
@@ -365,9 +462,8 @@ export default function Home() {
     }
 
     if (!resolved) {
-      // Fallback path
       const mockAddress = "GC" + Math.random().toString(36).substring(2, 15).toUpperCase();
-      setWalletAddress(mockAddress);
+      setWalletAddress(mockAddress.substring(0, 4) + "..." + mockAddress.substring(mockAddress.length - 4));
       setWalletConnected(true);
       logEvent("success", lang === "tr" 
         ? `StellarForge Sandbox cüzdanı bağlandı: ${mockAddress.substring(0, 8)}...` 
@@ -389,11 +485,15 @@ export default function Home() {
       return;
     }
 
+    const nextId = "SF-00" + (projects.length + 1);
+
     const newProject: Project = {
-      id: projects.length + 1,
+      id: nextId,
       name: newProjName,
       originPort: newProjOrigin,
+      originPortCode: newProjOrigin.substring(0, 3).toUpperCase(),
       destPort: newProjDest,
+      destPortCode: newProjDest.substring(0, 3).toUpperCase(),
       borrower: newProjSupplier.substring(0, 10) + "...",
       buyer: newProjBuyer.substring(0, 10) + "...",
       targetAmount: newProjTarget,
@@ -414,10 +514,10 @@ export default function Home() {
       : `Project "${newProjName}" registered. Collateral locked in Vault.`
     );
     setActiveTab("pipelines");
-    setSelectedProjectId(newProject.id);
+    setSelectedProjectId(nextId);
   };
 
-  const fundProject = (id: number, amount: number) => {
+  const fundProject = (id: string, amount: number) => {
     setProjects(prev => prev.map(p => {
       if (p.id === id) {
         const nextFunded = Math.min(p.targetAmount, p.fundedAmount + amount);
@@ -429,7 +529,7 @@ export default function Home() {
     }));
   };
 
-  const submitProof = (projectId: number, milestoneId: number) => {
+  const submitProof = (projectId: string, milestoneId: number) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const updatedMilestones = p.milestones.map(m => {
@@ -449,7 +549,7 @@ export default function Home() {
     }));
   };
 
-  const approveMilestone = (projectId: number, milestoneId: number, accept: boolean) => {
+  const approveMilestone = (projectId: string, milestoneId: number, accept: boolean) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const updatedMilestones = p.milestones.map(m => {
@@ -470,18 +570,18 @@ export default function Home() {
     }));
   };
 
-  const buyerRepay = (projectId: number) => {
+  const buyerRepay = (projectId: string) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const repayment = p.targetAmount * 1.05;
         logEvent("success", `Buyer confirmed delivery. Settled ${formatNumber(repayment)} USDC.`);
-        return { ...p, status: "Completed", fundedAmount: 0 };
+        return { ...p, status: "Completed", fundedAmount: p.targetAmount };
       }
       return p;
     }));
   };
 
-  const triggerDefault = (projectId: number) => {
+  const triggerDefault = (projectId: string) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         logEvent("error", `Supplier default triggered. Liquidating collateral of ${formatNumber(p.collateralLocked)} USDC.`);
@@ -506,12 +606,14 @@ export default function Home() {
     // Create
     setTimeout(() => {
       const demoProject: Project = {
-        id: 3,
+        id: "SF-005",
         name: "Akıllı Tarım İthalatı",
-        originPort: "İzmir limanı",
-        destPort: "Rotterdam limanı",
+        originPort: "İzmir",
+        originPortCode: "IZM",
+        destPort: "Rotterdam",
+        destPortCode: "RTM",
         borrower: "GD...IzmirAgri",
-        buyer: "GB...NestleHQ",
+        buyer: "NestleHQ",
         targetAmount: 20000,
         fundedAmount: 0,
         fundingDeadline: 24,
@@ -523,20 +625,20 @@ export default function Home() {
         ]
       };
       setProjects(prev => [...prev, demoProject]);
-      setSelectedProjectId(3);
+      setSelectedProjectId("SF-005");
       logEvent("success", "Project created. 10,000 USDC collateral locked in Vault.");
     }, 1500);
 
     // Fund
     setTimeout(() => {
-      setProjects(prev => prev.map(p => p.id === 3 ? { ...p, fundedAmount: 20000, status: "Active" } : p));
+      setProjects(prev => prev.map(p => p.id === "SF-005" ? { ...p, fundedAmount: 20000, status: "Active" } : p));
       logEvent("success", "Lenders funded 20,000 USDC target. Status: Active.");
     }, 3500);
 
     // Submit Proof 1
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
-        if (p.id === 3) {
+        if (p.id === "SF-005") {
           const updated = p.milestones.map(m => m.id === 1 ? { ...m, status: "ProofSubmitted" as const, proofHash: "ipfs://seeds-manifest-xml" } : m);
           logEvent("info", "Supplier uploaded shipment proof manifest for Milestone #1.");
           return { ...p, milestones: updated };
@@ -548,7 +650,7 @@ export default function Home() {
     // Approve 1
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
-        if (p.id === 3) {
+        if (p.id === "SF-005") {
           const updated = p.milestones.map(m => m.id === 1 ? { ...m, status: "Approved" as const } : m);
           logEvent("success", "Oracle verified Milestone #1. Released 8,000 USDC.");
           return { ...p, milestones: updated };
@@ -560,7 +662,7 @@ export default function Home() {
     // Finalize
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
-        if (p.id === 3) {
+        if (p.id === "SF-005") {
           const updated = p.milestones.map(m => m.id === 2 ? { ...m, status: "Approved" as const, proofHash: "ipfs://delivery-receipt" } : m);
           logEvent("success", "Milestone #2 approved. Repayment available.");
           return { ...p, milestones: updated };
@@ -571,7 +673,7 @@ export default function Home() {
 
     // Repay
     setTimeout(() => {
-      setProjects(prev => prev.map(p => p.id === 3 ? { ...p, status: "Completed", fundedAmount: 0 } : p));
+      setProjects(prev => prev.map(p => p.id === "SF-005" ? { ...p, status: "Completed", fundedAmount: 20000 } : p));
       logEvent("success", "Buyer settled repayment. 10,000 USDC collateral returned to supplier.");
       setDemoActive(false);
     }, 11500);
@@ -579,76 +681,59 @@ export default function Home() {
 
   if (!mounted) return null;
 
-  const currentProject = projects.find(p => p.id === selectedProjectId) || projects[0];
-  const allApproved = currentProject.milestones.every(m => m.status === "Approved");
-  const hasMissedDeadline = currentProject.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
-
   return (
-    <div className="min-h-screen bg-[#16181C] text-[#E2E8F0] font-sans antialiased selection:bg-amber-500/20 selection:text-white">
+    <div className="min-h-screen bg-[#0B0C0E] text-[#E2E8F0] font-sans antialiased selection:bg-teal-500/20 selection:text-white pb-12">
       
       {/* Top Header */}
-      <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4 rounded-none">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 bg-amber-500 flex items-center justify-center shadow-md text-[#111215] rounded-none">
-            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              {/* Outer coin boundary */}
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-              
-              {/* Ship hull */}
-              <path d="M5 13h14l-2 4H7l-2-4z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" />
-              
-              {/* Stacked Cargo containers */}
-              <rect x="7" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
-              <rect x="10.75" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
-              <rect x="14.5" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
-              
-              {/* Star rising above the ship */}
-              <path d="M12 3l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8z" fill="currentColor" stroke="currentColor" strokeWidth="1" />
-            </svg>
-          </div>
+      <header className="border-b border-[#1E2128] bg-[#0E0F12] px-8 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4">
+        
+        {/* Brand logo & tagline */}
+        <div className="flex items-center gap-2.5">
+          <svg className="w-6 h-6 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+            <polygon points="12 22 12 12 2 8.5" />
+            <polygon points="12 12 22 8.5" />
+            <polygon points="12 2 12 12" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+          </svg>
           <div>
-            <h1 className="text-sm md:text-base font-bold tracking-tight text-white">{t.title}</h1>
-            <p className="text-xs text-[#8E97A4] font-medium">{t.tagline}</p>
+            <h1 className="text-base font-black tracking-tight text-white">{t.title}</h1>
+            <p className="text-[10px] text-[#5F6774] font-bold uppercase tracking-wider">{t.tagline}</p>
           </div>
         </div>
 
         {/* Global Nav Tabs */}
-        <div className="flex bg-[#1D2128] border border-[#2B313A] p-0.5 rounded-none">
+        <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
           <button
             onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
-              activeTab === "pipelines" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+              activeTab === "pipelines" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="18" y1="20" x2="18" y2="10" />
-              <line x1="12" y1="20" x2="12" y2="4" />
-              <line x1="6" y1="20" x2="6" y2="14" />
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
             </svg>
             {t.activePipelines}
           </button>
           <button
             onClick={() => { setActiveTab("create"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
-              activeTab === "create" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+              activeTab === "create" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             {t.createNewPipeline}
           </button>
           <button
             onClick={() => { setShowGuide(true); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
-              showGuide ? "bg-[#2D343F] text-amber-400 shadow-sm" : "text-[#8E97A4] hover:text-white"
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+              showGuide ? "bg-[#1E2128] text-teal-400" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-              <line x1="12" y1="17" x2="12.01" y2="17" />
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
             {lang === "tr" ? "Rehber" : "How it Works"}
           </button>
@@ -657,17 +742,21 @@ export default function Home() {
         {/* Primary Wallet connection */}
         <div className="flex items-center gap-4">
           
-          {/* Language Switch */}
-          <div className="flex bg-[#1A1C20] border border-[#2B313A] p-0.5 rounded-none">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 text-[#10B981] border border-emerald-900/60 text-[10px] font-bold uppercase tracking-wider">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+            {t.auditorVerified}
+          </span>
+
+          <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded-none ${lang === "en" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "en" ? "bg-teal-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded-none ${lang === "tr" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "tr" ? "bg-teal-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -675,713 +764,765 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4.5 py-2.5 text-xs font-bold transition flex items-center gap-2 border rounded-none ${
+            className={`px-4.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 border ${
               walletConnected
-                ? "bg-amber-950/20 text-amber-400 border-amber-500/30"
-                : "bg-amber-500 hover:bg-amber-400 text-[#111215] shadow-sm font-extrabold"
+                ? "bg-teal-950/20 text-teal-400 border-teal-500/30"
+                : "bg-teal-500 hover:bg-teal-400 text-[#111215] shadow-sm font-extrabold"
             }`}
           >
-            <div className={`h-2 w-2 rounded-full ${walletConnected ? "bg-amber-400 animate-pulse" : "bg-[#111215]"}`} />
-            {walletConnected ? `${walletAddress.substring(0, 8)}...` : t.connectWallet}
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" />
+              <path d="M22 10h-6a2 2 0 0 0 0 4h6" />
+            </svg>
+            {walletConnected ? walletAddress : t.connectWallet}
           </button>
         </div>
       </header>
 
       {/* Main Workspace Layout */}
-      <main className="max-w-7xl mx-auto p-6 md:p-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <main className="max-w-7xl mx-auto p-6 md:p-8 space-y-8">
         
-        {/* Left Column: Pipeline Selector (Only when viewing active pipelines) */}
-        {activeTab === "pipelines" && (
-          <aside className="lg:col-span-1 space-y-4">
-            <h2 className="text-xs font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
-            <div className="space-y-2.5">
-              {projects.map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => setSelectedProjectId(p.id)}
-                  className={`w-full text-left p-4 border transition flex flex-col gap-2.5 rounded-none ${
-                    p.id === selectedProjectId
-                      ? "bg-[#20232A] border-amber-500/40 shadow-sm"
-                      : "bg-[#1C1E24]/60 border-[#2A2F3A]/60 hover:border-[#373F4D]"
-                  }`}
-                >
-                  <div className="flex justify-between items-center w-full">
-                    <span className={`text-[10px] font-extrabold px-2 py-0.5 border uppercase tracking-wider rounded-none ${
-                      p.status === "Active" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
-                      p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
-                      p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
-                      "bg-red-500/10 text-red-400 border-red-500/20"
-                    }`}>
-                      {p.status === "Active" ? t.statusActive :
-                       p.status === "Pending" ? t.statusPending :
-                       p.status === "Completed" ? t.statusCompleted :
-                       t.statusLiquidated}
-                    </span>
-                    <span className="text-xs text-white font-bold">{formatNumber(p.targetAmount)} USDC</span>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white line-clamp-1">{p.name}</h3>
-                    <p className="text-xs text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
-                  </div>
-                </button>
-              ))}
+        {/* Stats Row Cards */}
+        {!showGuide && activeTab === "pipelines" && (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+            {/* Stat 1: Total Pool */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
+              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.totalPool}</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">$100,000</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">USDC — 4 projede</span>
+              </div>
             </div>
-          </aside>
+
+            {/* Stat 2: Active Projects */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
+              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.activeProjectsLabel}</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">2</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">proje devam ediyor</span>
+              </div>
+            </div>
+
+            {/* Stat 3: My Investment */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
+              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.myInvestment}</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">$6,500</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">Bağlı değil</span>
+              </div>
+            </div>
+
+            {/* Stat 4: Expected Yield */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
+              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
+                <p className="text-xl font-bold text-teal-400 tracking-tight mt-0.5">+$325</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">@5% yıllık getiri</span>
+              </div>
+            </div>
+          </div>
         )}
 
-        {/* Center/Main workspace (Lg: col-span-2 when side selector is active) */}
-        <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-2" : "lg:col-span-3"}`}>
+        {/* Content Body Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
-          {showGuide ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300 rounded-none">
-              
-              {/* Onboarding Header */}
-              <div className="space-y-2">
-                <span className="text-xs text-amber-500 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
-                <h2 className="text-2xl font-bold text-white tracking-tight">{t.guideTitle}</h2>
-                <p className="text-sm text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
-              </div>
-
-              {/* Progress Stepper Visual */}
-              <div className="grid grid-cols-4 gap-2 relative py-2">
-                <div className="absolute left-[12%] right-[12%] top-1/2 -translate-y-1/2 h-0.5 bg-[#2D333F]" />
+          {/* Main Workspace (Left Column) */}
+          <div className="lg:col-span-3 space-y-6">
+            
+            {showGuide ? (
+              <div className="bg-[#13151A] border border-[#1E2128] p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300 rounded-xl">
                 
-                {[0, 1, 2, 3].map((step) => {
-                  const isActive = guideSlide === step;
-                  const isCompleted = guideSlide > step;
+                {/* Onboarding Header */}
+                <div className="space-y-2">
+                  <span className="text-xs text-teal-400 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
+                  <h2 className="text-2xl font-bold text-white tracking-tight">{t.guideTitle}</h2>
+                  <p className="text-sm text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
+                </div>
+
+                {/* Progress Stepper Visual */}
+                <div className="grid grid-cols-4 gap-2 relative py-2">
+                  <div className="absolute left-[12%] right-[12%] top-1/2 -translate-y-1/2 h-0.5 bg-[#1E2128]" />
+                  
+                  {[0, 1, 2, 3].map((step) => {
+                    const isActive = guideSlide === step;
+                    const isCompleted = guideSlide > step;
+                    return (
+                      <button
+                        key={step}
+                        onClick={() => setGuideSlide(step)}
+                        className="relative z-10 flex flex-col items-center gap-2 group"
+                      >
+                        <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 transition ${
+                          isActive ? "bg-teal-400 text-[#111215] border-teal-400 font-bold" :
+                          isCompleted ? "bg-[#13151A] text-teal-400 border-teal-400" :
+                          "bg-[#0B0C0E] text-[#5F6774] border-[#1E2128] group-hover:border-[#373F4D]"
+                        }`}>
+                          {step + 1}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Slide Content Card */}
+                <div className="bg-[#0B0C0E]/80 border border-[#1E2128] p-6 flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300 rounded-xl">
+                  {guideSlide === 0 && (
+                    <>
+                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                      <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
+                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
+                    </>
+                  )}
+                  {guideSlide === 1 && (
+                    <>
+                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M12 6v12" />
+                      </svg>
+                      <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
+                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
+                    </>
+                  )}
+                  {guideSlide === 2 && (
+                    <>
+                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                      <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
+                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
+                    </>
+                  )}
+                  {guideSlide === 3 && (
+                    <>
+                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                      <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
+                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
+                    </>
+                  )}
+                </div>
+
+                {/* Brand Concept Illustration */}
+                <div className="border-t border-[#1E2128] pt-6 space-y-3">
+                  <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block text-center">
+                    {lang === "tr" ? "GÖRSEL TİCARET FİNANSMANI İŞ AKIŞI" : "VISUAL TRADE FINANCE WORKFLOW"}
+                  </span>
+                  <div className="relative overflow-hidden border border-[#1E2128] bg-[#0B0C0E] rounded-xl">
+                    <img 
+                      src="/stellarforge_illustration.jpg" 
+                      alt="StellarForge Supply Chain Finance Illustration" 
+                      className="w-full h-auto object-cover opacity-80 max-h-48"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0E] via-transparent to-transparent" />
+                  </div>
+                </div>
+
+                {/* Slide Deck Actions */}
+                <div className="flex justify-between items-center pt-4 border-t border-[#1E2128]">
+                  <button
+                    disabled={guideSlide === 0}
+                    onClick={() => setGuideSlide(prev => prev - 1)}
+                    className={`px-4 py-2 text-xs font-bold transition flex items-center gap-1.5 rounded-lg ${
+                      guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#1E2128] hover:bg-[#2A2F3D] text-white"
+                    }`}
+                  >
+                    <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+                    </svg>
+                    {t.prev}
+                  </button>
+
+                  <div className="flex gap-2">
+                    {[0, 1, 2, 3].map((step) => (
+                      <button 
+                        key={step} 
+                        onClick={() => setGuideSlide(step)}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          guideSlide === step ? "bg-teal-400 w-5" : "bg-[#1E2128] w-2"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {guideSlide === 3 ? (
+                    <button
+                      onClick={() => setShowGuide(false)}
+                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                    >
+                      <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      {t.closeGuide}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setGuideSlide(prev => prev + 1)}
+                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                    >
+                      {t.next}
+                      <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+
+              </div>
+            ) : activeTab === "pipelines" ? (
+              <div className="space-y-6">
+                
+                {/* Header info */}
+                <div className="flex justify-between items-center border-b border-[#1E2128] pb-3">
+                  <h2 className="text-lg font-black text-white">{lang === "tr" ? "Projeler" : "Projects"}</h2>
+                  <span className="text-xs text-[#5F6774] font-bold">4 {lang === "tr" ? "proje listelendi" : "projects listed"}</span>
+                </div>
+
+                {/* Projects Grid exactly mapping the Figma snapshot (2 columns layout) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {projects.map((p) => {
+                    const allApproved = p.milestones.every(m => m.status === "Approved");
+                    const hasMissedDeadline = p.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
+                    const progressPercent = Math.min(100, Math.floor((p.fundedAmount / p.targetAmount) * 100));
+
+                    return (
+                      <div 
+                        key={p.id}
+                        onClick={() => setSelectedProjectId(p.id)}
+                        className={`bg-[#13151A] border p-6 rounded-xl flex flex-col justify-between gap-6 transition relative cursor-pointer ${
+                          p.id === selectedProjectId
+                            ? "border-teal-500/40 shadow-lg shadow-teal-950/5"
+                            : "border-[#1E2128] hover:border-[#272B35]"
+                        }`}
+                      >
+                        
+                        {/* Project Header Row */}
+                        <div className="flex justify-between items-start">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-[#5F6774]">{p.id}</span>
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded border tracking-wider ${
+                              p.status === "Active" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
+                              p.status === "Pending" ? "bg-blue-500/10 text-blue-400 border-blue-500/20" :
+                              p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
+                              "bg-red-500/10 text-red-400 border-red-500/20"
+                            }`}>
+                              {p.status === "Active" ? t.statusActive :
+                               p.status === "Pending" ? t.statusPending :
+                               p.status === "Completed" ? t.statusCompleted :
+                               t.statusLiquidated}
+                            </span>
+                          </div>
+
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-950/20 text-[#10B981] border border-emerald-900/40 text-[9px] font-bold uppercase tracking-wider">
+                            <span className="h-1 w-1 rounded-full bg-[#10B981]" />
+                            {lang === "tr" ? "Oracle Doğrulamalı" : "Oracle Verified"}
+                          </span>
+                        </div>
+
+                        {/* Title Block */}
+                        <div>
+                          <h3 className="text-base font-bold text-white leading-tight">{p.name}</h3>
+                          <p className="text-xs text-[#8E97A4] font-medium mt-0.5">{p.originPort} ➔ {p.destPort}</p>
+                        </div>
+
+                        {/* Visual Shipping Route map */}
+                        <div className="bg-[#0B0C0E]/60 border border-[#1E2128] p-5 h-20 flex items-center relative rounded-lg">
+                          <div className="absolute left-[10%] right-[10%] h-0.5 bg-[#1E2128]" />
+                          
+                          {/* Active filled line */}
+                          <div 
+                            className="absolute left-[10%] h-0.5 bg-teal-400 transition-all duration-700" 
+                            style={{ 
+                              width: p.status === "Completed" ? "80%" :
+                                     p.status === "Liquidated" ? "20%" :
+                                     p.status === "Pending" ? "0%" : "40%"
+                            }} 
+                          />
+
+                          {/* Port Origin */}
+                          <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
+                            <div className="h-2.5 w-2.5 rounded-full bg-teal-400 border-2 border-[#0B0C0E]" />
+                            <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.originPortCode}</span>
+                          </div>
+
+                          {/* Cargo vessel position */}
+                          <div 
+                            className="absolute z-20 flex flex-col items-center transition-all duration-700 -translate-x-1/2"
+                            style={{ 
+                              left: p.status === "Completed" ? "90%" :
+                                    p.status === "Liquidated" ? "30%" :
+                                    p.status === "Pending" ? "15%" : "50%",
+                              top: "10px"
+                            }}
+                          >
+                            <svg className="w-5 h-5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6" />
+                            </svg>
+                          </div>
+
+                          {/* Port Destination */}
+                          <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
+                            <div className={`h-2.5 w-2.5 rounded-full border-2 border-[#0B0C0E] ${p.status === "Completed" ? "bg-teal-400" : "bg-[#1E2128]"}`} />
+                            <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.destPortCode}</span>
+                          </div>
+                        </div>
+
+                        {/* Capital Funding Progress Bar */}
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-xs font-bold text-white">
+                            <span className="text-[#8E97A4] font-black uppercase text-[10px] tracking-wider">{t.fundedAmount}</span>
+                            <span>{formatNumber(p.fundedAmount)} / {formatNumber(p.targetAmount)} USDC</span>
+                          </div>
+
+                          <div className="h-1.5 bg-[#1E2128] rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-teal-500 transition-all duration-500 rounded-full" 
+                              style={{ width: `${progressPercent}%` }}
+                            />
+                          </div>
+
+                          <div className="flex justify-between text-[10px] font-black uppercase tracking-wider">
+                            <span className="text-[#5F6774]">{progressPercent}% {lang === "tr" ? "fonlandı" : "funded"}</span>
+                            {progressPercent >= 100 ? (
+                              <span className="text-emerald-400">{lang === "tr" ? "Tam fonlandı ✓" : "Fully funded ✓"}</span>
+                            ) : (
+                              <span className="text-amber-500">{lang === "tr" ? "Fon toplanıyor" : "Funding"}</span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Milestones timeline */}
+                        <div className="space-y-3">
+                          <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block">{t.milestoneProgress}</span>
+                          
+                          <div className="flex items-center justify-between gap-1 relative py-2">
+                            <div className="absolute left-4 right-4 h-0.5 bg-[#1E2128] z-0" />
+                            
+                            {p.milestones.map((m, index) => {
+                              const isApproved = m.status === "Approved";
+                              const isSubmitted = m.status === "ProofSubmitted";
+                              return (
+                                <div key={m.id} className="relative z-10 flex flex-col items-center gap-1 flex-1 text-center">
+                                  <div className={`h-7 w-7 rounded-full flex items-center justify-center border-2 transition ${
+                                    isApproved ? "bg-[#13151A] text-emerald-400 border-emerald-500/50" :
+                                    isSubmitted ? "bg-[#13151A] text-amber-400 border-amber-500/50 animate-pulse" :
+                                    "bg-[#13151A] text-[#5F6774] border-[#1E2128]"
+                                  }`}>
+                                    {isApproved ? (
+                                      <svg className="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                    ) : isSubmitted ? (
+                                      <svg className="w-3.5 h-3.5 text-amber-500 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    ) : (
+                                      <span className="text-xs">{m.id}</span>
+                                    )}
+                                  </div>
+                                  <span className="text-[9px] font-bold text-white line-clamp-1 mt-1">{m.description}</span>
+                                  <span className="text-[9px] text-[#5F6774] font-medium">{formatNumber(m.amountToRelease)} USDC</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Flat Details list */}
+                        <div className="border-t border-[#1E2128] pt-4.5 flex flex-wrap justify-between items-center text-[10px] text-[#8E97A4] font-bold gap-2">
+                          <div>
+                            {lang === "tr" ? "Alıcı: " : "Buyer: "}<span className="text-white">{p.buyer}</span>
+                          </div>
+                          <div>
+                            {lang === "tr" ? "Teminat: " : "Collateral: "}<span className="text-teal-400">{formatNumber(p.collateralLocked)} USDC</span>
+                          </div>
+                          <div>
+                            {lang === "tr" ? "Getiri Oranı: " : "Yield: "}<span className="text-teal-400">5%</span>
+                          </div>
+                        </div>
+
+                        {/* Interactive operations button mapped by selected role */}
+                        <div className="pt-2">
+                          {p.status === "Active" && (
+                            <>
+                              {userRole === "Supplier" && p.milestones.some(m => m.status === "Pending") && (
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const nextPending = p.milestones.find(m => m.status === "Pending");
+                                    if (nextPending) submitProof(p.id, nextPending.id);
+                                  }}
+                                  className="w-full bg-teal-500 hover:bg-teal-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                                >
+                                  {t.submitProof}
+                                </button>
+                              )}
+                              {userRole === "Validator" && p.milestones.some(m => m.status === "ProofSubmitted") && (
+                                <div className="flex gap-2" onClick={e => e.stopPropagation()}>
+                                  <button
+                                    onClick={() => {
+                                      const nextSub = p.milestones.find(m => m.status === "ProofSubmitted");
+                                      if (nextSub) approveMilestone(p.id, nextSub.id, false);
+                                    }}
+                                    className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-2 rounded-lg text-xs font-bold transition"
+                                  >
+                                    {t.rejectBtn}
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      const nextSub = p.milestones.find(m => m.status === "ProofSubmitted");
+                                      if (nextSub) approveMilestone(p.id, nextSub.id, true);
+                                    }}
+                                    className="flex-1 bg-teal-500 hover:bg-teal-400 text-[#111215] py-2 rounded-lg text-xs font-extrabold transition shadow-md"
+                                  >
+                                    {t.approveBtn}
+                                  </button>
+                                </div>
+                              )}
+                              {userRole === "Buyer" && (
+                                <button
+                                  disabled={!allApproved}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (allApproved) buyerRepay(p.id);
+                                  }}
+                                  className={`w-full py-2.5 rounded-lg text-xs font-extrabold transition shadow-md ${
+                                    allApproved 
+                                      ? "bg-teal-500 hover:bg-teal-400 text-[#111215]" 
+                                      : "bg-[#1E2128] text-slate-500 cursor-not-allowed"
+                                  }`}
+                                >
+                                  {t.confirmRepay}
+                                </button>
+                              )}
+                            </>
+                          )}
+
+                          {p.status === "Pending" && userRole === "Lender" && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                fundProject(p.id, p.targetAmount - p.fundedAmount);
+                              }}
+                              className="w-full bg-teal-500 hover:bg-teal-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                            >
+                              {t.fillTarget}
+                            </button>
+                          )}
+
+                          {p.status === "Completed" && (
+                            <button className="w-full bg-[#102A1E]/30 border border-emerald-900/40 text-emerald-400 py-2.5 rounded-lg text-xs font-bold cursor-default flex items-center justify-center gap-1">
+                              <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
+                              </svg>
+                              {lang === "tr" ? "Tamamlandı" : "Completed"}
+                            </button>
+                          )}
+
+                          {/* Fallback button if no actions apply */}
+                          {(!((p.status === "Active" && (userRole === "Supplier" || userRole === "Validator" || userRole === "Buyer")) || (p.status === "Pending" && userRole === "Lender")) && p.status !== "Completed") && (
+                            <button className="w-full bg-[#1A1C20] text-[#5F6774] py-2.5 rounded-lg text-xs font-bold cursor-default">
+                              {lang === "tr" ? "Bu rol için aksiyon yok" : "No action for this role"}
+                            </button>
+                          )}
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              // Create Trade form styled with rounded layout
+              <div className="bg-[#13151A] border border-[#1E2128] p-6 md:p-8 space-y-6 rounded-xl">
+                <div>
+                  <h3 className="text-md md:text-lg font-bold text-white">{t.createTitle}</h3>
+                  <p className="text-xs md:text-sm text-[#8E97A4] mt-1">{t.createDesc}</p>
+                </div>
+
+                <form onSubmit={handleCreateProject} className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.tradeTitle}</label>
+                      <input 
+                        type="text" 
+                        value={newProjName}
+                        onChange={(e) => setNewProjName(e.target.value)}
+                        placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.originPortLabel}</label>
+                      <input 
+                        type="text" 
+                        value={newProjOrigin}
+                        onChange={(e) => setNewProjOrigin(e.target.value)}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.destPortLabel}</label>
+                      <input 
+                        type="text" 
+                        value={newProjDest}
+                        onChange={(e) => setNewProjDest(e.target.value)}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.fundingTarget}</label>
+                      <input 
+                        type="number" 
+                        value={newProjTarget}
+                        onChange={(e) => setNewProjTarget(Number(e.target.value))}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.supplierAddr}</label>
+                      <input 
+                        type="text" 
+                        value={newProjSupplier}
+                        onChange={(e) => setNewProjSupplier(e.target.value)}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-[#8E97A4]">{t.buyerAddr}</label>
+                      <input 
+                        type="text" 
+                        value={newProjBuyer}
+                        onChange={(e) => setNewProjBuyer(e.target.value)}
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Milestone Builder */}
+                  <div className="space-y-4 pt-3 border-t border-[#1E2128]">
+                    <h4 className="text-xs md:text-sm font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
+                    
+                    {newProjMilestones.map((m, index) => (
+                      <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#0B0C0E]/50 p-4 border border-[#181B22] rounded-lg">
+                        <div className="space-y-1">
+                          <label className="text-xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
+                          <input 
+                            type="text" 
+                            value={m.description}
+                            onChange={(e) => {
+                              const updated = [...newProjMilestones];
+                              updated[index].description = e.target.value;
+                              setNewProjMilestones(updated);
+                            }}
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
+                          <input 
+                            type="number" 
+                            value={m.deadline}
+                            onChange={(e) => {
+                              const updated = [...newProjMilestones];
+                              updated[index].deadline = Number(e.target.value);
+                              setNewProjMilestones(updated);
+                            }}
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
+                          <input 
+                            type="number" 
+                            value={m.amountToRelease}
+                            onChange={(e) => {
+                              const updated = [...newProjMilestones];
+                              updated[index].amountToRelease = Number(e.target.value);
+                              setNewProjMilestones(updated);
+                            }}
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#1E2128]">
+                    <div className="text-xs text-teal-400 bg-teal-500/5 p-3 border border-teal-500/10 max-w-md font-medium leading-relaxed rounded-lg flex items-start gap-1.5">
+                      <svg className="w-4 h-4 text-teal-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
+                      </svg>
+                      <span>{t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}</span>
+                    </div>
+                    <button 
+                      type="submit"
+                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-lg"
+                    >
+                      {t.submitContract}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+          </div>
+
+          {/* Right Sidebar Column exactly matching the Figma layout */}
+          <aside className="lg:col-span-1 space-y-6">
+            
+            {/* Active Role Control Block */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl space-y-4">
+              <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block">
+                {lang === "tr" ? "AKTİF ROL" : "ACTIVE ROLE"}
+              </span>
+              
+              <div className="flex flex-col gap-2">
+                {[
+                  { id: "Lender", labelEn: "Investor", labelTr: "Yatırımcı" },
+                  { id: "Supplier", labelEn: "Supplier", labelTr: "Tedarikçi" },
+                  { id: "Buyer", labelEn: "Buyer", labelTr: "Alıcı" },
+                  { id: "Validator", labelEn: "Validator", labelTr: "Doğrulayıcı" }
+                ].map((role) => {
+                  const isActive = userRole === role.id;
                   return (
                     <button
-                      key={step}
-                      onClick={() => setGuideSlide(step)}
-                      className="relative z-10 flex flex-col items-center gap-2 group"
+                      key={role.id}
+                      onClick={() => setUserRole(role.id as any)}
+                      className={`w-full text-left p-3 text-xs font-bold transition rounded-lg border ${
+                        isActive
+                          ? "bg-teal-950/20 text-teal-400 border-teal-500/40"
+                          : "bg-[#0B0C0E]/40 text-[#8E97A4] border-[#1E2128] hover:border-[#272B35]"
+                      }`}
                     >
-                      <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 transition ${
-                        isActive ? "bg-amber-500 text-[#111215] border-amber-500 font-bold" :
-                        isCompleted ? "bg-[#1C1E24] text-amber-400 border-amber-500" :
-                        "bg-[#14161A] text-[#5F6774] border-[#2B313A] group-hover:border-[#373F4D]"
-                      }`}>
-                        {step + 1}
-                      </div>
+                      {lang === "tr" ? role.labelTr : role.labelEn}
                     </button>
                   );
                 })}
               </div>
-
-              {/* Slide Content Card */}
-              <div className="bg-[#14161A]/85 border border-[#22272E] p-6 flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300 rounded-none">
-                {guideSlide === 0 && (
-                  <>
-                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M3 18h18v2H3v-2z" />
-                      <path d="M2 10c3 0 4.5 1.5 5 3.5h10c.5-2 2-3.5 5-3.5v-2H2v2z" />
-                      <path d="M8 13.5h8v4.5H8v-4.5z" />
-                    </svg>
-                    <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
-                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
-                  </>
-                )}
-                {guideSlide === 1 && (
-                  <>
-                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" />
-                      <path d="M12 6v12" />
-                    </svg>
-                    <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
-                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
-                  </>
-                )}
-                {guideSlide === 2 && (
-                  <>
-                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
-                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
-                  </>
-                )}
-                {guideSlide === 3 && (
-                  <>
-                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
-                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
-                  </>
-                )}
-              </div>
-
-              {/* Brand Concept Illustration */}
-              <div className="border-t border-[#242930] pt-6 space-y-3">
-                <span className="text-[10px] text-[#8E97A4] font-black uppercase tracking-wider block text-center">
-                  {lang === "tr" ? "GÖRSEL TİCARET FİNANSMANI İŞ AKIŞI" : "VISUAL TRADE FINANCE WORKFLOW"}
-                </span>
-                <div className="relative overflow-hidden border border-[#2B313A] bg-[#14161A] rounded-none">
-                  <img 
-                    src="/stellarforge_illustration.jpg" 
-                    alt="StellarForge Supply Chain Finance Illustration" 
-                    className="w-full h-auto object-cover opacity-90 max-h-48"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#14161A] via-transparent to-transparent" />
-                </div>
-              </div>
-
-              {/* Slide Deck Actions */}
-              <div className="flex justify-between items-center pt-4 border-t border-[#242930]">
-                <button
-                  disabled={guideSlide === 0}
-                  onClick={() => setGuideSlide(prev => prev - 1)}
-                  className={`px-4 py-2 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
-                    guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-white"
-                  }`}
-                >
-                  <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="19" y1="12" x2="5" y2="12" />
-                    <polyline points="12 19 5 12 12 5" />
-                  </svg>
-                  {t.prev}
-                </button>
-
-                {/* Dot Indicators */}
-                <div className="flex gap-2">
-                  {[0, 1, 2, 3].map((step) => (
-                    <button 
-                      key={step} 
-                      onClick={() => setGuideSlide(step)}
-                      className={`h-2.5 rounded-full transition-all duration-300 ${
-                        guideSlide === step ? "bg-amber-500 w-5" : "bg-[#2D333F] w-2.5"
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {guideSlide === 3 ? (
-                  <button
-                    onClick={() => setShowGuide(false)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none flex items-center gap-1"
-                  >
-                    <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {t.closeGuide}
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setGuideSlide(prev => prev + 1)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none flex items-center gap-1"
-                  >
-                    {t.next}
-                    <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </button>
-                )}
-              </div>
-
             </div>
-          ) : activeTab === "pipelines" ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-6 md:p-8 space-y-8 relative rounded-none">
-              
-              {/* Trust Signal / Oracle Badge */}
-              <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-950/40 text-amber-400 border border-amber-900/60 text-xs font-bold rounded-none">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  {t.auditorVerified}
-                </span>
-              </div>
 
-              {/* Title Block */}
-              <div className="space-y-1 max-w-[70%]">
-                <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
-                <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">{currentProject.name}</h2>
-                <p className="text-sm text-[#8E97A4] font-medium">{currentProject.originPort} ➔ {currentProject.destPort}</p>
-              </div>
-
-              {/* Flat Shipping Rota Illustration */}
-              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 h-24 flex items-center relative rounded-none">
-                {/* Shipping Track Line */}
-                <div className="absolute left-[10%] right-[10%] h-0.5 bg-[#2D333F]" />
-                
-                {/* Finished Track Line */}
-                <div 
-                  className="absolute left-[10%] h-0.5 bg-amber-500 transition-all duration-700" 
-                  style={{ 
-                    width: currentProject.status === "Completed" ? "80%" :
-                           currentProject.status === "Liquidated" ? "20%" :
-                           currentProject.status === "Pending" ? "0%" : "40%"
-                  }} 
-                />
-
-                {/* Dispatch Point */}
-                <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className="h-3.5 w-3.5 bg-amber-500 border-2 border-[#14161A] shadow rounded-none" />
-                  <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.originPort.split(" ")[0]}</span>
-                </div>
-
-                {/* Current Position / Vessel */}
-                <div 
-                  className="absolute z-20 flex flex-col items-center transition-all duration-700 -translate-x-1/2"
-                  style={{ 
-                    left: currentProject.status === "Completed" ? "90%" :
-                          currentProject.status === "Liquidated" ? "30%" :
-                          currentProject.status === "Pending" ? "10%" : "50%",
-                    top: "8px"
-                  }}
-                >
-                  <span className="text-[10px] font-black uppercase text-amber-500 tracking-wider mb-1 block whitespace-nowrap">
-                    {currentProject.status === "Active" ? t.atSea : 
-                     currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
-                     currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
-                     (lang === "tr" ? "Temerrüt" : "Breached")}
-                  </span>
-                  <div className="h-8 w-8 bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md rounded-none">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
-                  </div>
-                </div>
-
-                {/* Destination Point */}
-                <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className={`h-3.5 w-3.5 border-2 border-[#14161A] shadow rounded-none ${currentProject.status === "Completed" ? "bg-amber-500" : "bg-[#2D333F]"}`} />
-                  <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.destPort.split(" ")[0]}</span>
-                </div>
-              </div>
-
-              {/* Stats Metrics Block */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                {/* Stat 1: Funded Amount */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
-                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
-                  <p className="text-lg md:text-xl font-bold text-white mt-1.5">
-                    {formatNumber(currentProject.fundedAmount)} <span className="text-sm text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
-                  </p>
-                  
-                  {currentProject.status === "Pending" && (
-                    <div className="flex gap-2 pt-3 w-full">
-                      <button 
-                        onClick={() => fundProject(currentProject.id, 5000)}
-                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2.5 transition rounded-none"
-                      >
-                        +5.000 USDC
-                      </button>
-                      <button 
-                        onClick={() => fundProject(currentProject.id, currentProject.targetAmount - currentProject.fundedAmount)}
-                        className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] text-xs font-extrabold py-2.5 transition shadow-sm rounded-none"
-                      >
-                        {t.fillTarget}
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Stat 2: Locked Collateral */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
-                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
-                  <p className="text-lg md:text-xl font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
-                </div>
-
-                {/* Stat 3: Yield */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
-                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
-                  <p className="text-lg md:text-xl font-black text-amber-500 mt-1.5">%5.00</p>
-                </div>
-
-              </div>
-
-              {/* Milestones progression */}
-              <div className="space-y-4">
-                <h3 className="text-xs font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneProgress}</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  {currentProject.milestones.map((m, index) => (
-                    <div 
-                      key={m.id} 
-                      className={`p-5 border flex flex-col justify-between gap-4 transition rounded-none ${
-                        m.status === "Approved" ? "bg-emerald-950/15 border-emerald-900/60 text-emerald-400" :
-                        m.status === "ProofSubmitted" ? "bg-[#30210A]/20 border-[#5A4010] text-[#FBBF24]/80 animate-pulse" :
-                        m.status === "Rejected" ? "bg-red-950/20 border-red-900/60" :
-                        "bg-[#14161A]/40 border-[#22272E]"
-                      }`}
-                    >
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider">
-                            {m.status === "Approved" && (
-                              <>
-                                <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                <span className="text-emerald-400">{lang === "tr" ? "Onaylandı" : "Approved"}</span>
-                              </>
-                            )}
-                            {m.status === "ProofSubmitted" && (
-                              <>
-                                <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span className="text-amber-500">{lang === "tr" ? "Kanıt sunuldu" : "Proof submitted"}</span>
-                              </>
-                            )}
-                            {m.status === "Pending" && (
-                              <>
-                                <svg className="w-4 h-4 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
-                                <span className="text-[#8E97A4]">{lang === "tr" ? "Bekliyor" : "Pending"}</span>
-                              </>
-                            )}
-                            {m.status === "Rejected" && (
-                              <span className="text-red-400">{lang === "tr" ? "Reddedildi" : "Rejected"}</span>
-                            )}
-                          </span>
-                          <span className="text-xs text-[#8E97A4] font-bold"># {m.id}</span>
-                        </div>
-                        <h4 className="text-xs md:text-sm font-bold text-white leading-snug">{m.description}</h4>
-                      </div>
-
-                      <div className="pt-2 border-t border-[#262B34]/60 space-y-3">
-                        <div className="flex justify-between text-xs text-[#8E97A4] font-bold">
-                          <span>Vade: {m.deadline}h</span>
-                          <span className="text-white">{formatNumber(m.amountToRelease)} USDC</span>
-                        </div>
-
-                        {/* Milestone action triggers based on active role */}
-                        {currentProject.status === "Active" && (
-                          <div className="pt-1">
-                            {m.status === "Pending" && (
-                              <button
-                                onClick={() => submitProof(currentProject.id, m.id)}
-                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 text-xs font-bold transition rounded-none"
-                              >
-                                {t.submitProof}
-                              </button>
-                            )}
-                            {m.status === "ProofSubmitted" && (
-                              <div className="flex gap-2">
-                                <button
-                                  onClick={() => approveMilestone(currentProject.id, m.id, false)}
-                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 text-xs font-bold transition rounded-none"
-                                >
-                                  {t.rejectBtn}
-                                </button>
-                                <button
-                                  onClick={() => approveMilestone(currentProject.id, m.id, true)}
-                                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] py-1.5 text-xs font-extrabold transition shadow-sm rounded-none"
-                                >
-                                  {t.approveBtn}
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Settlement and Liquidations */}
-              {currentProject.status === "Active" && (
-                <div className="border-t border-[#242930] pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                  <div>
-                    <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
-                    <span className="text-lg md:text-xl font-bold text-white mt-1 block">{formatNumber(currentProject.targetAmount * 1.05)} USDC</span>
-                  </div>
-
-                  <div className="flex gap-3 w-full md:w-auto">
-                    {allApproved ? (
-                      <button 
-                        onClick={() => buyerRepay(currentProject.id)}
-                        className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition w-full md:w-auto shadow-md rounded-none"
-                      >
-                        {t.confirmRepay}
-                      </button>
-                    ) : (
-                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 border border-[#22272E] font-medium max-w-xs rounded-none flex items-center gap-1.5">
-                        <svg className="w-3.5 h-3.5 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                        {t.repayNote}
-                      </div>
-                    )}
-
-                    {hasMissedDeadline && (
-                      <button 
-                        onClick={() => triggerDefault(currentProject.id)}
-                        className="bg-red-700 hover:bg-red-600 text-white font-bold px-6 py-2.5 text-xs transition w-full md:w-auto shadow-md rounded-none"
-                      >
-                        {t.triggerLiq}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* End status cards */}
-              {currentProject.status === "Completed" && (
-                <div className="bg-[#102A1E]/30 border border-emerald-900/60 p-4.5 text-xs text-emerald-400 font-medium rounded-none flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                  {t.settledSuccess}
-                </div>
-              )}
-              {currentProject.status === "Liquidated" && (
-                <div className="bg-[#2D1212]/30 border border-red-900/60 p-4.5 text-xs text-red-400 font-medium rounded-none flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                    <line x1="12" y1="9" x2="12" y2="13" />
-                    <line x1="12" y1="17" x2="12.01" y2="17" />
-                  </svg>
-                  {t.defaultedWarning}
-                </div>
-              )}
-
-              {/* Verified Trust Footer */}
-              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-xs text-[#8E97A4] font-medium">
-                <svg className="w-3.5 h-3.5 text-[#5F6774]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                {t.trustFooter}
-              </div>
-
-            </div>
-          ) : (
-            
-            // Tab: Register Supply Trade Form
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-6 md:p-8 space-y-6 rounded-none">
-              <div>
-                <h3 className="text-md md:text-lg font-bold text-white">{t.createTitle}</h3>
-                <p className="text-xs md:text-sm text-[#8E97A4] mt-1">{t.createDesc}</p>
-              </div>
-
-              <form onSubmit={handleCreateProject} className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.tradeTitle}</label>
-                    <input 
-                      type="text" 
-                      value={newProjName}
-                      onChange={(e) => setNewProjName(e.target.value)}
-                      placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.originPortLabel}</label>
-                    <input 
-                      type="text" 
-                      value={newProjOrigin}
-                      onChange={(e) => setNewProjOrigin(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.destPortLabel}</label>
-                    <input 
-                      type="text" 
-                      value={newProjDest}
-                      onChange={(e) => setNewProjDest(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.fundingTarget}</label>
-                    <input 
-                      type="number" 
-                      value={newProjTarget}
-                      onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.supplierAddr}</label>
-                    <input 
-                      type="text" 
-                      value={newProjSupplier}
-                      onChange={(e) => setNewProjSupplier(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium rounded-none"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-[#8E97A4]">{t.buyerAddr}</label>
-                    <input 
-                      type="text" 
-                      value={newProjBuyer}
-                      onChange={(e) => setNewProjBuyer(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium rounded-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Milestone Builder */}
-                <div className="space-y-4 pt-3 border-t border-[#242930]">
-                  <h4 className="text-xs md:text-sm font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
-                  
-                  {newProjMilestones.map((m, index) => (
-                    <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-none">
-                      <div className="space-y-1">
-                        <label className="text-xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
-                        <input 
-                          type="text" 
-                          value={m.description}
-                          onChange={(e) => {
-                            const updated = [...newProjMilestones];
-                            updated[index].description = e.target.value;
-                            setNewProjMilestones(updated);
-                          }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
-                        <input 
-                          type="number" 
-                          value={m.deadline}
-                          onChange={(e) => {
-                            const updated = [...newProjMilestones];
-                            updated[index].deadline = Number(e.target.value);
-                            setNewProjMilestones(updated);
-                          }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
-                        <input 
-                          type="number" 
-                          value={m.amountToRelease}
-                          onChange={(e) => {
-                            const updated = [...newProjMilestones];
-                            updated[index].amountToRelease = Number(e.target.value);
-                            setNewProjMilestones(updated);
-                          }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
-                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 border border-amber-500/10 max-w-md font-medium leading-relaxed rounded-none flex items-start gap-1.5">
-                    <svg className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                      <line x1="12" y1="9" x2="12" y2="13" />
-                      <line x1="12" y1="17" x2="12.01" y2="17" />
+            {/* Developer controls panel */}
+            {showSimPanel ? (
+              <div className="bg-[#13151A] border border-[#1E2128] p-5 shadow-md space-y-4 rounded-xl">
+                <div className="flex justify-between items-center border-b border-[#1E2128] pb-2.5">
+                  <h3 className="text-xs font-bold text-white flex items-center gap-2">
+                    <svg className="w-4 h-4 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
                     </svg>
-                    <span>{t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}</span>
+                    {t.simulationPanel}
+                  </h3>
+                  <button 
+                    onClick={() => setShowSimPanel(false)}
+                    className="text-xs text-[#8E97A4] hover:text-white font-black"
+                  >
+                    [ Hide ]
+                  </button>
+                </div>
+
+                {/* Time Simulator */}
+                <div className="flex justify-between items-center gap-3">
+                  <div className="text-xs">
+                    <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
+                    <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
                   </div>
                   <button 
-                    type="submit"
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-none"
+                    onClick={() => fastForwardTime(24)}
+                    className="text-xs bg-[#1E2128] hover:bg-[#2A2F3D] text-white font-bold py-1.5 px-3 rounded-lg transition"
                   >
-                    {t.submitContract}
+                    +24 {t.hours}
                   </button>
                 </div>
-              </form>
+
+                {/* Auto Demo trigger */}
+                <button
+                  onClick={runAutoDemo}
+                  disabled={demoActive}
+                  className={`w-full text-xs font-black py-2.5 rounded-lg border transition ${
+                    demoActive
+                      ? "bg-[#0B0C0E] text-slate-600 border-[#1E2128] cursor-not-allowed"
+                      : "bg-teal-500/10 hover:bg-teal-500 text-teal-400 hover:text-[#111215] border-teal-500/20"
+                  }`}
+                >
+                  {demoActive ? t.demoRunning : t.startDemo}
+                </button>
+
+                {/* Interactive log viewer */}
+                <div className="bg-[#0B0C0E] border border-[#1E2128] p-3.5 h-40 flex flex-col relative overflow-hidden rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[10px] font-black text-[#5F6774] uppercase tracking-wider">{t.onChainLogs}</span>
+                    <button onClick={() => setEventLogs([])} className="text-[10px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+                  </div>
+                  <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
+                    {eventLogs.map((log, i) => (
+                      <div key={i} className="text-[10px] bg-[#13151A] p-2 space-y-0.5 border border-[#1E2128] rounded">
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">{log.timestamp}</span>
+                          <span className={`h-1.5 w-1.5 rounded-full ${log.type === "success" ? "bg-emerald-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
+                        </div>
+                        <p className="text-slate-300 leading-normal">{log.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            ) : (
+              <button 
+                onClick={() => setShowSimPanel(true)}
+                className="w-full bg-[#13151A] hover:bg-[#1E2128] border border-[#1E2128] p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm rounded-xl"
+              >
+                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+                {t.simulationPanel} [ Show ]
+              </button>
+            )}
+            
+            {/* Collapsed/Active developer badge */}
+            <div className="flex justify-end pr-2 text-[10px] text-[#5F6774] font-bold gap-1 items-center">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
+              <span>{lang === "tr" ? "Geliştirici Araçları" : "Developer Tools"}: </span>
+              <span className="text-teal-400 bg-teal-950/20 px-1.5 py-0.5 rounded border border-teal-900/30 uppercase">{getRoleTranslation(userRole, lang)}</span>
             </div>
-          )}
+            
+          </aside>
 
         </div>
-
-        {/* Right Column: Simulation Controls & Logs */}
-        <aside className="lg:col-span-1 space-y-4">
-          {showSimPanel ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A] p-5 shadow-md space-y-4 rounded-none">
-              <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
-                <h3 className="text-xs font-bold text-white flex items-center gap-2">
-                  <svg className="w-4 h-4 text-amber-500 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                  {t.simulationPanel}
-                </h3>
-                <button 
-                  onClick={() => setShowSimPanel(false)}
-                  className="text-xs text-[#8E97A4] hover:text-white font-black"
-                >
-                  [ Hide ]
-                </button>
-              </div>
-
-              {/* Time Simulator */}
-              <div className="flex justify-between items-center gap-3">
-                <div className="text-xs">
-                  <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
-                  <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
-                </div>
-                <button 
-                  onClick={() => fastForwardTime(24)}
-                  className="text-xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 transition rounded-none"
-                >
-                  +24 {t.hours}
-                </button>
-              </div>
-
-              {/* Auto Demo trigger */}
-              <button
-                onClick={runAutoDemo}
-                disabled={demoActive}
-                className={`w-full text-xs font-black py-2.5 border transition rounded-none ${
-                  demoActive
-                    ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
-                    : "bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-[#111215] border-amber-500/20"
-                }`}
-              >
-                {demoActive ? t.demoRunning : t.startDemo}
-              </button>
-
-              {/* Role Switcher */}
-              <div className="space-y-1.5">
-                <label className="text-xs text-[#8E97A4] font-bold block">{t.roleSelector}</label>
-                <select
-                  value={userRole}
-                  onChange={(e) => setUserRole(e.target.value as any)}
-                  className="w-full bg-[#14161A] border border-[#2B313A] text-xs text-white p-2 outline-none focus:border-amber-500 font-medium rounded-none"
-                >
-                  <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
-                  <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
-                  <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Buyer)" : "Buyer"}</option>
-                  <option value="Validator">{userRole === "Validator" ? "Denetçi (Validator)" : "Validator"}</option>
-                </select>
-              </div>
-
-              {/* Interactive log viewer */}
-              <div className="bg-[#14161A] border border-[#22272E] p-3.5 h-40 flex flex-col relative overflow-hidden rounded-none">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-[10px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
-                  <button onClick={() => setEventLogs([])} className="text-[10px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
-                </div>
-                <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
-                  {eventLogs.map((log, i) => (
-                    <div key={i} className="text-[10px] bg-[#1C1E24]/60 p-2 space-y-0.5 border border-[#242930] rounded-none">
-                      <div className="flex justify-between">
-                        <span className="text-slate-500">{log.timestamp}</span>
-                        <span className={`h-1.5 w-1.5 rounded-full ${log.type === "success" ? "bg-emerald-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
-                      </div>
-                      <p className="text-slate-300 leading-normal">{log.message}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          ) : (
-            <button 
-              onClick={() => setShowSimPanel(true)}
-              className="w-full bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm rounded-none"
-            >
-              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-              </svg>
-              {t.simulationPanel} [ Show ]
-            </button>
-          )}
-        </aside>
 
       </main>
 
     </div>
   );
+}
+
+// Resilient role translation helper
+function getRoleTranslation(role: string, locale: "tr" | "en") {
+  const norm = role.toLowerCase();
+  if (locale === "tr") {
+    if (norm === "supplier") return "Tedarikçi";
+    if (norm === "buyer") return "Alıcı";
+    if (norm === "lender") return "Yatırımcı";
+    return "Doğrulayıcı";
+  } else {
+    if (norm === "supplier") return "Supplier";
+    if (norm === "buyer") return "Buyer";
+    if (norm === "lender") return "Lender";
+    return "Validator";
+  }
 }
