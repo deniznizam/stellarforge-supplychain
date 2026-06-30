@@ -537,13 +537,13 @@ export default function Home() {
   const hasMissedDeadline = currentProject.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
 
   return (
-    <div className="min-h-screen bg-[#16181C] text-[#E2E8F0] font-sans antialiased selection:bg-teal-500/20 selection:text-white">
+    <div className="min-h-screen bg-[#16181C] text-[#E2E8F0] font-sans antialiased selection:bg-amber-500/20 selection:text-white">
       
       {/* Top Header */}
       <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-lg bg-teal-600 flex items-center justify-center shadow-md text-[#111215]">
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <div className="h-10 w-10 rounded-lg bg-amber-500 flex items-center justify-center shadow-md text-[#111215]">
+            <svg className="w-6.5 h-6.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M3 18h18v2H3v-2z" />
               <path d="M2 10c3 0 4.5 1.5 5 3.5h10c.5-2 2-3.5 5-3.5v-2H2v2z" />
               <path d="M8 13.5h8v4.5H8v-4.5z" />
@@ -551,8 +551,8 @@ export default function Home() {
             </svg>
           </div>
           <div>
-            <h1 className="text-md font-bold tracking-tight text-white">{t.title}</h1>
-            <p className="text-[10px] text-[#8E97A4] font-medium">{t.tagline}</p>
+            <h1 className="text-sm md:text-base font-bold tracking-tight text-white">{t.title}</h1>
+            <p className="text-xs text-[#8E97A4] font-medium">{t.tagline}</p>
           </div>
         </div>
 
@@ -560,7 +560,7 @@ export default function Home() {
         <div className="flex bg-[#1D2128] border border-[#2B313A] rounded-lg p-0.5">
           <button
             onClick={() => setActiveTab("pipelines")}
-            className={`py-1.5 px-3 rounded-md text-[10px] font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
               activeTab === "pipelines" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -568,7 +568,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveTab("create")}
-            className={`py-1.5 px-3 rounded-md text-[10px] font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
               activeTab === "create" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -583,13 +583,13 @@ export default function Home() {
           <div className="flex bg-[#1A1C20] border border-[#2B313A] rounded-lg p-0.5">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2 py-0.5 rounded text-[9px] font-extrabold transition ${lang === "en" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 rounded text-xs font-extrabold transition ${lang === "en" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2 py-0.5 rounded text-[9px] font-extrabold transition ${lang === "tr" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 rounded text-xs font-extrabold transition ${lang === "tr" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -597,13 +597,13 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4 py-2 rounded-lg text-[10px] font-bold transition flex items-center gap-2 border ${
+            className={`px-4.5 py-2.5 rounded-lg text-xs font-bold transition flex items-center gap-2 border ${
               walletConnected
-                ? "bg-teal-900/10 text-teal-400 border-teal-500/30"
-                : "bg-teal-600 hover:bg-teal-500 text-[#111215] shadow-sm font-extrabold"
+                ? "bg-amber-950/20 text-amber-400 border-amber-500/30"
+                : "bg-amber-500 hover:bg-amber-400 text-[#111215] shadow-sm font-extrabold"
             }`}
           >
-            <div className={`h-1.5 w-1.5 rounded-full ${walletConnected ? "bg-teal-400 animate-pulse" : "bg-[#111215]"}`} />
+            <div className={`h-2 w-2 rounded-full ${walletConnected ? "bg-amber-400 animate-pulse" : "bg-[#111215]"}`} />
             {walletConnected ? `${walletAddress.substring(0, 8)}...` : t.connectWallet}
           </button>
         </div>
@@ -615,23 +615,23 @@ export default function Home() {
         {/* Left Column: Pipeline Selector (Only when viewing active pipelines) */}
         {activeTab === "pipelines" && (
           <aside className="lg:col-span-1 space-y-4">
-            <h2 className="text-[10px] font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
+            <h2 className="text-xs font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
             <div className="space-y-2.5">
               {projects.map(p => (
                 <button
                   key={p.id}
                   onClick={() => setSelectedProjectId(p.id)}
-                  className={`w-full text-left p-4 rounded-xl border transition flex flex-col gap-2 ${
+                  className={`w-full text-left p-4 rounded-xl border transition flex flex-col gap-2.5 ${
                     p.id === selectedProjectId
-                      ? "bg-[#20232A] border-teal-500/40 shadow-sm"
+                      ? "bg-[#20232A] border-amber-500/40 shadow-sm"
                       : "bg-[#1C1E24]/60 border-[#2A2F3A]/60 hover:border-[#373F4D]"
                   }`}
                 >
                   <div className="flex justify-between items-center w-full">
-                    <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
-                      p.status === "Active" ? "bg-teal-500/10 text-teal-400 border-teal-500/20" :
+                    <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
+                      p.status === "Active" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                       p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
-                      p.status === "Completed" ? "bg-slate-500/10 text-slate-400 border-slate-500/20" :
+                      p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
                       "bg-red-500/10 text-red-400 border-red-500/20"
                     }`}>
                       {p.status === "Active" ? t.statusActive :
@@ -639,11 +639,11 @@ export default function Home() {
                        p.status === "Completed" ? t.statusCompleted :
                        t.statusLiquidated}
                     </span>
-                    <span className="text-[9px] text-[#8E97A4] font-bold">{formatNumber(p.targetAmount)} USDC</span>
+                    <span className="text-xs text-white font-bold">{formatNumber(p.targetAmount)} USDC</span>
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white line-clamp-1">{p.name}</h3>
-                    <p className="text-[9px] text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
+                    <h3 className="text-sm font-bold text-white line-clamp-1">{p.name}</h3>
+                    <p className="text-xs text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
                   </div>
                 </button>
               ))}
@@ -659,17 +659,17 @@ export default function Home() {
               
               {/* Trust Signal / Oracle Badge */}
               <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-950/40 text-teal-400 border border-teal-900/60 text-[9px] font-bold">
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-950/40 text-amber-400 border border-amber-900/60 text-xs font-bold">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                   {t.auditorVerified}
                 </span>
               </div>
 
               {/* Title Block */}
               <div className="space-y-1 max-w-[70%]">
-                <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
-                <h2 className="text-xl font-bold text-white tracking-tight">{currentProject.name}</h2>
-                <p className="text-xs text-[#8E97A4] font-medium">{currentProject.originPort} ➔ {currentProject.destPort}</p>
+                <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
+                <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">{currentProject.name}</h2>
+                <p className="text-sm text-[#8E97A4] font-medium">{currentProject.originPort} ➔ {currentProject.destPort}</p>
               </div>
 
               {/* Flat Shipping Rota Illustration */}
@@ -679,7 +679,7 @@ export default function Home() {
                 
                 {/* Finished Track Line */}
                 <div 
-                  className="absolute left-[10%] h-0.5 bg-teal-600 transition-all duration-700" 
+                  className="absolute left-[10%] h-0.5 bg-amber-500 transition-all duration-700" 
                   style={{ 
                     width: currentProject.status === "Completed" ? "80%" :
                            currentProject.status === "Liquidated" ? "20%" :
@@ -689,8 +689,8 @@ export default function Home() {
 
                 {/* Dispatch Point */}
                 <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className="h-3.5 w-3.5 rounded-full bg-teal-600 border-2 border-[#14161A] shadow" />
-                  <span className="text-[10px] font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.originPort.split(" ")[0]}</span>
+                  <div className="h-3.5 w-3.5 rounded-full bg-amber-500 border-2 border-[#14161A] shadow" />
+                  <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.originPort.split(" ")[0]}</span>
                 </div>
 
                 {/* Current Position / Vessel */}
@@ -703,7 +703,7 @@ export default function Home() {
                     top: "8px"
                   }}
                 >
-                  <span className="text-[9px] font-black uppercase text-amber-500 tracking-wider mb-1 block whitespace-nowrap">
+                  <span className="text-[10px] font-black uppercase text-amber-500 tracking-wider mb-1 block whitespace-nowrap">
                     {currentProject.status === "Active" ? t.atSea : 
                      currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
                      currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
@@ -716,8 +716,8 @@ export default function Home() {
 
                 {/* Destination Point */}
                 <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className={`h-3.5 w-3.5 rounded-full border-2 border-[#14161A] shadow ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
-                  <span className="text-[10px] font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.destPort.split(" ")[0]}</span>
+                  <div className={`h-3.5 w-3.5 rounded-full border-2 border-[#14161A] shadow ${currentProject.status === "Completed" ? "bg-amber-500" : "bg-[#2D333F]"}`} />
+                  <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.destPort.split(" ")[0]}</span>
                 </div>
               </div>
 
@@ -726,22 +726,22 @@ export default function Home() {
                 
                 {/* Stat 1: Funded Amount */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
-                  <p className="text-lg font-bold text-white mt-1.5">
-                    {formatNumber(currentProject.fundedAmount)} <span className="text-xs text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
+                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
+                  <p className="text-lg md:text-xl font-bold text-white mt-1.5">
+                    {formatNumber(currentProject.fundedAmount)} <span className="text-sm text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
                   </p>
                   
                   {currentProject.status === "Pending" && (
                     <div className="flex gap-2 pt-3 w-full">
                       <button 
                         onClick={() => fundProject(currentProject.id, 5000)}
-                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2 rounded-lg transition"
+                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2.5 rounded-lg transition"
                       >
                         +5.000 USDC
                       </button>
                       <button 
                         onClick={() => fundProject(currentProject.id, currentProject.targetAmount - currentProject.fundedAmount)}
-                        className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] text-xs font-extrabold py-2 rounded-lg transition shadow-sm"
+                        className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] text-xs font-extrabold py-2.5 rounded-lg transition shadow-sm"
                       >
                         {t.fillTarget}
                       </button>
@@ -751,14 +751,14 @@ export default function Home() {
 
                 {/* Stat 2: Locked Collateral */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
-                  <p className="text-lg font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
+                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
+                  <p className="text-lg md:text-xl font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
                 </div>
 
                 {/* Stat 3: Yield */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
-                  <p className="text-lg font-black text-teal-400 mt-1.5">%5.00</p>
+                  <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
+                  <p className="text-lg md:text-xl font-black text-amber-500 mt-1.5">%5.00</p>
                 </div>
 
               </div>
@@ -772,7 +772,7 @@ export default function Home() {
                     <div 
                       key={m.id} 
                       className={`p-5 rounded-xl border flex flex-col justify-between gap-4 transition ${
-                        m.status === "Approved" ? "bg-teal-950/15 border-teal-900/60 text-[#A3E635]/80" :
+                        m.status === "Approved" ? "bg-emerald-950/15 border-emerald-900/60 text-emerald-400" :
                         m.status === "ProofSubmitted" ? "bg-[#30210A]/20 border-[#5A4010] text-[#FBBF24]/80 animate-pulse" :
                         m.status === "Rejected" ? "bg-red-950/20 border-red-900/60" :
                         "bg-[#14161A]/40 border-[#22272E]"
@@ -780,22 +780,22 @@ export default function Home() {
                     >
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider">
                             {m.status === "Approved" && (
                               <>
-                                <svg className="w-3.5 h-3.5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                <span className="text-teal-400">{lang === "tr" ? "Onaylandı" : "Approved"}</span>
+                                <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span className="text-emerald-400">{lang === "tr" ? "Onaylandı" : "Approved"}</span>
                               </>
                             )}
                             {m.status === "ProofSubmitted" && (
                               <>
-                                <svg className="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                 <span className="text-amber-500">{lang === "tr" ? "Kanıt sunuldu" : "Proof submitted"}</span>
                               </>
                             )}
                             {m.status === "Pending" && (
                               <>
-                                <svg className="w-3.5 h-3.5 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+                                <svg className="w-4 h-4 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
                                 <span className="text-[#8E97A4]">{lang === "tr" ? "Bekliyor" : "Pending"}</span>
                               </>
                             )}
@@ -803,13 +803,13 @@ export default function Home() {
                               <span className="text-red-400">{lang === "tr" ? "Reddedildi" : "Rejected"}</span>
                             )}
                           </span>
-                          <span className="text-[9px] text-[#8E97A4] font-bold"># {m.id}</span>
+                          <span className="text-xs text-[#8E97A4] font-bold"># {m.id}</span>
                         </div>
-                        <h4 className="text-xs font-bold text-white leading-snug">{m.description}</h4>
+                        <h4 className="text-xs md:text-sm font-bold text-white leading-snug">{m.description}</h4>
                       </div>
 
                       <div className="pt-2 border-t border-[#262B34]/60 space-y-3">
-                        <div className="flex justify-between text-[9px] text-[#8E97A4] font-bold">
+                        <div className="flex justify-between text-xs text-[#8E97A4] font-bold">
                           <span>Vade: {m.deadline}h</span>
                           <span className="text-white">{formatNumber(m.amountToRelease)} USDC</span>
                         </div>
@@ -820,7 +820,7 @@ export default function Home() {
                             {m.status === "Pending" && (
                               <button
                                 onClick={() => submitProof(currentProject.id, m.id)}
-                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-[9px] font-extrabold transition"
+                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-xs font-bold transition"
                               >
                                 {t.submitProof}
                               </button>
@@ -829,13 +829,13 @@ export default function Home() {
                               <div className="flex gap-2">
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, false)}
-                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-[9px] font-bold transition"
+                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-xs font-bold transition"
                                 >
                                   {t.rejectBtn}
                                 </button>
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, true)}
-                                  className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] py-1.5 rounded-lg text-[9px] font-extrabold transition shadow-sm"
+                                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] py-1.5 rounded-lg text-xs font-extrabold transition shadow-sm"
                                 >
                                   {t.approveBtn}
                                 </button>
@@ -853,20 +853,20 @@ export default function Home() {
               {currentProject.status === "Active" && (
                 <div className="border-t border-[#242930] pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
-                    <span className="text-lg font-bold text-white mt-1 block">{formatNumber(currentProject.targetAmount * 1.05)} USDC</span>
+                    <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
+                    <span className="text-lg md:text-xl font-bold text-white mt-1 block">{formatNumber(currentProject.targetAmount * 1.05)} USDC</span>
                   </div>
 
                   <div className="flex gap-3 w-full md:w-auto">
                     {allApproved ? (
                       <button 
                         onClick={() => buyerRepay(currentProject.id)}
-                        className="bg-teal-600 hover:bg-teal-500 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                        className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
                       >
                         {t.confirmRepay}
                       </button>
                     ) : (
-                      <div className="text-[9px] text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
+                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
                         🔒 {t.repayNote}
                       </div>
                     )}
@@ -885,7 +885,7 @@ export default function Home() {
 
               {/* End status cards */}
               {currentProject.status === "Completed" && (
-                <div className="bg-teal-950/10 border border-teal-900/60 p-4.5 rounded-xl text-xs text-teal-400 font-medium">
+                <div className="bg-emerald-950/10 border border-emerald-900/60 p-4.5 rounded-xl text-xs text-emerald-400 font-medium">
                   🎉 {t.settledSuccess}
                 </div>
               )}
@@ -896,7 +896,7 @@ export default function Home() {
               )}
 
               {/* Verified Trust Footer */}
-              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-[9px] text-[#8E97A4] font-medium">
+              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-xs text-[#8E97A4] font-medium">
                 <svg className="w-3.5 h-3.5 text-[#5F6774]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 {t.trustFooter}
               </div>
@@ -907,8 +907,8 @@ export default function Home() {
             // Tab: Register Supply Trade Form
             <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-6">
               <div>
-                <h3 className="text-md font-bold text-white">{t.createTitle}</h3>
-                <p className="text-xs text-[#8E97A4] mt-1">{t.createDesc}</p>
+                <h3 className="text-md md:text-lg font-bold text-white">{t.createTitle}</h3>
+                <p className="text-xs md:text-sm text-[#8E97A4] mt-1">{t.createDesc}</p>
               </div>
 
               <form onSubmit={handleCreateProject} className="space-y-5">
@@ -920,7 +920,7 @@ export default function Home() {
                       value={newProjName}
                       onChange={(e) => setNewProjName(e.target.value)}
                       placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -929,7 +929,7 @@ export default function Home() {
                       type="text" 
                       value={newProjOrigin}
                       onChange={(e) => setNewProjOrigin(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -938,7 +938,7 @@ export default function Home() {
                       type="text" 
                       value={newProjDest}
                       onChange={(e) => setNewProjDest(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
                     />
                   </div>
                 </div>
@@ -950,7 +950,7 @@ export default function Home() {
                       type="number" 
                       value={newProjTarget}
                       onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -959,7 +959,7 @@ export default function Home() {
                       type="text" 
                       value={newProjSupplier}
                       onChange={(e) => setNewProjSupplier(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -968,19 +968,19 @@ export default function Home() {
                       type="text" 
                       value={newProjBuyer}
                       onChange={(e) => setNewProjBuyer(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium"
                     />
                   </div>
                 </div>
 
                 {/* Milestone Builder */}
                 <div className="space-y-4 pt-3 border-t border-[#242930]">
-                  <h4 className="text-xs font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
+                  <h4 className="text-xs md:text-sm font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
                   
                   {newProjMilestones.map((m, index) => (
                     <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-xl">
                       <div className="space-y-1">
-                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
+                        <label className="text-xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
                         <input 
                           type="text" 
                           value={m.description}
@@ -993,7 +993,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
+                        <label className="text-xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
                         <input 
                           type="number" 
                           value={m.deadline}
@@ -1006,7 +1006,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.amountToRelease}</label>
+                        <label className="text-xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
                         <input 
                           type="number" 
                           value={m.amountToRelease}
@@ -1023,12 +1023,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
-                  <div className="text-[9px] text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
+                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
                     ⚠️ {t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}
                   </div>
                   <button 
                     type="submit"
-                    className="bg-teal-600 hover:bg-teal-500 text-[#111215] font-extrabold px-6 py-3 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-3 rounded-xl text-xs transition w-full md:w-auto shadow-md"
                   >
                     {t.submitContract}
                   </button>
@@ -1049,7 +1049,7 @@ export default function Home() {
                 </h3>
                 <button 
                   onClick={() => setShowSimPanel(false)}
-                  className="text-[9px] text-[#8E97A4] hover:text-white font-black"
+                  className="text-xs text-[#8E97A4] hover:text-white font-black"
                 >
                   [ Hide ]
                 </button>
@@ -1057,13 +1057,13 @@ export default function Home() {
 
               {/* Time Simulator */}
               <div className="flex justify-between items-center gap-3">
-                <div className="text-[9px]">
+                <div className="text-xs">
                   <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
                   <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
                 </div>
                 <button 
                   onClick={() => fastForwardTime(24)}
-                  className="text-[9px] bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
+                  className="text-xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
                 >
                   +24 {t.hours}
                 </button>
@@ -1076,7 +1076,7 @@ export default function Home() {
                 className={`w-full text-xs font-black py-2.5 rounded-xl border transition ${
                   demoActive
                     ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
-                    : "bg-teal-600/10 hover:bg-teal-600 text-teal-400 hover:text-[#111215] border-teal-500/20"
+                    : "bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-[#111215] border-amber-500/20"
                 }`}
               >
                 {demoActive ? t.demoRunning : t.startDemo}
@@ -1084,11 +1084,11 @@ export default function Home() {
 
               {/* Role Switcher */}
               <div className="space-y-1.5">
-                <label className="text-[9px] text-[#8E97A4] font-bold block">{t.roleSelector}</label>
+                <label className="text-xs text-[#8E97A4] font-bold block">{t.roleSelector}</label>
                 <select
                   value={userRole}
                   onChange={(e) => setUserRole(e.target.value as any)}
-                  className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-[9px] text-white p-2 outline-none focus:border-teal-500 font-medium"
+                  className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-xs text-white p-2 outline-none focus:border-amber-500 font-medium"
                 >
                   <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
                   <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
@@ -1098,17 +1098,17 @@ export default function Home() {
               </div>
 
               {/* Interactive log viewer */}
-              <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-36 flex flex-col relative overflow-hidden">
+              <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-40 flex flex-col relative overflow-hidden">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-[8px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
-                  <button onClick={() => setEventLogs([])} className="text-[8px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+                  <span className="text-[10px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
+                  <button onClick={() => setEventLogs([])} className="text-[10px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
                 </div>
                 <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
                   {eventLogs.map((log, i) => (
-                    <div key={i} className="text-[8px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
+                    <div key={i} className="text-[10px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
                       <div className="flex justify-between">
                         <span className="text-slate-500">{log.timestamp}</span>
-                        <span className={`h-1 w-1 rounded-full ${log.type === "success" ? "bg-teal-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
+                        <span className={`h-1.5 w-1.5 rounded-full ${log.type === "success" ? "bg-emerald-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
                       </div>
                       <p className="text-slate-300 leading-normal">{log.message}</p>
                     </div>
