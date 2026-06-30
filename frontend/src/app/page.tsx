@@ -72,7 +72,6 @@ const translations = {
     liquidator: "Liquidator (Keeper)",
     projectDetails: "Trade finance project",
     trustFooter: "3 independent oracle nodes verifying shipment proofs · last check 2 mins ago",
-    createTitle: "Register Supply Trade",
     createDesc: "Deploy a milestone-locked trade contract. 50% USDC security deposit will be locked in the Vault.",
     tradeTitle: "Trade Contract / Commodity Title",
     originPortLabel: "Origin Port / Dispatch Hub",
@@ -104,7 +103,8 @@ const translations = {
     fillTarget: "Fill Target",
     milestoneExecution: "Milestone Progress Map",
     hours: "hrs",
-    repaymentObligation: "Repayment Obligation (Principal + 5% Yield)"
+    repaymentObligation: "Repayment Obligation (Principal + 5% Yield)",
+    createTitle: "Register Supply Trade"
   },
   tr: {
     title: "StellarForge Finance",
@@ -142,7 +142,6 @@ const translations = {
     liquidator: "Likidatör (Keeper)",
     projectDetails: "Tedarik finansmanı projesi",
     trustFooter: "3 bağımsız denetçi tarafından doğrulanan kanıtlar · son işlem 2 saat önce",
-    createTitle: "Yeni Ticari Finansman Kaydı",
     createDesc: "Milestone kilitli yeni bir ticaret finansmanı başlatın. Bütçenin %50'si güvence olarak kasada bloke edilir.",
     tradeTitle: "Ticari Sözleşme / Emtia Başlığı",
     originPortLabel: "Çıkış Limanı / Üretim Merkezi",
@@ -174,7 +173,8 @@ const translations = {
     fillTarget: "Tamamını Fonla",
     milestoneExecution: "Milestone İlerleme Haritası",
     hours: "saat",
-    repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)"
+    repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)",
+    createTitle: "Yeni Ticari Finansman Kaydı"
   }
 };
 
@@ -541,13 +541,13 @@ export default function Home() {
       
       {/* Top Header */}
       <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-lg bg-teal-600 flex items-center justify-center shadow-md">
             <span className="font-black text-sm text-[#111215]">SF</span>
           </div>
           <div>
             <h1 className="text-md font-bold tracking-tight text-white">{t.title}</h1>
-            <p className="text-2xs text-[#8E97A4] font-medium">{t.tagline}</p>
+            <p className="text-[10px] text-[#8E97A4] font-medium">{t.tagline}</p>
           </div>
         </div>
 
@@ -555,7 +555,7 @@ export default function Home() {
         <div className="flex bg-[#1D2128] border border-[#2B313A] rounded-lg p-0.5">
           <button
             onClick={() => setActiveTab("pipelines")}
-            className={`py-1.5 px-3.5 rounded-md text-2xs font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-3 rounded-md text-[10px] font-bold transition flex items-center gap-1.5 ${
               activeTab === "pipelines" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -563,7 +563,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveTab("create")}
-            className={`py-1.5 px-3.5 rounded-md text-2xs font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-3 rounded-md text-[10px] font-bold transition flex items-center gap-1.5 ${
               activeTab === "create" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -578,13 +578,13 @@ export default function Home() {
           <div className="flex bg-[#1A1C20] border border-[#2B313A] rounded-lg p-0.5">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2 py-0.5 rounded text-3xs font-extrabold transition ${lang === "en" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2 py-0.5 rounded text-[9px] font-extrabold transition ${lang === "en" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2 py-0.5 rounded text-3xs font-extrabold transition ${lang === "tr" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2 py-0.5 rounded text-[9px] font-extrabold transition ${lang === "tr" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -592,7 +592,7 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4.5 py-2 rounded-lg text-2xs font-bold transition flex items-center gap-2 border ${
+            className={`px-4 py-2 rounded-lg text-[10px] font-bold transition flex items-center gap-2 border ${
               walletConnected
                 ? "bg-teal-900/10 text-teal-400 border-teal-500/30"
                 : "bg-teal-600 hover:bg-teal-500 text-[#111215] shadow-sm font-extrabold"
@@ -610,7 +610,7 @@ export default function Home() {
         {/* Left Column: Pipeline Selector (Only when viewing active pipelines) */}
         {activeTab === "pipelines" && (
           <aside className="lg:col-span-1 space-y-4">
-            <h2 className="text-2xs font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
+            <h2 className="text-[10px] font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
             <div className="space-y-2.5">
               {projects.map(p => (
                 <button
@@ -623,7 +623,7 @@ export default function Home() {
                   }`}
                 >
                   <div className="flex justify-between items-center w-full">
-                    <span className={`text-3xs font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
+                    <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
                       p.status === "Active" ? "bg-teal-500/10 text-teal-400 border-teal-500/20" :
                       p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                       p.status === "Completed" ? "bg-slate-500/10 text-slate-400 border-slate-500/20" :
@@ -634,11 +634,11 @@ export default function Home() {
                        p.status === "Completed" ? t.statusCompleted :
                        t.statusLiquidated}
                     </span>
-                    <span className="text-3xs text-[#8E97A4] font-bold">{formatNumber(p.targetAmount)} USDC</span>
+                    <span className="text-[9px] text-[#8E97A4] font-bold">{formatNumber(p.targetAmount)} USDC</span>
                   </div>
                   <div>
                     <h3 className="text-xs font-bold text-white line-clamp-1">{p.name}</h3>
-                    <p className="text-3xs text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
+                    <p className="text-[9px] text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
                   </div>
                 </button>
               ))}
@@ -654,7 +654,7 @@ export default function Home() {
               
               {/* Trust Signal / Oracle Badge */}
               <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-950/40 text-teal-400 border border-teal-900/60 text-3xs font-bold">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-950/40 text-teal-400 border border-teal-900/60 text-[9px] font-bold">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                   {t.auditorVerified}
                 </span>
@@ -662,59 +662,56 @@ export default function Home() {
 
               {/* Title Block */}
               <div className="space-y-1 max-w-[70%]">
-                <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
+                <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
                 <h2 className="text-xl font-bold text-white tracking-tight">{currentProject.name}</h2>
                 <p className="text-xs text-[#8E97A4] font-medium">{currentProject.originPort} ➔ {currentProject.destPort}</p>
               </div>
 
               {/* Flat Shipping Rota Illustration */}
-              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 rounded-2xl space-y-4">
-                <div className="relative flex items-center justify-between">
-                  {/* Shipping Track Line */}
-                  <div className="absolute left-0 right-0 h-0.5 bg-[#2D333F]" />
-                  
-                  {/* Finished Track Line */}
-                  <div 
-                    className="absolute left-0 h-0.5 bg-teal-600 transition-all duration-700" 
-                    style={{ 
-                      width: currentProject.status === "Completed" ? "100%" :
-                             currentProject.status === "Liquidated" ? "30%" :
-                             currentProject.status === "Pending" ? "0%" : "50%"
-                    }} 
-                  />
+              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 rounded-2xl h-24 flex items-center relative">
+                {/* Shipping Track Line */}
+                <div className="absolute left-[10%] right-[10%] h-0.5 bg-[#2D333F]" />
+                
+                {/* Finished Track Line */}
+                <div 
+                  className="absolute left-[10%] h-0.5 bg-teal-600 transition-all duration-700" 
+                  style={{ 
+                    width: currentProject.status === "Completed" ? "80%" :
+                           currentProject.status === "Liquidated" ? "20%" :
+                           currentProject.status === "Pending" ? "0%" : "40%"
+                  }} 
+                />
 
-                  {/* Dispatch Point */}
-                  <div className="relative z-10 flex flex-col items-center gap-1.5">
-                    <div className="h-4.5 w-4.5 rounded-full bg-teal-600 border-4 border-[#14161A]" />
-                    <span className="text-3xs font-bold text-[#8E97A4] mt-1">{currentProject.originPort.split(" ")[0]}</span>
-                  </div>
+                {/* Dispatch Point */}
+                <div className="absolute left-[10%] -translate-x-1/2 flex flex-col items-center gap-1">
+                  <div className="h-4 w-4 rounded-full bg-teal-600 border-4 border-[#14161A]" />
+                  <span className="text-[10px] font-bold text-[#8E97A4] mt-1">{currentProject.originPort.split(" ")[0]}</span>
+                </div>
 
-                  {/* Current Position / Vessel */}
-                  <div 
-                    className="absolute z-20 flex flex-col items-center gap-1.5 transition-all duration-700"
-                    style={{ 
-                      left: currentProject.status === "Completed" ? "90%" :
-                            currentProject.status === "Liquidated" ? "30%" :
-                            currentProject.status === "Pending" ? "10%" : "50%",
-                      transform: "translateX(-50%)"
-                    }}
-                  >
-                    <div className="h-9 w-9 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
-                    </div>
-                    <span className="text-4xs font-black uppercase text-amber-500 tracking-wider">
-                      {currentProject.status === "Active" ? t.atSea : 
-                       currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
-                       currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
-                       (lang === "tr" ? "Temerrüt" : "Breached")}
-                    </span>
+                {/* Current Position / Vessel */}
+                <div 
+                  className="absolute z-20 flex flex-col items-center gap-1 transition-all duration-700 -translate-x-1/2"
+                  style={{ 
+                    left: currentProject.status === "Completed" ? "90%" :
+                          currentProject.status === "Liquidated" ? "30%" :
+                          currentProject.status === "Pending" ? "10%" : "50%"
+                  }}
+                >
+                  <div className="h-8 w-8 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
                   </div>
+                  <span className="text-[9px] font-black uppercase text-amber-500 tracking-wider">
+                    {currentProject.status === "Active" ? t.atSea : 
+                     currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
+                     currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
+                     (lang === "tr" ? "Temerrüt" : "Breached")}
+                  </span>
+                </div>
 
-                  {/* Destination Point */}
-                  <div className="relative z-10 flex flex-col items-center gap-1.5">
-                    <div className={`h-4.5 w-4.5 rounded-full border-4 border-[#14161A] ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
-                    <span className="text-3xs font-bold text-[#8E97A4] mt-1">{currentProject.destPort.split(" ")[0]}</span>
-                  </div>
+                {/* Destination Point */}
+                <div className="absolute left-[90%] -translate-x-1/2 flex flex-col items-center gap-1">
+                  <div className={`h-4 w-4 rounded-full border-4 border-[#14161A] ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
+                  <span className="text-[10px] font-bold text-[#8E97A4] mt-1">{currentProject.destPort.split(" ")[0]}</span>
                 </div>
               </div>
 
@@ -723,7 +720,7 @@ export default function Home() {
                 
                 {/* Stat 1: Funded Amount */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
+                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
                   <p className="text-lg font-bold text-white mt-1.5">
                     {formatNumber(currentProject.fundedAmount)} <span className="text-xs text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
                   </p>
@@ -748,13 +745,13 @@ export default function Home() {
 
                 {/* Stat 2: Locked Collateral */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
+                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
                   <p className="text-lg font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
                 </div>
 
                 {/* Stat 3: Yield */}
                 <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
-                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
+                  <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
                   <p className="text-lg font-black text-teal-400 mt-1.5">%5.00</p>
                 </div>
 
@@ -777,7 +774,7 @@ export default function Home() {
                     >
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="inline-flex items-center gap-1 text-3xs font-extrabold uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider">
                             {m.status === "Approved" && (
                               <>
                                 <svg className="w-3.5 h-3.5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -800,13 +797,13 @@ export default function Home() {
                               <span className="text-red-400">{lang === "tr" ? "Reddedildi" : "Rejected"}</span>
                             )}
                           </span>
-                          <span className="text-3xs text-[#8E97A4] font-bold"># {m.id}</span>
+                          <span className="text-[9px] text-[#8E97A4] font-bold"># {m.id}</span>
                         </div>
                         <h4 className="text-xs font-bold text-white leading-snug">{m.description}</h4>
                       </div>
 
                       <div className="pt-2 border-t border-[#262B34]/60 space-y-3">
-                        <div className="flex justify-between text-3xs text-[#8E97A4] font-bold">
+                        <div className="flex justify-between text-[9px] text-[#8E97A4] font-bold">
                           <span>Vade: {m.deadline}h</span>
                           <span className="text-white">{formatNumber(m.amountToRelease)} USDC</span>
                         </div>
@@ -817,7 +814,7 @@ export default function Home() {
                             {m.status === "Pending" && (
                               <button
                                 onClick={() => submitProof(currentProject.id, m.id)}
-                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-3xs font-extrabold transition"
+                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-[9px] font-extrabold transition"
                               >
                                 {t.submitProof}
                               </button>
@@ -826,13 +823,13 @@ export default function Home() {
                               <div className="flex gap-2">
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, false)}
-                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-3xs font-bold transition"
+                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-[9px] font-bold transition"
                                 >
                                   {t.rejectBtn}
                                 </button>
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, true)}
-                                  className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] py-1.5 rounded-lg text-3xs font-extrabold transition shadow-sm"
+                                  className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] py-1.5 rounded-lg text-[9px] font-extrabold transition shadow-sm"
                                 >
                                   {t.approveBtn}
                                 </button>
@@ -850,7 +847,7 @@ export default function Home() {
               {currentProject.status === "Active" && (
                 <div className="border-t border-[#242930] pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
+                    <span className="text-[9px] text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
                     <span className="text-lg font-bold text-white mt-1 block">{formatNumber(currentProject.targetAmount * 1.05)} USDC</span>
                   </div>
 
@@ -863,7 +860,7 @@ export default function Home() {
                         {t.confirmRepay}
                       </button>
                     ) : (
-                      <div className="text-3xs text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
+                      <div className="text-[9px] text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
                         🔒 {t.repayNote}
                       </div>
                     )}
@@ -893,7 +890,7 @@ export default function Home() {
               )}
 
               {/* Verified Trust Footer */}
-              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-3xs text-[#8E97A4] font-medium">
+              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-[9px] text-[#8E97A4] font-medium">
                 <svg className="w-3.5 h-3.5 text-[#5F6774]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 {t.trustFooter}
               </div>
@@ -901,7 +898,7 @@ export default function Home() {
             </div>
           ) : (
             
-            // Tab: Create Finance Pipeline
+            // Tab: Register Supply Trade Form
             <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-6">
               <div>
                 <h3 className="text-md font-bold text-white">{t.createTitle}</h3>
@@ -977,7 +974,7 @@ export default function Home() {
                   {newProjMilestones.map((m, index) => (
                     <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-xl">
                       <div className="space-y-1">
-                        <label className="text-3xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
+                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
                         <input 
                           type="text" 
                           value={m.description}
@@ -990,7 +987,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-3xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
+                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
                         <input 
                           type="number" 
                           value={m.deadline}
@@ -1003,7 +1000,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-3xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
+                        <label className="text-[9px] text-[#8E97A4] font-bold">{t.amountToRelease}</label>
                         <input 
                           type="number" 
                           value={m.amountToRelease}
@@ -1020,7 +1017,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
-                  <div className="text-3xs text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
+                  <div className="text-[9px] text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
                     ⚠️ {t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}
                   </div>
                   <button 
@@ -1048,7 +1045,7 @@ export default function Home() {
               </h3>
               <button 
                 onClick={() => setShowSimPanel(false)}
-                className="text-3xs text-[#8E97A4] hover:text-white font-black"
+                className="text-[9px] text-[#8E97A4] hover:text-white font-black"
               >
                 [ Hide ]
               </button>
@@ -1056,13 +1053,13 @@ export default function Home() {
 
             {/* Time Simulator */}
             <div className="flex justify-between items-center gap-3">
-              <div className="text-3xs">
+              <div className="text-[9px]">
                 <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
                 <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
               </div>
               <button 
                 onClick={() => fastForwardTime(24)}
-                className="text-3xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
+                className="text-[9px] bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
               >
                 +24 {t.hours}
               </button>
@@ -1083,11 +1080,11 @@ export default function Home() {
 
             {/* Role Switcher */}
             <div className="space-y-1.5">
-              <label className="text-3xs text-[#8E97A4] font-bold block">{t.roleSelector}</label>
+              <label className="text-[9px] text-[#8E97A4] font-bold block">{t.roleSelector}</label>
               <select
                 value={userRole}
                 onChange={(e) => setUserRole(e.target.value as any)}
-                className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-3xs text-white p-2 outline-none focus:border-teal-500 font-medium"
+                className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-[9px] text-white p-2 outline-none focus:border-teal-500 font-medium"
               >
                 <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
                 <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
@@ -1099,12 +1096,12 @@ export default function Home() {
             {/* Interactive log viewer */}
             <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-36 flex flex-col relative overflow-hidden">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-4xs font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
-                <button onClick={() => setEventLogs([])} className="text-4xs text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+                <span className="text-[8px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
+                <button onClick={() => setEventLogs([])} className="text-[8px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
               </div>
               <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
                 {eventLogs.map((log, i) => (
-                  <div key={i} className="text-4xs bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
+                  <div key={i} className="text-[8px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
                     <div className="flex justify-between">
                       <span className="text-slate-500">{log.timestamp}</span>
                       <span className={`h-1 w-1 rounded-full ${log.type === "success" ? "bg-teal-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
