@@ -108,16 +108,18 @@ const translations = {
     hours: "hrs",
     repaymentObligation: "Repayment Obligation (Principal + 5% Yield)",
     createTitle: "Register Supply Trade",
-    guideTitle: "How StellarForge Works",
-    guideSubtitle: "Learn the mechanics of Milestone-Locked Reverse Factoring",
-    slide1Title: "1. Supplier Security Deposit (Vault Setup)",
-    slide1Desc: "Before production begins, the Supplier deposits 50% of the target budget into the Vault smart contract. This serves as an on-chain safety pledge. If the Supplier fails to perform or default, these funds are automatically liquidated and distributed to protect Lenders.",
-    slide2Title: "2. Lender Capital Crowdfund",
-    slide2Desc: "Lenders pool USDC to fund the Supplier's production budget. This is backed by the creditworthiness and payment obligation of the reputable Buyer. This model allows small suppliers to leverage the financial strength of giant buyers (e.g., Nestle, Zara) to obtain early funding.",
-    slide3Title: "3. Milestone-Based Payouts (Escrow)",
-    slide3Desc: "Funds are locked in the Escrow contract and not handed over all at once. As the Supplier completes stages (e.g., raw material procurement, shipping packaging) and uploads shipping manifests, independent Oracle Validators verify the proofs on-chain, releasing funds stage-by-stage.",
-    slide4Title: "4. Buyer Repayment & Release",
-    slide4Desc: "Upon cargo arrival, the Buyer repays the total capital + 5% yield. Lenders are reimbursed with interest, and the Supplier's initial 50% security deposit is fully unlocked and returned to their wallet.",
+    guideTitle: "How StellarForge Works & Customer Journey",
+    guideSubtitle: "Step-by-step guide to the reverse factoring process, applications, and wallet setup",
+    slide1Title: "1. New Customer Entry & Wallet Connection",
+    slide1Desc: "When a new customer enters the site, they review the global pool stats and active projects. To interact, they connect their Stellar wallet (Freighter). The platform automatically scans their public key to detect if they are a registered Supplier, Buyer, Lender, or Oracle Validator.",
+    slide2Title: "2. Trade Project Application (Where do Projects come from?)",
+    slide2Desc: "Active projects start with an application. A Supplier creates a new trade finance request via the 'Register Supply Trade' tab, entering the Buyer's Stellar address, target financing budget, origin/destination ports, and milestone deliverables with deadlines.",
+    slide3Title: "3. Agreement Approval & Security Collateral Vault",
+    slide3Desc: "Once submitted, the corporate Buyer must co-sign the trade agreement on-chain, committing to final invoice repayment. The Supplier then locks a 50% security deposit into the Vault contract. Only after these approvals is the project listed on the public dashboard.",
+    slide4Title: "4. Lender Crowdfund & Milestone Escrow Releases",
+    slide4Desc: "Lenders pool USDC to fund the remaining 50% target. As production advances, the Supplier uploads shipping documents (manifests) to IPFS. Independent Oracle Validators inspect these proofs and approve stage-by-stage capital releases from the Escrow to the Supplier.",
+    slide5Title: "5. Cargo Arrival, Repayment & Collateral Release",
+    slide5Desc: "When cargo arrives at the destination port, the Buyer settles the invoice with principal + 5% annual yield. Lenders withdraw their funds plus yield, and the Supplier's initial 50% Vault collateral is unlocked and returned to their wallet.",
     closeGuide: "Got it, go to Dashboard",
     next: "Next",
     prev: "Previous"
@@ -192,16 +194,18 @@ const translations = {
     hours: "saat",
     repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)",
     createTitle: "Yeni Ticari Finansman Kaydı",
-    guideTitle: "StellarForge Nasıl Çalışır?",
-    guideSubtitle: "Milestone Kilitli Ters Faktoring Mekanizmasını Keşfedin",
-    slide1Title: "1. Tedarikçi Teminat Blokesi (Vault Kurulumu)",
-    slide1Desc: "Tedarikçi (Supplier), üretime başlamadan önce bütçenin yarısını (%50) Vault akıllı sözleşmesine güvence teminatı olarak kilitler. Bu bloke, işin ciddiyetini garanti altına alır. Tedarikçi taahhüdünü yerine getirmez veya projeyi terk ederse, kilitli teminat yatırımcılara paylaştırılır.",
-    slide2Title: "2. Yatırımcı Sermaye Fonlaması",
-    slide2Desc: "Yatırımcılar (Lenders), büyük ve itibarlı Alıcı firmanın (örn: Nestle, Zara) nihai geri ödeme taahhüdüne dayanarak tedarikçinin üretim bütçesini fonlar. Yatırımcıların USDC sermayesi, tedarikçinin kendi kredi puanı yetersiz olsa bile güvence altındadır.",
-    slide3Title: "3. Milestone Aşamalı Ödeme (Escrow)",
-    slide3Desc: "Fonlanan sermaye tek seferde tedarikçiye verilmez; Milestone Escrow sözleşmesinde kilitli kalır. Tedarikçi üretim/sevkiyat adımlarını tamamlayıp kanıtları (konşimento vb.) sisteme yükledikçe, bağımsız Denetçiler (Oracle) onay verir ve fon adım adım serbest kalır.",
-    slide4Title: "4. Alıcı Geri Ödemesi ve İade",
-    slide4Desc: "Tüm sevkiyat tamamlanıp kargo alıcıya ulaştığında, Alıcı (Buyer) anapara + %5 faizi akıllı sözleşmeye yatırır. Yatırımcılar paralarını faiziyle geri alır, tedarikçinin Vault'ta kilitli olan %50 teminatı ise çözülerek cüzdanına iade edilir.",
+    guideTitle: "StellarForge Nasıl Çalışır & Müşteri Yolculuğu",
+    guideSubtitle: "Yeni müşteri girişi, cüzdan bağlantısı, proje başvurusu ve iş akışını adım adım keşfedin",
+    slide1Title: "1. Yeni Müşteri Girişi & Cüzdan Bağlantısı",
+    slide1Desc: "Sisteme yeni giren bir müşteri, protokolün genel istatistiklerini ve aktif projeleri inceler. İşlem yapabilmek için sağ üstteki 'Cüzdanı Bağla' butonuyla cüzdanını (Freighter vb.) entegre eder. Sistem, müşterinin Stellar adresini tarayarak yetkili rolünü (Tedarikçi, Alıcı, Yatırımcı veya Oracle) otomatik olarak belirler.",
+    slide2Title: "2. Ticaret Projesi Başvurusu (Aktif Projeler Nereden Gelir?)",
+    slide2Desc: "Aktif projeler bir başvuru ile başlar. Üretime başlamak için fona ihtiyacı olan Tedarikçi (Supplier), 'Yeni Ticari Finansman Kaydı' sekmesinden bir başvuru formu doldurur. Formda; Alıcı (Buyer) cüzdan adresi, hedef bütçe, rotalar ve milestone aşamaları (örn: ham madde temini, paketleme) yer alır.",
+    slide3Title: "3. Akıllı Sözleşme Onayı & Teminat Kasası (Vault)",
+    slide3Desc: "Başvuru yapıldıktan sonra, kurumsal Alıcı (Buyer) kendi cüzdanıyla sisteme girerek ticari sözleşmeyi onaylar ve geri ödeme taahhüdü verir. Tedarikçi ise bütçenin %50'sini güvence teminatı olarak Vault sözleşmesine kilitler. Bu adımlardan sonra proje, yatırımcılara açılmak üzere panoda listelenir.",
+    slide4Title: "4. Yatırımcı Fonlaması & Milestone Aşamalı Ödemeler (Escrow)",
+    slide4Desc: "Yatırımcılar (Lenders) kalan %50 bütçeyi USDC ile fonlar. Tedarikçi her bir milestone aşamasını tamamladıkça konşimento veya yükleme belgeleri gibi fiziki sevkiyat kanıtlarını IPFS'e yükler. Bağımsız Oracle denetçileri bu kanıtları doğruladıkça, Escrow sözleşmesindeki para parça parça tedarikçiye ödenir.",
+    slide5Title: "5. Malın Teslimi, Alıcı Geri Ödemesi & Teminat İadesi",
+    slide5Desc: "Kargo varış limanına ulaştığında, Alıcı faturayı anapara + %5 getiriyle akıllı sözleşmeye öder. Yatırımcılar paralarını getiriyle birlikte cüzdanlarına çekerler. Tedarikçinin başlangıçta Vault'ta kilitlenen %50 teminat blokesi çözülür ve cüzdanına iade edilir.",
     closeGuide: "Anladım, Gösterge Paneline Git",
     next: "İleri",
     prev: "Geri"
@@ -966,10 +970,10 @@ export default function Home() {
                 </div>
 
                 {/* Progress Stepper Visual */}
-                <div className="grid grid-cols-4 gap-2 relative py-2">
-                  <div className="absolute left-[12%] right-[12%] top-1/2 -translate-y-1/2 h-0.5 bg-[#1E2128]" />
+                <div className="grid grid-cols-5 gap-2 relative py-2">
+                  <div className="absolute left-[10%] right-[10%] top-1/2 -translate-y-1/2 h-0.5 bg-[#1E2128]" />
                   
-                  {[0, 1, 2, 3].map((step) => {
+                  {[0, 1, 2, 3, 4].map((step) => {
                     const isActive = guideSlide === step;
                     const isCompleted = guideSlide > step;
                     return (
@@ -998,16 +1002,16 @@ export default function Home() {
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
-                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
+                      <p className="text-[12px] md:text-[13px] text-[#8E97A4] max-w-xl leading-relaxed">{t.slide1Desc}</p>
                     </>
                   )}
                   {guideSlide === 1 && (
                     <>
                       <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M12 6v12" />
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
-                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
+                      <p className="text-[12px] md:text-[13px] text-[#8E97A4] max-w-xl leading-relaxed">{t.slide2Desc}</p>
                     </>
                   )}
                   {guideSlide === 2 && (
@@ -1016,16 +1020,25 @@ export default function Home() {
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
-                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
+                      <p className="text-[12px] md:text-[13px] text-[#8E97A4] max-w-xl leading-relaxed">{t.slide3Desc}</p>
                     </>
                   )}
                   {guideSlide === 3 && (
                     <>
                       <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
+                        <circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M12 6v12" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
-                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
+                      <p className="text-[12px] md:text-[13px] text-[#8E97A4] max-w-xl leading-relaxed">{t.slide4Desc}</p>
+                    </>
+                  )}
+                  {guideSlide === 4 && (
+                    <>
+                      <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                      </svg>
+                      <h3 className="text-base font-bold text-white mt-2">{t.slide5Title}</h3>
+                      <p className="text-[12px] md:text-[13px] text-[#8E97A4] max-w-xl leading-relaxed">{t.slide5Desc}</p>
                     </>
                   )}
                 </div>
@@ -1061,7 +1074,7 @@ export default function Home() {
                   </button>
 
                   <div className="flex gap-2">
-                    {[0, 1, 2, 3].map((step) => (
+                    {[0, 1, 2, 3, 4].map((step) => (
                       <button 
                         key={step} 
                         onClick={() => setGuideSlide(step)}
@@ -1072,7 +1085,7 @@ export default function Home() {
                     ))}
                   </div>
 
-                  {guideSlide === 3 ? (
+                  {guideSlide === 4 ? (
                     <button
                       onClick={() => setShowGuide(false)}
                       className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-[13px] transition shadow-md rounded-lg flex items-center gap-1"
