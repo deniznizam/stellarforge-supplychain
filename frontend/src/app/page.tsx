@@ -570,14 +570,23 @@ export default function Home() {
     <div className="min-h-screen bg-[#16181C] text-[#E2E8F0] font-sans antialiased selection:bg-amber-500/20 selection:text-white">
       
       {/* Top Header */}
-      <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4 rounded-none">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-amber-500 flex items-center justify-center shadow-md text-[#111215]">
-            <svg className="w-6.5 h-6.5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 18h18v2H3v-2z" />
-              <path d="M2 10c3 0 4.5 1.5 5 3.5h10c.5-2 2-3.5 5-3.5v-2H2v2z" />
-              <path d="M8 13.5h8v4.5H8v-4.5z" />
-              <path d="M12 2l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" fill="#E2E8F0" />
+          <div className="h-10 w-10 bg-amber-500 flex items-center justify-center shadow-md text-[#111215] rounded-none">
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              {/* Outer coin boundary */}
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+              
+              {/* Ship hull */}
+              <path d="M5 13h14l-2 4H7l-2-4z" fill="currentColor" stroke="currentColor" strokeWidth="1.5" />
+              
+              {/* Stacked Cargo containers */}
+              <rect x="7" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+              <rect x="10.75" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+              <rect x="14.5" y="9.5" width="2.5" height="2.5" fill="currentColor" stroke="currentColor" strokeWidth="1" />
+              
+              {/* Star rising above the ship */}
+              <path d="M12 3l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8z" fill="currentColor" stroke="currentColor" strokeWidth="1" />
             </svg>
           </div>
           <div>
@@ -587,10 +596,10 @@ export default function Home() {
         </div>
 
         {/* Global Nav Tabs */}
-        <div className="flex bg-[#1D2128] border border-[#2B313A] rounded-lg p-0.5">
+        <div className="flex bg-[#1D2128] border border-[#2B313A] p-0.5 rounded-none">
           <button
             onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
-            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
               activeTab === "pipelines" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -598,7 +607,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setActiveTab("create"); setShowGuide(false); }}
-            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
               activeTab === "create" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -606,7 +615,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setShowGuide(true); }}
-            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
               showGuide ? "bg-[#2D343F] text-amber-400 shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -618,16 +627,16 @@ export default function Home() {
         <div className="flex items-center gap-4">
           
           {/* Language Switch */}
-          <div className="flex bg-[#1A1C20] border border-[#2B313A] rounded-lg p-0.5">
+          <div className="flex bg-[#1A1C20] border border-[#2B313A] p-0.5 rounded-none">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2.5 py-1 rounded text-xs font-extrabold transition ${lang === "en" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded-none ${lang === "en" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2.5 py-1 rounded text-xs font-extrabold transition ${lang === "tr" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded-none ${lang === "tr" ? "bg-amber-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -635,7 +644,7 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4.5 py-2.5 rounded-lg text-xs font-bold transition flex items-center gap-2 border ${
+            className={`px-4.5 py-2.5 text-xs font-bold transition flex items-center gap-2 border rounded-none ${
               walletConnected
                 ? "bg-amber-950/20 text-amber-400 border-amber-500/30"
                 : "bg-amber-500 hover:bg-amber-400 text-[#111215] shadow-sm font-extrabold"
@@ -659,14 +668,14 @@ export default function Home() {
                 <button
                   key={p.id}
                   onClick={() => setSelectedProjectId(p.id)}
-                  className={`w-full text-left p-4 rounded-xl border transition flex flex-col gap-2.5 ${
+                  className={`w-full text-left p-4 border transition flex flex-col gap-2.5 rounded-none ${
                     p.id === selectedProjectId
                       ? "bg-[#20232A] border-amber-500/40 shadow-sm"
                       : "bg-[#1C1E24]/60 border-[#2A2F3A]/60 hover:border-[#373F4D]"
                   }`}
                 >
                   <div className="flex justify-between items-center w-full">
-                    <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
+                    <span className={`text-[10px] font-extrabold px-2 py-0.5 border uppercase tracking-wider rounded-none ${
                       p.status === "Active" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                       p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                       p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
@@ -693,7 +702,7 @@ export default function Home() {
         <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-2" : "lg:col-span-3"}`}>
           
           {showGuide ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300">
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300 rounded-none">
               
               {/* Onboarding Header */}
               <div className="space-y-2">
@@ -728,7 +737,7 @@ export default function Home() {
               </div>
 
               {/* Slide Content Card */}
-              <div className="bg-[#14161A]/85 border border-[#22272E] p-6 rounded-2xl flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300">
+              <div className="bg-[#14161A]/85 border border-[#22272E] p-6 flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300 rounded-none">
                 {guideSlide === 0 && (
                   <>
                     <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
@@ -777,7 +786,7 @@ export default function Home() {
                 <span className="text-[10px] text-[#8E97A4] font-black uppercase tracking-wider block text-center">
                   {lang === "tr" ? "GÖRSEL TİCARET FİNANSMANI İŞ AKIŞI" : "VISUAL TRADE FINANCE WORKFLOW"}
                 </span>
-                <div className="relative rounded-xl overflow-hidden border border-[#2B313A] bg-[#14161A]">
+                <div className="relative overflow-hidden border border-[#2B313A] bg-[#14161A] rounded-none">
                   <img 
                     src="/stellarforge_illustration.jpg" 
                     alt="StellarForge Supply Chain Finance Illustration" 
@@ -792,7 +801,7 @@ export default function Home() {
                 <button
                   disabled={guideSlide === 0}
                   onClick={() => setGuideSlide(prev => prev - 1)}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                  className={`px-4 py-2 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
                     guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-white"
                   }`}
                 >
@@ -815,14 +824,14 @@ export default function Home() {
                 {guideSlide === 3 ? (
                   <button
                     onClick={() => setShowGuide(false)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-md"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none"
                   >
                     🚀 {t.closeGuide}
                   </button>
                 ) : (
                   <button
                     onClick={() => setGuideSlide(prev => prev + 1)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-md"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none"
                   >
                     {t.next} ➡️
                   </button>
@@ -831,7 +840,7 @@ export default function Home() {
 
             </div>
           ) : activeTab === "pipelines" ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-8 relative">
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-6 md:p-8 space-y-8 relative rounded-none">
               
               {/* Trust Signal / Oracle Badge */}
               <div className="absolute top-6 right-6 md:top-8 md:right-8">
@@ -849,7 +858,7 @@ export default function Home() {
               </div>
 
               {/* Flat Shipping Rota Illustration */}
-              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 rounded-2xl h-24 flex items-center relative">
+              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 h-24 flex items-center relative rounded-none">
                 {/* Shipping Track Line */}
                 <div className="absolute left-[10%] right-[10%] h-0.5 bg-[#2D333F]" />
                 
@@ -865,7 +874,7 @@ export default function Home() {
 
                 {/* Dispatch Point */}
                 <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className="h-3.5 w-3.5 rounded-full bg-amber-500 border-2 border-[#14161A] shadow" />
+                  <div className="h-3.5 w-3.5 bg-amber-500 border-2 border-[#14161A] shadow rounded-none" />
                   <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.originPort.split(" ")[0]}</span>
                 </div>
 
@@ -885,14 +894,14 @@ export default function Home() {
                      currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
                      (lang === "tr" ? "Temerrüt" : "Breached")}
                   </span>
-                  <div className="h-8 w-8 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
+                  <div className="h-8 w-8 bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md rounded-none">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
                   </div>
                 </div>
 
                 {/* Destination Point */}
                 <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                  <div className={`h-3.5 w-3.5 rounded-full border-2 border-[#14161A] shadow ${currentProject.status === "Completed" ? "bg-amber-500" : "bg-[#2D333F]"}`} />
+                  <div className={`h-3.5 w-3.5 border-2 border-[#14161A] shadow rounded-none ${currentProject.status === "Completed" ? "bg-amber-500" : "bg-[#2D333F]"}`} />
                   <span className="text-xs font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.destPort.split(" ")[0]}</span>
                 </div>
               </div>
@@ -901,7 +910,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 {/* Stat 1: Funded Amount */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
                   <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
                   <p className="text-lg md:text-xl font-bold text-white mt-1.5">
                     {formatNumber(currentProject.fundedAmount)} <span className="text-sm text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
@@ -911,13 +920,13 @@ export default function Home() {
                     <div className="flex gap-2 pt-3 w-full">
                       <button 
                         onClick={() => fundProject(currentProject.id, 5000)}
-                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2.5 rounded-lg transition"
+                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2.5 transition rounded-none"
                       >
                         +5.000 USDC
                       </button>
                       <button 
                         onClick={() => fundProject(currentProject.id, currentProject.targetAmount - currentProject.fundedAmount)}
-                        className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] text-xs font-extrabold py-2.5 rounded-lg transition shadow-sm"
+                        className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] text-xs font-extrabold py-2.5 transition shadow-sm rounded-none"
                       >
                         {t.fillTarget}
                       </button>
@@ -926,13 +935,13 @@ export default function Home() {
                 </div>
 
                 {/* Stat 2: Locked Collateral */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
                   <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
                   <p className="text-lg md:text-xl font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
                 </div>
 
                 {/* Stat 3: Yield */}
-                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                <div className="bg-[#181A20] border border-[#252A33] p-5 space-y-1 rounded-none">
                   <span className="text-xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
                   <p className="text-lg md:text-xl font-black text-amber-500 mt-1.5">%5.00</p>
                 </div>
@@ -947,7 +956,7 @@ export default function Home() {
                   {currentProject.milestones.map((m, index) => (
                     <div 
                       key={m.id} 
-                      className={`p-5 rounded-xl border flex flex-col justify-between gap-4 transition ${
+                      className={`p-5 border flex flex-col justify-between gap-4 transition rounded-none ${
                         m.status === "Approved" ? "bg-emerald-950/15 border-emerald-900/60 text-emerald-400" :
                         m.status === "ProofSubmitted" ? "bg-[#30210A]/20 border-[#5A4010] text-[#FBBF24]/80 animate-pulse" :
                         m.status === "Rejected" ? "bg-red-950/20 border-red-900/60" :
@@ -996,7 +1005,7 @@ export default function Home() {
                             {m.status === "Pending" && (
                               <button
                                 onClick={() => submitProof(currentProject.id, m.id)}
-                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-xs font-bold transition"
+                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 text-xs font-bold transition rounded-none"
                               >
                                 {t.submitProof}
                               </button>
@@ -1005,13 +1014,13 @@ export default function Home() {
                               <div className="flex gap-2">
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, false)}
-                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-xs font-bold transition"
+                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 text-xs font-bold transition rounded-none"
                                 >
                                   {t.rejectBtn}
                                 </button>
                                 <button
                                   onClick={() => approveMilestone(currentProject.id, m.id, true)}
-                                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] py-1.5 rounded-lg text-xs font-extrabold transition shadow-sm"
+                                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-[#111215] py-1.5 text-xs font-extrabold transition shadow-sm rounded-none"
                                 >
                                   {t.approveBtn}
                                 </button>
@@ -1037,12 +1046,12 @@ export default function Home() {
                     {allApproved ? (
                       <button 
                         onClick={() => buyerRepay(currentProject.id)}
-                        className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                        className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition w-full md:w-auto shadow-md rounded-none"
                       >
                         {t.confirmRepay}
                       </button>
                     ) : (
-                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
+                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 border border-[#22272E] font-medium max-w-xs rounded-none">
                         🔒 {t.repayNote}
                       </div>
                     )}
@@ -1050,7 +1059,7 @@ export default function Home() {
                     {hasMissedDeadline && (
                       <button 
                         onClick={() => triggerDefault(currentProject.id)}
-                        className="bg-red-700 hover:bg-red-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                        className="bg-red-700 hover:bg-red-600 text-white font-bold px-6 py-2.5 text-xs transition w-full md:w-auto shadow-md rounded-none"
                       >
                         {t.triggerLiq}
                       </button>
@@ -1061,12 +1070,12 @@ export default function Home() {
 
               {/* End status cards */}
               {currentProject.status === "Completed" && (
-                <div className="bg-emerald-950/10 border border-emerald-900/60 p-4.5 rounded-xl text-xs text-emerald-400 font-medium">
+                <div className="bg-emerald-950/10 border border-emerald-900/60 p-4.5 text-xs text-emerald-400 font-medium rounded-none">
                   🎉 {t.settledSuccess}
                 </div>
               )}
               {currentProject.status === "Liquidated" && (
-                <div className="bg-red-950/15 border border-red-900/60 p-4.5 rounded-xl text-xs text-red-400 font-medium">
+                <div className="bg-red-950/15 border border-red-900/60 p-4.5 text-xs text-red-400 font-medium rounded-none">
                   ⚠️ {t.defaultedWarning}
                 </div>
               )}
@@ -1081,7 +1090,7 @@ export default function Home() {
           ) : (
             
             // Tab: Register Supply Trade Form
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-6">
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 p-6 md:p-8 space-y-6 rounded-none">
               <div>
                 <h3 className="text-md md:text-lg font-bold text-white">{t.createTitle}</h3>
                 <p className="text-xs md:text-sm text-[#8E97A4] mt-1">{t.createDesc}</p>
@@ -1096,7 +1105,7 @@ export default function Home() {
                       value={newProjName}
                       onChange={(e) => setNewProjName(e.target.value)}
                       placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -1105,7 +1114,7 @@ export default function Home() {
                       type="text" 
                       value={newProjOrigin}
                       onChange={(e) => setNewProjOrigin(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -1114,7 +1123,7 @@ export default function Home() {
                       type="text" 
                       value={newProjDest}
                       onChange={(e) => setNewProjDest(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
                     />
                   </div>
                 </div>
@@ -1126,7 +1135,7 @@ export default function Home() {
                       type="number" 
                       value={newProjTarget}
                       onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-white font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-white font-medium rounded-none"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -1135,7 +1144,7 @@ export default function Home() {
                       type="text" 
                       value={newProjSupplier}
                       onChange={(e) => setNewProjSupplier(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium rounded-none"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -1144,7 +1153,7 @@ export default function Home() {
                       type="text" 
                       value={newProjBuyer}
                       onChange={(e) => setNewProjBuyer(e.target.value)}
-                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium"
+                      className="w-full bg-[#14161A] border border-[#2B313A] p-3 text-xs outline-none focus:border-amber-500 text-[#8E97A4] font-medium rounded-none"
                     />
                   </div>
                 </div>
@@ -1154,7 +1163,7 @@ export default function Home() {
                   <h4 className="text-xs md:text-sm font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
                   
                   {newProjMilestones.map((m, index) => (
-                    <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-xl">
+                    <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-none">
                       <div className="space-y-1">
                         <label className="text-xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
                         <input 
@@ -1165,7 +1174,7 @@ export default function Home() {
                             updated[index].description = e.target.value;
                             setNewProjMilestones(updated);
                           }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
                         />
                       </div>
                       <div className="space-y-1">
@@ -1178,7 +1187,7 @@ export default function Home() {
                             updated[index].deadline = Number(e.target.value);
                             setNewProjMilestones(updated);
                           }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
                         />
                       </div>
                       <div className="space-y-1">
@@ -1191,7 +1200,7 @@ export default function Home() {
                             updated[index].amountToRelease = Number(e.target.value);
                             setNewProjMilestones(updated);
                           }}
-                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                          className="w-full bg-[#14161A] border border-[#2B313A] p-2.5 text-xs outline-none text-white font-medium rounded-none"
                         />
                       </div>
                     </div>
@@ -1199,12 +1208,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
-                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
+                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 border border-amber-500/10 max-w-md font-medium leading-relaxed rounded-none">
                     ⚠️ {t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}
                   </div>
                   <button 
                     type="submit"
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-3 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-none"
                   >
                     {t.submitContract}
                   </button>
@@ -1218,7 +1227,7 @@ export default function Home() {
         {/* Right Column: Simulation Controls & Logs */}
         <aside className="lg:col-span-1 space-y-4">
           {showSimPanel ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A] rounded-2xl p-5 shadow-md space-y-4">
+            <div className="bg-[#1C1E24] border border-[#2B313A] p-5 shadow-md space-y-4 rounded-none">
               <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
                 <h3 className="text-xs font-bold text-white flex items-center gap-2">
                   ⚙️ {t.simulationPanel}
@@ -1239,7 +1248,7 @@ export default function Home() {
                 </div>
                 <button 
                   onClick={() => fastForwardTime(24)}
-                  className="text-xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
+                  className="text-xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 transition rounded-none"
                 >
                   +24 {t.hours}
                 </button>
@@ -1249,7 +1258,7 @@ export default function Home() {
               <button
                 onClick={runAutoDemo}
                 disabled={demoActive}
-                className={`w-full text-xs font-black py-2.5 rounded-xl border transition ${
+                className={`w-full text-xs font-black py-2.5 border transition rounded-none ${
                   demoActive
                     ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
                     : "bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-[#111215] border-amber-500/20"
@@ -1264,7 +1273,7 @@ export default function Home() {
                 <select
                   value={userRole}
                   onChange={(e) => setUserRole(e.target.value as any)}
-                  className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-xs text-white p-2 outline-none focus:border-amber-500 font-medium"
+                  className="w-full bg-[#14161A] border border-[#2B313A] text-xs text-white p-2 outline-none focus:border-amber-500 font-medium rounded-none"
                 >
                   <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
                   <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
@@ -1274,14 +1283,14 @@ export default function Home() {
               </div>
 
               {/* Interactive log viewer */}
-              <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-40 flex flex-col relative overflow-hidden">
+              <div className="bg-[#14161A] border border-[#22272E] p-3.5 h-40 flex flex-col relative overflow-hidden rounded-none">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-[10px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
                   <button onClick={() => setEventLogs([])} className="text-[10px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
                 </div>
                 <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
                   {eventLogs.map((log, i) => (
-                    <div key={i} className="text-[10px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
+                    <div key={i} className="text-[10px] bg-[#1C1E24]/60 p-2 space-y-0.5 border border-[#242930] rounded-none">
                       <div className="flex justify-between">
                         <span className="text-slate-500">{log.timestamp}</span>
                         <span className={`h-1.5 w-1.5 rounded-full ${log.type === "success" ? "bg-emerald-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
@@ -1296,7 +1305,7 @@ export default function Home() {
           ) : (
             <button 
               onClick={() => setShowSimPanel(true)}
-              className="w-full bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] rounded-2xl p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm"
+              className="w-full bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm rounded-none"
             >
               ⚙️ {t.simulationPanel} [ Show ]
             </button>
