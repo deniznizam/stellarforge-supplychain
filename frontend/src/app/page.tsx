@@ -16,6 +16,8 @@ interface Milestone {
 interface Project {
   id: number;
   name: string;
+  originPort: string;
+  destPort: string;
   borrower: string;
   buyer: string;
   targetAmount: number;
@@ -36,107 +38,133 @@ interface EventLog {
 const translations = {
   en: {
     title: "StellarForge Finance",
-    tagline: "Reverse Factoring & Supply Chain Milestone Escrow",
-    howItWorksTitle: "How StellarForge Works (Interactive Pipeline)",
-    simulatorTime: "Ledger Simulator Time:",
-    step1: "1. Deposit Collateral",
-    step1Desc: "Supplier locks 50% collateral in the Vault to back their commitment.",
-    step2: "2. Crowdfund Capital",
-    step2Desc: "Lenders supply USDC to fund production costs, trusting the reputable Buyer.",
-    step3: "3. Milestone Payouts",
-    step3Desc: "As Supplier uploads shipping proofs, funds are released step-by-step.",
-    step4: "4. Buyer Settlement",
-    step4Desc: "Buyer receives goods, pays back principal + 5% yield to Lenders. Collateral released.",
-    autoDemoBtn: "Start Automated Demo Flow",
-    autoDemoActive: "Demo Flow in Progress...",
-    activePipelines: "Active Supply Chain Pipelines",
-    totalFinanced: "Total Financed Capital",
-    lockedCollateral: "Supplier Collateral Pool",
-    avgYield: "Lender Yield Rate",
-    projectCreated: "Project Created",
-    lendingMarket: "Open Lending Markets",
-    noLending: "No pending projects. Create one below!",
-    createTitle: "Register a New Trade Finance Pipeline",
-    createDesc: "Fill in the buyer, target budget, and delivery milestones. 50% collateral will be automatically locked in the Vault.",
-    repaymentTitle: "Repayment & Risk Default Desk",
-    onChainLogs: "Zincir Üstü Event Akışı",
-    clear: "Clear",
-    hours: "hrs",
+    tagline: "Industrial Trade & Supply Chain Finance",
     connectWallet: "Connect Wallet",
-    buyer: "Buyer",
+    walletConnected: "Wallet Connected",
+    activePipelines: "Active Pipelines",
+    createNewPipeline: "Register Supply Trade",
+    howItWorks: "How it works",
+    totalFinanced: "Total Financed Capital",
+    lockedCollateral: "Locked Collateral Pool",
+    avgYield: "Lender Yield Rate",
+    simulationPanel: "Simulation Controls",
+    ledgerTime: "Ledger Relative Time:",
+    add24h: "+24 Hours",
+    startDemo: "Run E2E Demo Simulation",
+    demoRunning: "Demo Yürütülüyor...",
+    roleSelector: "Active Account Role Simulator:",
+    onChainLogs: "On-Chain Log Stream",
+    clearLogs: "Clear",
+    auditorVerified: "Oracle Verified",
+    atSea: "Cargo in transit",
+    fundedAmount: "Funded Capital",
+    lockedCollateralLabel: "Locked Collateral",
+    lenderYield: "Lender Yield",
+    milestoneProgress: "Milestone Progression Path",
+    statusPending: "Awaiting Funding Target",
+    statusActive: "Active Trade Execution",
+    statusCompleted: "Settled & Finalized",
+    statusLiquidated: "Default / Liquidated",
     supplier: "Supplier",
+    buyer: "Buyer",
     lender: "Lender",
-    validator: "Oracle Validator",
-    statusPending: "Awaiting Funding",
-    statusActive: "In Execution",
-    statusCompleted: "Fully Repaid",
-    statusLiquidated: "Defaulted & Liquidated",
+    validator: "Validator (Oracle)",
+    liquidator: "Liquidator (Keeper)",
+    projectDetails: "Trade finance project",
+    trustFooter: "3 independent oracle nodes verifying shipment proofs · last check 2 mins ago",
+    createTitle: "Register Supply Trade",
+    createDesc: "Deploy a milestone-locked trade contract. 50% USDC security deposit will be locked in the Vault.",
+    tradeTitle: "Trade Contract / Commodity Title",
+    originPortLabel: "Origin Port / Dispatch Hub",
+    destPortLabel: "Destination Port / Warehouse Hub",
+    fundingTarget: "Funding Target (USDC)",
+    supplierAddr: "Supplier Stellar Address",
+    buyerAddr: "Buyer Stellar Address",
+    milestoneBreakdown: "Milestone Deliverables Breakdown",
+    milestoneDesc: "Deliverable Description",
+    hoursToDeadline: "Hours to Deadline",
+    amountToRelease: "Amount to Release (USDC)",
+    collateralWarning: "Security Notice: This contract requires {amount} USDC to be locked as default protection in the Vault.",
+    submitContract: "Deploy Trade Finance Pipeline",
+    submitProof: "Submit Shipping Proof (IPFS)",
+    rejectBtn: "Reject",
+    approveBtn: "Approve & Payout",
+    repaymentDescr: "Settlement & Liquidation Actions",
+    confirmRepay: "Confirm Delivery & Settle Trade",
+    repayNote: "Awaiting all milestone approvals before buyer settlement is unlocked.",
+    triggerLiq: "Trigger Default Liquidation",
+    settledSuccess: "Trade settled successfully. Lenders reimbursed with yield, collateral returned to Supplier.",
+    defaultedWarning: "Supplier defaulted. Collateral liquidated and distributed pro-rata to lenders.",
     toastUSDC: "USDC Token contract initialized successfully.",
-    toastCollateral: "Supplier registered {amount} USDC collateral to Vault.",
-    toastProject: "Organic Coffee Export project registered on-chain.",
+    toastCollateral: "Supplier locked {amount} USDC collateral in the Vault.",
+    toastProject: "Supply chain trade registered on-chain.",
     backToDash: "Back to Dashboard",
     targetFinancing: "Target Financing",
     funded: "Funded",
     fillTarget: "Fill Target",
     milestoneExecution: "Milestone Progress Map",
-    submitProof: "Submit Shipping Proof",
-    rejectBtn: "Reject",
-    approveBtn: "Approve & Release",
-    repaymentObligation: "Repayment Obligation (Principal + 5% Yield)",
-    confirmRepay: "Confirm Delivery & Repay",
-    repayNote: "Repayment unlocked after all milestones are Approved.",
-    triggerLiq: "Trigger Liquidation (Default)",
-    settlementFinalized: "Settlement finalized. All lenders paid back with 5% yield. Collateral returned to Supplier.",
-    projectDefaulted: "Project defaulted. Collateral liquidated and distributed pro-rata to lenders.",
-    tradeTitle: "Trade Contract Title",
-    capitalTarget: "Capital Target",
-    supplierAddr: "Supplier Address (Borrower)",
-    buyerAddr: "Buyer Address (Obligor)",
-    milestoneBreakdown: "Milestone Breakdown",
-    milestoneDesc: "Description",
-    hoursToDeadline: "Hours to Deadline",
-    amountToRelease: "Amount to Release",
-    collateralNote: "Note: Collateral requirement is {amount} USDC. Ensure collateral is deposited in the Vault before initializing.",
-    deployBtn: "Deploy Trade Finance Pipeline",
-    footer: "StellarForge Finance • Built for Stellar Soroban Smart Contract Architecture"
+    hours: "hrs",
+    repaymentObligation: "Repayment Obligation (Principal + 5% Yield)"
   },
   tr: {
     title: "StellarForge Finance",
-    tagline: "Tedarik Zinciri Finansmanı ve Otomatik Teminat Yönetimi",
-    howItWorksTitle: "Sistem Nasıl Çalışır? (Tedarik Finansmanı Akış Şeması)",
-    simulatorTime: "Ledger Simülatör Zamanı:",
-    step1: "1. Teminat Kilitleme",
-    step1Desc: "Tedarikçi taahhüt güvencesi olarak finansman hedefinin %50'sini kasaya kilitler.",
-    step2: "2. Sermaye Fonlama",
-    step2Desc: "Yatırımcılar, güçlü Alıcıya güvenerek tedarikçinin üretim bütçesini USDC ile fonlar.",
-    step3: "3. Milestone Aşamaları",
-    step3Desc: "Tedarikçi teslimat kanıtı sundukça, fonlar adım adım serbest bırakılır.",
-    step4: "4. Alıcı Geri Ödemesi",
-    step4Desc: "Alıcı malı teslim alır; yatırımcılara anapara + %5 faiz öder. Teminat iade edilir.",
-    autoDemoBtn: "Akıllı Demo Simülasyonunu Başlat",
-    autoDemoActive: "Simülasyon Yürütülüyor...",
-    activePipelines: "Aktif Tedarik Zinciri Finansmanları",
-    totalFinanced: "Finanse Edilen Sermaye",
-    lockedCollateral: "Kilitli Tedarikçi Teminatı",
-    avgYield: "Yatırımcı Faiz Oranı",
-    projectCreated: "Sözleşme Oluşturuldu",
-    lendingMarket: "Yatırıma Açık Projeler (Fonlama)",
-    noLending: "Fonlama bekleyen proje bulunmuyor. Aşağıdan yeni bir talep oluşturun!",
-    createTitle: "Yeni Tedarik Finansmanı Talebi Oluştur",
-    createDesc: "Anlaşmalı alıcıyı, toplam bütçeyi ve milestone vadelerini girin. %50 teminat kasada otomatik bloke edilir.",
-    repaymentTitle: "Geri Ödeme & Temmerüt (Risk) Masası",
-    onChainLogs: "Zincir Üstü Event Akışı",
-    clear: "Temizle",
-    hours: "saat",
+    tagline: "Endüstriyel Ticaret Finansmanı ve Lojistik Teminat Yönetimi",
     connectWallet: "Cüzdanı Bağla",
-    buyer: "Alıcı",
-    supplier: "Tedarikçi",
-    lender: "Yatırımcı",
-    validator: "Denetçi (Oracle)",
+    walletConnected: "Cüzdan Bağlandı",
+    activePipelines: "Aktif Finansmanlar",
+    createNewPipeline: "Yeni Ticari Finansman Kaydı",
+    howItWorks: "Nasıl Çalışır",
+    totalFinanced: "Finanse Edilen Sermaye",
+    lockedCollateral: "Kilitli Teminat Havuzu",
+    avgYield: "Yatırımcı Getirisi",
+    simulationPanel: "Simülasyon Denetimleri",
+    ledgerTime: "Ledger Sanal Zamanı:",
+    add24h: "+24 Saat İlerlet",
+    startDemo: "E2E Akıllı Demosu Başlat",
+    demoRunning: "Demo Yürütülüyor...",
+    roleSelector: "Aktif Hesap Rol Simülatörü:",
+    onChainLogs: "Zincir Üstü Event Akışı",
+    clearLogs: "Temizle",
+    auditorVerified: "Oracle doğrulamalı",
+    atSea: "Açık denizde",
+    fundedAmount: "Toplanan fon",
+    lockedCollateralLabel: "Kilitli teminat",
+    lenderYield: "Yatırımcı getirisi",
+    milestoneProgress: "Kilometre taşı ilerlemesi",
     statusPending: "Fon Toplanıyor",
-    statusActive: "Üretim ve Sevkiyatta",
-    statusCompleted: "Geri Ödendi & Kapatıldı",
-    statusLiquidated: "Temerrüt (Tasfiye Edildi)",
+    statusActive: "Sevkiyat ve Yürütmede",
+    statusCompleted: "Ödendi & Kapatıldı",
+    statusLiquidated: "Temerrüt (Tasfiye)",
+    supplier: "Tedarikçi (Borçlu)",
+    buyer: "Alıcı (Yükümlü)",
+    lender: "Yatırımcı (Lender)",
+    validator: "Denetçi (Oracle)",
+    liquidator: "Likidatör (Keeper)",
+    projectDetails: "Tedarik finansmanı projesi",
+    trustFooter: "3 bağımsız denetçi tarafından doğrulanan kanıtlar · son işlem 2 saat önce",
+    createTitle: "Yeni Ticari Finansman Kaydı",
+    createDesc: "Milestone kilitli yeni bir ticaret finansmanı başlatın. Bütçenin %50'si güvence olarak kasada bloke edilir.",
+    tradeTitle: "Ticari Sözleşme / Emtia Başlığı",
+    originPortLabel: "Çıkış Limanı / Üretim Merkezi",
+    destPortLabel: "Varış Limanı / Depolama Merkezi",
+    fundingTarget: "Finansman Hedefi (USDC)",
+    supplierAddr: "Tedarikçi Stellar Adresi",
+    buyerAddr: "Alıcı Stellar Adresi",
+    milestoneBreakdown: "Milestone Teslimat Detayları",
+    milestoneDesc: "Teslimat Açıklaması",
+    hoursToDeadline: "Teslimat Süresi (Saat)",
+    amountToRelease: "Serbest Bırakılacak Tutar (USDC)",
+    collateralWarning: "Güvenlik Bildirimi: Bu sözleşme için {amount} USDC teminatın kasada bloke edilmesi gerekmektedir.",
+    submitContract: "Ticaret Finansmanı Sözleşmesini Başlat",
+    submitProof: "Sevkiyat Kanıtı Gönder (IPFS)",
+    rejectBtn: "Reddet",
+    approveBtn: "Onayla & Öde",
+    repaymentDescr: "Geri Ödeme & Tasfiye Yönetimi",
+    confirmRepay: "Teslimatı Onayla ve Öde",
+    repayNote: "Alıcı ödemesinin açılması için tüm milestone hedeflerinin Onaylanması gerekir.",
+    triggerLiq: "Likidasyonu Tetikle (Temerrüt)",
+    settledSuccess: "Geri Ödeme Tamamlandı. Yatırımcılara faizleri dağıtıldı, tedarikçinin teminatı serbest bırakıldı.",
+    defaultedWarning: "Proje temerrüde düştü. Kilitli teminat tasfiye edildi ve yatırımcılara payları oranında iade edildi.",
     toastUSDC: "USDC Token sözleşmesi başarıyla başlatıldı.",
     toastCollateral: "Tedarikçi Vault'a {amount} USDC teminat kilitledi.",
     toastProject: "Organik Kahve İhracatı projesi zincir üstünde oluşturuldu.",
@@ -145,77 +173,65 @@ const translations = {
     funded: "Toplanan",
     fillTarget: "Tamamını Fonla",
     milestoneExecution: "Milestone İlerleme Haritası",
-    submitProof: "Sevkiyat Kanıtı Gönder",
-    rejectBtn: "Reddet",
-    approveBtn: "Onayla & Öde",
-    repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)",
-    confirmRepay: "Teslimatı Onayla ve Öde",
-    repayNote: "Geri ödeme seçeneği, tüm milestone hedefleri Onaylandıktan sonra aktifleşir.",
-    triggerLiq: "Likidasyonu Tetikle (Temerrüt)",
-    settlementFinalized: "Geri Ödeme Tamamlandı. Tüm yatırımcılara %5 faiz dahil geri ödeme yapıldı. Teminat tedarikçiye iade edildi.",
-    projectDefaulted: "Proje Temerrüde Düştü. Teminat tasfiye edildi ve yatırımcılara payları oranında dağıtıldı.",
-    tradeTitle: "Ticari Sözleşme Başlığı",
-    capitalTarget: "Finansman Hedefi",
-    supplierAddr: "Tedarikçi Adresi (Borçlu)",
-    buyerAddr: "Alıcı Adresi (Yükümlü)",
-    milestoneBreakdown: "Milestone Dağılımı",
-    milestoneDesc: "Açıklama",
-    hoursToDeadline: "Teslimat Süresi (Saat)",
-    amountToRelease: "Serbest Bırakılacak Tutar",
-    collateralNote: "Not: Teminat gereksinimi {amount} USDC'dir. Başlatmadan önce teminatın kasaya (Vault) yatırıldığından emin olun.",
-    deployBtn: "Finansman Sözleşmesini Başlat",
-    footer: "StellarForge Finance • Stellar Soroban Akıllı Sözleşme Mimarisi Üzerine İnşa Edilmiştir"
+    hours: "saat",
+    repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)"
   }
 };
 
 export default function Home() {
-  // Config States
   const [lang, setLang] = useState<"en" | "tr">("tr");
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "create">("overview");
-
-  // Wallet State
+  const [activeTab, setActiveTab] = useState<"pipelines" | "create">("pipelines");
+  
+  // Wallet
   const [walletConnected, setWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Supplier");
 
-  // Simulator Time and Data States
-  const [currentTime, setCurrentTime] = useState(0); // in hours
+  // Time & Simulator
+  const [currentTime, setCurrentTime] = useState(0);
   const [demoActive, setDemoActive] = useState(false);
-  
+  const [showSimPanel, setShowSimPanel] = useState(true);
+
+  // Active Project Selection
+  const [selectedProjectId, setSelectedProjectId] = useState<number>(1);
+
+  // Trade Pipelines State
   const [projects, setProjects] = useState<Project[]>([
     {
       id: 1,
-      name: "Tekstil Sevkiyatı (İstanbul - Hamburg Limanı)",
-      borrower: "GD...AcmeSupplier",
-      buyer: "GB...ZaraBuyer",
-      targetAmount: 10000,
-      fundedAmount: 10000,
+      name: "Organik kahve ihracatı",
+      originPort: "Santos limanı",
+      destPort: "Rotterdam limanı",
+      borrower: "GD...BrazilCoffee",
+      buyer: "GB...NestleBuyer",
+      targetAmount: 25000,
+      fundedAmount: 12000,
       fundingDeadline: 24,
-      status: "Active",
-      collateralLocked: 5000,
+      status: "Pending",
+      collateralLocked: 12500,
       milestones: [
         {
           id: 1,
-          description: "Hammadde Tedariki ve İplik Alımı",
+          description: "Hammadde tedariki",
           deadline: 48,
-          amountToRelease: 3000,
-          proofHash: "ipfs://procurement-receipt-xml",
+          amountToRelease: 10000,
+          proofHash: "ipfs://santos-loading-bill-xml",
           status: "Approved",
         },
         {
           id: 2,
-          description: "Kumaş Dokuma ve Dikim Aşaması",
+          description: "Üretim ve paketleme",
           deadline: 96,
-          amountToRelease: 4000,
-          proofHash: "ipfs://factory-batch-qa-report",
+          amountToRelease: 10000,
+          proofHash: "ipfs://nestle-qa-check",
           status: "ProofSubmitted",
         },
         {
           id: 3,
-          description: "Hamburg Konteyner Yükleme & Gümrük",
+          description: "Liman teslimi",
           deadline: 144,
-          amountToRelease: 3000,
+          amountToRelease: 5000,
           proofHash: "",
           status: "Pending",
         },
@@ -223,28 +239,30 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Organik Kahve İhracatı (Santos - Rotterdam Limanı)",
-      borrower: "GD...BrazilCoffee",
-      buyer: "GB...NestleBuyer",
-      targetAmount: 25000,
-      fundedAmount: 12000,
-      fundingDeadline: 12,
-      status: "Pending",
-      collateralLocked: 12500,
+      name: "Tekstil sevkiyatı",
+      originPort: "İstanbul limanı",
+      destPort: "Hamburg limanı",
+      borrower: "GD...AcmeTextile",
+      buyer: "GB...ZaraGroup",
+      targetAmount: 10000,
+      fundedAmount: 10000,
+      fundingDeadline: 48,
+      status: "Active",
+      collateralLocked: 5000,
       milestones: [
         {
           id: 1,
-          description: "Kahve Çekirdeği Hasadı ve Ayıklama",
+          description: "Hammadde tedariki ve iplik alımı",
           deadline: 72,
-          amountToRelease: 10000,
-          proofHash: "",
-          status: "Pending",
+          amountToRelease: 4000,
+          proofHash: "ipfs://procurement-docs",
+          status: "Approved",
         },
         {
           id: 2,
-          description: "Fırınlama ve Vakumlu Paketleme",
+          description: "Konfeksiyon üretim aşaması",
           deadline: 120,
-          amountToRelease: 15000,
+          amountToRelease: 6000,
           proofHash: "",
           status: "Pending",
         },
@@ -254,30 +272,31 @@ export default function Home() {
 
   const [eventLogs, setEventLogs] = useState<EventLog[]>([]);
 
-  // Form states for creating a new project
+  // Form State
   const [newProjName, setNewProjName] = useState("");
+  const [newProjOrigin, setNewProjOrigin] = useState("İzmir limanı");
+  const [newProjDest, setNewProjDest] = useState("Hamburg limanı");
   const [newProjSupplier, setNewProjSupplier] = useState("GDSupplierAddress...");
   const [newProjBuyer, setNewProjBuyer] = useState("GBBuyerAddress...");
   const [newProjTarget, setNewProjTarget] = useState(15000);
   const [newProjDeadline, setNewProjDeadline] = useState(48);
   const [newProjMilestones, setNewProjMilestones] = useState<Omit<Milestone, "status" | "proofHash">[]>([
-    { id: 1, description: "Milestone 1 - Üretim Başlangıcı", deadline: 96, amountToRelease: 7500 },
-    { id: 2, description: "Milestone 2 - Gümrük ve Sevkiyat", deadline: 168, amountToRelease: 7500 },
+    { id: 1, description: "Milestone 1 - Paketleme ve Yükleme", deadline: 96, amountToRelease: 7500 },
+    { id: 2, description: "Milestone 2 - Gümrük ve Teslimat", deadline: 168, amountToRelease: 7500 },
   ]);
 
   const t = translations[lang];
 
   useEffect(() => {
     setMounted(true);
-    const defaultLogs: EventLog[] = [
+    // Initialize default log output
+    setEventLogs([
       { timestamp: "10:30", type: "success", message: translations[lang].toastUSDC },
       { timestamp: "10:32", type: "info", message: translations[lang].toastCollateral.replace("{amount}", formatNumber(12500)) },
       { timestamp: "10:35", type: "success", message: translations[lang].toastProject },
-    ];
-    setEventLogs(defaultLogs);
+    ]);
   }, [lang]);
 
-  // Format numbers properly based on selected locale
   const formatNumber = (num: number) => {
     return num.toLocaleString(lang === "tr" ? "tr-TR" : "en-US");
   };
@@ -287,7 +306,6 @@ export default function Home() {
     setEventLogs(prev => [{ timestamp: time, type, message }, ...prev]);
   };
 
-  // Connect Freighter Wallet
   const connectWallet = async () => {
     try {
       const connected = await isConnected();
@@ -296,19 +314,18 @@ export default function Home() {
         if (res && res.address) {
           setWalletAddress(res.address);
           setWalletConnected(true);
-          logEvent("success", `Freighter Wallet connected: ${res.address.substring(0, 6)}...`);
+          logEvent("success", `Freighter connected: ${res.address.substring(0, 6)}...`);
         }
       } else {
         const mockAddress = "GC" + Math.random().toString(36).substring(2, 15).toUpperCase();
         setWalletAddress(mockAddress);
         setWalletConnected(true);
-        logEvent("info", `Freighter not detected. Connected via StellarForge Sandbox: ${mockAddress.substring(0, 6)}...`);
+        logEvent("info", `Connected via StellarForge Sandbox: ${mockAddress.substring(0, 6)}...`);
       }
     } catch (e) {
       const mockAddress = "GC" + Math.random().toString(36).substring(2, 15).toUpperCase();
       setWalletAddress(mockAddress);
       setWalletConnected(true);
-      logEvent("info", `Connected via StellarForge Sandbox: ${mockAddress.substring(0, 6)}...`);
     }
   };
 
@@ -319,8 +336,8 @@ export default function Home() {
     const totalMilestoneAmount = newProjMilestones.reduce((acc, curr) => acc + curr.amountToRelease, 0);
     if (totalMilestoneAmount !== newProjTarget) {
       logEvent("error", lang === "tr" 
-        ? `Milestone bütçelerinin toplamı (${formatNumber(totalMilestoneAmount)} USDC) proje bütçesine (${formatNumber(newProjTarget)} USDC) eşit olmalıdır.`
-        : `Total milestone values (${formatNumber(totalMilestoneAmount)} USDC) must equal the funding target (${formatNumber(newProjTarget)} USDC).`
+        ? `Milestone bütçeleri toplamı (${formatNumber(totalMilestoneAmount)} USDC) proje bütçesine (${formatNumber(newProjTarget)} USDC) eşit olmalıdır.`
+        : `Total milestone values (${formatNumber(totalMilestoneAmount)} USDC) must equal the funding target.`
       );
       return;
     }
@@ -328,12 +345,14 @@ export default function Home() {
     const newProject: Project = {
       id: projects.length + 1,
       name: newProjName,
+      originPort: newProjOrigin,
+      destPort: newProjDest,
       borrower: newProjSupplier.substring(0, 10) + "...",
       buyer: newProjBuyer.substring(0, 10) + "...",
       targetAmount: newProjTarget,
       fundedAmount: 0,
       fundingDeadline: currentTime + newProjDeadline,
-      collateralLocked: newProjTarget / 2, // 50% collateral
+      collateralLocked: newProjTarget / 2,
       status: "Pending",
       milestones: newProjMilestones.map(m => ({
         ...m,
@@ -344,11 +363,11 @@ export default function Home() {
 
     setProjects(prev => [...prev, newProject]);
     logEvent("success", lang === "tr"
-      ? `"${newProjName}" sözleşmesi oluşturuldu. Gerekli teminat: ${formatNumber(newProjTarget / 2)} USDC Vault kasasında kilitlendi.`
-      : `New project "${newProjName}" initialized. Required collateral of ${formatNumber(newProjTarget / 2)} USDC locked in Vault.`
+      ? `"${newProjName}" sözleşmesi oluşturuldu. Güvence teminatı Vault kasasına bloke edildi.`
+      : `Project "${newProjName}" registered. Collateral locked in Vault.`
     );
-    setActiveTab("overview");
-    setNewProjName("");
+    setActiveTab("pipelines");
+    setSelectedProjectId(newProject.id);
   };
 
   const fundProject = (id: number, amount: number) => {
@@ -356,16 +375,7 @@ export default function Home() {
       if (p.id === id) {
         const nextFunded = Math.min(p.targetAmount, p.fundedAmount + amount);
         const nextStatus = nextFunded >= p.targetAmount ? "Active" : p.status;
-        logEvent("success", lang === "tr"
-          ? `Yatırımcı projeye #${id} için ${formatNumber(amount)} USDC yatırdı. Fonlama: ${formatNumber(nextFunded)}/${formatNumber(p.targetAmount)} USDC.`
-          : `Lender supplied ${formatNumber(amount)} USDC to project #${id}. Funded: ${formatNumber(nextFunded)}/${formatNumber(p.targetAmount)} USDC.`
-        );
-        if (nextStatus === "Active") {
-          logEvent("info", lang === "tr"
-            ? `Proje #${id} bütçesi tamamlandı! Akış Aktif aşamasına geçti. Üretim bütçesi serbest bırakılmaya hazır.`
-            : `Project #${id} meets funding target! Shifted state to Active.`
-          );
-        }
+        logEvent("success", `Lender supplied ${formatNumber(amount)} USDC. Funded: ${formatNumber(nextFunded)}/${formatNumber(p.targetAmount)} USDC.`);
         return { ...p, fundedAmount: nextFunded, status: nextStatus };
       }
       return p;
@@ -377,10 +387,10 @@ export default function Home() {
       if (p.id === projectId) {
         const updatedMilestones = p.milestones.map(m => {
           if (m.id === milestoneId) {
-            const mockIpfs = `ipfs://delivery-proof-${m.id}-cid-${Math.random().toString(36).substring(4, 8)}`;
+            const mockIpfs = `ipfs://freight-manifest-${m.id}-cid-${Math.random().toString(36).substring(4, 8)}`;
             logEvent("info", lang === "tr"
-              ? `Tedarikçi Proje #${projectId}, Milestone #${milestoneId} için sevkiyat kanıtı sundu: ${mockIpfs}`
-              : `Supplier submitted delivery proof for Project #${projectId}, Milestone #${milestoneId}.`
+              ? `Tedarikçi teslimat kanıtı yükledi: ${mockIpfs}`
+              : `Supplier submitted delivery proof: ${mockIpfs}`
             );
             return { ...m, proofHash: mockIpfs, status: "ProofSubmitted" as const };
           }
@@ -399,15 +409,9 @@ export default function Home() {
           if (m.id === milestoneId) {
             const nextStatus = accept ? "Approved" as const : "Rejected" as const;
             if (accept) {
-              logEvent("success", lang === "tr"
-                ? `Denetçi Proje #${projectId}, Milestone #${milestoneId} teslimatını onayladı. Kilitli ${formatNumber(m.amountToRelease)} USDC tedarikçiye ödendi.`
-                : `Validator approved Milestone #${milestoneId} of Project #${projectId}. Released ${formatNumber(m.amountToRelease)} USDC.`
-              );
+              logEvent("success", `Oracle verified and approved Milestone #${milestoneId}. Released ${formatNumber(m.amountToRelease)} USDC to Supplier.`);
             } else {
-              logEvent("warning", lang === "tr"
-                ? `Milestone #${milestoneId} teslimat kanıtı reddedildi! Yeniden kanıt yüklenmesi bekleniyor.`
-                : `Milestone #${milestoneId} of Project #${projectId} rejected.`
-              );
+              logEvent("warning", `Milestone #${milestoneId} proof rejected.`);
             }
             return { ...m, status: nextStatus };
           }
@@ -422,19 +426,8 @@ export default function Home() {
   const buyerRepay = (projectId: number) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
-        const repayment = p.targetAmount * 1.05; // 5% yield
-        logEvent("success", lang === "tr"
-          ? `Alıcı mal teslimatını onayladı ve kasaya ${formatNumber(repayment)} USDC (Anapara + %5 faiz) geri ödeme yaptı.`
-          : `Buyer repaid ${formatNumber(repayment)} USDC (Principal + 5% Yield) to Escrow.`
-        );
-        logEvent("info", lang === "tr"
-          ? `Tedarikçinin bloke edilen ${formatNumber(p.collateralLocked)} USDC teminatı iade edildi.`
-          : `Supplier collateral of ${formatNumber(p.collateralLocked)} USDC returned.`
-        );
-        logEvent("success", lang === "tr"
-          ? `Yatırımcılara paraları %5 net kar marjı ile pro-rata (oranları dahilinde) dağıtıldı.`
-          : `Lenders reimbursed pro-rata with 5% yield.`
-        );
+        const repayment = p.targetAmount * 1.05;
+        logEvent("success", `Buyer confirmed delivery. Settled ${formatNumber(repayment)} USDC.`);
         return { ...p, status: "Completed", fundedAmount: 0 };
       }
       return p;
@@ -444,22 +437,7 @@ export default function Home() {
   const triggerDefault = (projectId: number) => {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
-        logEvent("error", lang === "tr"
-          ? `Proje #${projectId} teslimat süresini aştı! Temerrüt ve tasfiye süreci başladı.`
-          : `Project #${projectId} breached milestone deadlines. Liquidation triggered.`
-        );
-        logEvent("success", lang === "tr"
-          ? `Tedarikçinin Vault kasasında duran ${formatNumber(p.collateralLocked)} USDC değerindeki teminatına el konuldu.`
-          : `Collateral pool of ${formatNumber(p.collateralLocked)} USDC claimed from Vault.`
-        );
-        logEvent("info", lang === "tr"
-          ? `%5 likidatör teşvik primi (ödülü) ödendi.`
-          : `5% keeper fee paid to liquidator.`
-        );
-        logEvent("success", lang === "tr"
-          ? `Kalan teminat ve henüz serbest bırakılmamış bütçe havuzu yatırımcılara payları oranında iade edilerek risk sıfırlandı.`
-          : `Remaining collateral + unreleased escrow distributed to lenders pro-rata.`
-        );
+        logEvent("error", `Supplier default triggered. Liquidating collateral of ${formatNumber(p.collateralLocked)} USDC.`);
         return { ...p, status: "Liquidated" };
       }
       return p;
@@ -469,23 +447,22 @@ export default function Home() {
   const fastForwardTime = (hours: number) => {
     const nextTime = currentTime + hours;
     setCurrentTime(nextTime);
-    logEvent("warning", lang === "tr"
-      ? `Ledger simülatör süresi ${hours} saat ileri alındı. Güncel zaman: ${nextTime} saat.`
-      : `Ledger time advanced by ${hours} hours. Current time: ${nextTime} hours.`
-    );
+    logEvent("warning", `Ledger time advanced to ${nextTime} hours.`);
   };
 
-  // Run automated E2E Demo Simulation
+  // Auto-demo script
   const runAutoDemo = () => {
     if (demoActive) return;
     setDemoActive(true);
-    logEvent("info", lang === "tr" ? "Otomatik demo akışı başlatılıyor..." : "Starting automated demo flow...");
+    logEvent("info", "Starting interactive simulation flow...");
 
-    // Step 1: Create new demo project
+    // Create
     setTimeout(() => {
       const demoProject: Project = {
         id: 3,
-        name: "Akıllı Tarım İthalatı (İzmir - Rotterdam)",
+        name: "Akıllı Tarım İthalatı",
+        originPort: "İzmir limanı",
+        destPort: "Rotterdam limanı",
         borrower: "GD...IzmirAgri",
         buyer: "GB...NestleHQ",
         targetAmount: 20000,
@@ -494,661 +471,661 @@ export default function Home() {
         status: "Pending",
         collateralLocked: 10000,
         milestones: [
-          { id: 1, description: "Tohum Tedariki", deadline: 48, amountToRelease: 8000, proofHash: "", status: "Pending" },
+          { id: 1, description: "Tohum tedariki", deadline: 48, amountToRelease: 8000, proofHash: "", status: "Pending" },
           { id: 2, description: "Gümrükleme & Paketleme", deadline: 96, amountToRelease: 12000, proofHash: "", status: "Pending" }
         ]
       };
       setProjects(prev => [...prev, demoProject]);
-      logEvent("success", lang === "tr" 
-        ? "Demo Projesi oluşturuldu. %50 teminat (10.000 USDC) Vault kasasına bloke edildi."
-        : "Demo Project created. 10,000 USDC collateral locked in Vault."
-      );
+      setSelectedProjectId(3);
+      logEvent("success", "Project created. 10,000 USDC collateral locked in Vault.");
     }, 1500);
 
-    // Step 2: Lender funding
+    // Fund
     setTimeout(() => {
-      setProjects(prev => prev.map(p => {
-        if (p.id === 3) {
-          logEvent("success", lang === "tr" 
-            ? "Yatırımcılar 20.000 USDC finansman bütçesini tamamen doldurdu! Proje Akış Durumu: Aktif."
-            : "Lenders funded 20,000 USDC target! Project status: Active."
-          );
-          return { ...p, fundedAmount: 20000, status: "Active" };
-        }
-        return p;
-      }));
+      setProjects(prev => prev.map(p => p.id === 3 ? { ...p, fundedAmount: 20000, status: "Active" } : p));
+      logEvent("success", "Lenders funded 20,000 USDC target. Status: Active.");
     }, 3500);
 
-    // Step 3: Submit proof for milestone 1
+    // Submit Proof 1
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
         if (p.id === 3) {
-          const updated = p.milestones.map(m => m.id === 1 ? { ...m, status: "ProofSubmitted" as const, proofHash: "ipfs://seeds-freight-docs" } : m);
-          logEvent("info", lang === "tr" 
-            ? "Tedarikçi Milestone #1 (Tohum Tedariki) için nakliye faturasını sundu."
-            : "Supplier submitted shipping proof for Milestone #1."
-          );
+          const updated = p.milestones.map(m => m.id === 1 ? { ...m, status: "ProofSubmitted" as const, proofHash: "ipfs://seeds-manifest-xml" } : m);
+          logEvent("info", "Supplier uploaded shipment proof manifest for Milestone #1.");
           return { ...p, milestones: updated };
         }
         return p;
       }));
     }, 5500);
 
-    // Step 4: Approve milestone 1
+    // Approve 1
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
         if (p.id === 3) {
           const updated = p.milestones.map(m => m.id === 1 ? { ...m, status: "Approved" as const } : m);
-          logEvent("success", lang === "tr" 
-            ? "Denetçi (Validator) kanıtı doğruladı. 8.000 USDC tedarikçinin hesabına otomatik aktarıldı."
-            : "Oracle verified Milestone #1. 8,000 USDC released to Supplier."
-          );
+          logEvent("success", "Oracle verified Milestone #1. Released 8,000 USDC.");
           return { ...p, milestones: updated };
         }
         return p;
       }));
     }, 7500);
 
-    // Step 5: Fast forward time and trigger default risk warning
-    setTimeout(() => {
-      setCurrentTime(50);
-      logEvent("warning", lang === "tr" 
-        ? "Simülatör süresi 50. saate alındı. Milestone #1 süresi aşıldığı halde onaylanmış olduğundan sorun yok."
-        : "Simulator time advanced to 50h."
-      );
-    }, 9500);
-
-    // Step 6: Complete second milestone
+    // Finalize
     setTimeout(() => {
       setProjects(prev => prev.map(p => {
         if (p.id === 3) {
-          const updated = p.milestones.map(m => m.id === 2 ? { ...m, status: "Approved" as const, proofHash: "ipfs://customs-declaration" } : m);
-          logEvent("success", lang === "tr" 
-            ? "Milestone #2 (Gümrükleme & Paketleme) sevkiyatı yapıldı ve denetçi tarafından onaylandı. Kalan 12.000 USDC tedarikçiye aktarıldı."
-            : "Milestone #2 approved. Remaining 12,000 USDC released to Supplier."
-          );
+          const updated = p.milestones.map(m => m.id === 2 ? { ...m, status: "Approved" as const, proofHash: "ipfs://delivery-receipt" } : m);
+          logEvent("success", "Milestone #2 approved. Repayment available.");
           return { ...p, milestones: updated };
         }
         return p;
       }));
-    }, 11500);
+    }, 9500);
 
-    // Step 7: Repayment by Buyer
+    // Repay
     setTimeout(() => {
-      setProjects(prev => prev.map(p => {
-        if (p.id === 3) {
-          logEvent("success", lang === "tr" 
-            ? "Alıcı (NestleHQ) malı teslim aldı. Kasaya 21.000 USDC geri ödeme yaptı. Tedarikçinin 10.000 USDC teminatı iade edildi. Yatırımcılara faizleri dağıtıldı."
-            : "Buyer fully repaid 21,000 USDC. Collateral returned to Supplier. Lenders reimbursed with yield."
-          );
-          setDemoActive(false);
-          return { ...p, status: "Completed", fundedAmount: 0 };
-        }
-        return p;
-      }));
-    }, 13500);
+      setProjects(prev => prev.map(p => p.id === 3 ? { ...p, status: "Completed", fundedAmount: 0 } : p));
+      logEvent("success", "Buyer settled repayment. 10,000 USDC collateral returned to supplier.");
+      setDemoActive(false);
+    }, 11500);
   };
 
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center font-sans">
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-teal-400 animate-pulse" />
-          <p className="text-sm font-semibold text-slate-400">StellarForge Loading...</p>
-        </div>
-      </div>
-    );
-  }
+  if (!mounted) return null;
+
+  const currentProject = projects.find(p => p.id === selectedProjectId) || projects[0];
+  const allApproved = currentProject.milestones.every(m => m.status === "Approved");
+  const hasMissedDeadline = currentProject.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-white">
-      {/* Glow Effects */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] bg-teal-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Header */}
-      <header className="border-b border-slate-900/60 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-teal-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <span className="font-black text-xl text-slate-950">SF</span>
+    <div className="min-h-screen bg-[#16181C] text-[#E2E8F0] font-sans antialiased selection:bg-teal-500/20 selection:text-white">
+      
+      {/* Top Header */}
+      <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="h-9 w-9 rounded-lg bg-teal-600 flex items-center justify-center shadow-md">
+            <span className="font-black text-sm text-[#111215]">SF</span>
           </div>
           <div>
-            <h1 className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-200 to-slate-200 bg-clip-text text-transparent">
-              {t.title}
-            </h1>
-            <p className="text-xs text-slate-400 font-medium">{t.tagline}</p>
+            <h1 className="text-md font-bold tracking-tight text-white">{t.title}</h1>
+            <p className="text-2xs text-[#8E97A4] font-medium">{t.tagline}</p>
           </div>
         </div>
 
-        {/* Ledger Time Simulator */}
-        <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl p-1.5 px-3">
-          <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">{t.simulatorTime}</span>
-          <span className="text-sm font-black text-slate-200">{currentTime} {t.hours}</span>
-          <button 
-            onClick={() => fastForwardTime(24)}
-            className="ml-2 text-xs bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 font-bold py-1 px-2.5 rounded-lg transition border border-indigo-500/30"
+        {/* Global Nav Tabs */}
+        <div className="flex bg-[#1D2128] border border-[#2B313A] rounded-lg p-0.5">
+          <button
+            onClick={() => setActiveTab("pipelines")}
+            className={`py-1.5 px-3.5 rounded-md text-2xs font-bold transition flex items-center gap-1.5 ${
+              activeTab === "pipelines" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+            }`}
           >
-            +24 {t.hours}
+            📊 {t.activePipelines}
+          </button>
+          <button
+            onClick={() => setActiveTab("create")}
+            className={`py-1.5 px-3.5 rounded-md text-2xs font-bold transition flex items-center gap-1.5 ${
+              activeTab === "create" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+            }`}
+          >
+            ➕ {t.createNewPipeline}
           </button>
         </div>
 
-        {/* Language Selection & Wallet connection */}
-        <div className="flex items-center gap-3">
-          {/* Language Toggle */}
-          <div className="flex bg-slate-900 border border-slate-800 rounded-xl p-1">
+        {/* Primary Wallet connection */}
+        <div className="flex items-center gap-4">
+          
+          {/* Language Switch */}
+          <div className="flex bg-[#1A1C20] border border-[#2B313A] rounded-lg p-0.5">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-extrabold transition ${lang === "en" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-slate-200"}`}
+              className={`px-2 py-0.5 rounded text-3xs font-extrabold transition ${lang === "en" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2.5 py-1 rounded-lg text-2xs font-extrabold transition ${lang === "tr" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-slate-200"}`}
+              className={`px-2 py-0.5 rounded text-3xs font-extrabold transition ${lang === "tr" ? "bg-teal-600 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
           </div>
 
-          <select 
-            value={userRole} 
-            onChange={(e) => setUserRole(e.target.value as any)}
-            className="bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-300 p-2 outline-none focus:border-indigo-500"
-          >
-            <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Borçlu)" : "Supplier (Borrower)"}</option>
-            <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Fon Sağlayıcı)" : "Lender (Funder)"}</option>
-            <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Yükümlü)" : "Buyer (Repayer)"}</option>
-            <option value="Validator">{userRole === "Validator" ? "Denetçi (Oracle)" : "Validator (Oracle)"}</option>
-            <option value="Liquidator">{userRole === "Liquidator" ? "Likidatör (Keeper)" : "Liquidator (Keeper)"}</option>
-          </select>
-
           <button
             onClick={connectWallet}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
+            className={`px-4.5 py-2 rounded-lg text-2xs font-bold transition flex items-center gap-2 border ${
               walletConnected
-                ? "bg-teal-500/10 text-teal-400 border border-teal-500/30"
-                : "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white shadow-lg shadow-indigo-500/20"
+                ? "bg-teal-900/10 text-teal-400 border-teal-500/30"
+                : "bg-teal-600 hover:bg-teal-500 text-[#111215] shadow-sm font-extrabold"
             }`}
           >
-            <div className={`h-2 w-2 rounded-full ${walletConnected ? "bg-teal-400 animate-pulse" : "bg-white"}`} />
+            <div className={`h-1.5 w-1.5 rounded-full ${walletConnected ? "bg-teal-400 animate-pulse" : "bg-[#111215]"}`} />
             {walletConnected ? `${walletAddress.substring(0, 8)}...` : t.connectWallet}
           </button>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="max-w-7xl mx-auto w-full p-6 space-y-8 flex-1">
+      {/* Main Workspace Layout */}
+      <main className="max-w-7xl mx-auto p-6 md:p-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        {/* Interactive Pipeline Visual Diagram (How it works banner) */}
-        <section className="bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 h-48 w-48 bg-gradient-to-br from-indigo-500/10 to-teal-400/5 blur-3xl rounded-full" />
+        {/* Left Column: Pipeline Selector (Only when viewing active pipelines) */}
+        {activeTab === "pipelines" && (
+          <aside className="lg:col-span-1 space-y-4">
+            <h2 className="text-2xs font-black text-[#8E97A4] uppercase tracking-widest">{t.activePipelines}</h2>
+            <div className="space-y-2.5">
+              {projects.map(p => (
+                <button
+                  key={p.id}
+                  onClick={() => setSelectedProjectId(p.id)}
+                  className={`w-full text-left p-4 rounded-xl border transition flex flex-col gap-2 ${
+                    p.id === selectedProjectId
+                      ? "bg-[#20232A] border-teal-500/40 shadow-sm"
+                      : "bg-[#1C1E24]/60 border-[#2A2F3A]/60 hover:border-[#373F4D]"
+                  }`}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className={`text-3xs font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider ${
+                      p.status === "Active" ? "bg-teal-500/10 text-teal-400 border-teal-500/20" :
+                      p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
+                      p.status === "Completed" ? "bg-slate-500/10 text-slate-400 border-slate-500/20" :
+                      "bg-red-500/10 text-red-400 border-red-500/20"
+                    }`}>
+                      {p.status === "Active" ? t.statusActive :
+                       p.status === "Pending" ? t.statusPending :
+                       p.status === "Completed" ? t.statusCompleted :
+                       t.statusLiquidated}
+                    </span>
+                    <span className="text-3xs text-[#8E97A4] font-bold">{formatNumber(p.targetAmount)} USDC</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-bold text-white line-clamp-1">{p.name}</h3>
+                    <p className="text-3xs text-[#8E97A4] mt-0.5">{p.originPort} ➔ {p.destPort}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </aside>
+        )}
+
+        {/* Center/Main workspace (Lg: col-span-3 when side selector is active) */}
+        <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-3" : "lg:col-span-4"}`}>
           
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-slate-800/50 pb-4">
-            <div>
-              <h2 className="text-md font-extrabold tracking-tight text-slate-200 flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-indigo-400" />
-                {t.howItWorksTitle}
-              </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {lang === "tr" 
-                  ? "Sözleşme akışını adım adım takip edebilir veya demo ile tüm akışı simüle edebilirsiniz." 
-                  : "Track the supply chain finance steps visually or test with the automated simulator."}
-              </p>
-            </div>
-            
-            <button
-              onClick={runAutoDemo}
-              disabled={demoActive}
-              className={`px-5 py-2.5 rounded-xl text-xs font-black transition flex items-center gap-2 border ${
-                demoActive 
-                  ? "bg-slate-900 text-slate-500 border-slate-800 cursor-not-allowed" 
-                  : "bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white border-indigo-500/30 shadow-lg shadow-indigo-500/5"
-              }`}
-            >
-              {demoActive ? t.autoDemoActive : t.autoDemoBtn}
-            </button>
-          </div>
+          {activeTab === "pipelines" ? (
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-8 relative">
+              
+              {/* Trust Signal / Oracle Badge */}
+              <div className="absolute top-6 right-6 md:top-8 md:right-8">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-950/40 text-teal-400 border border-teal-900/60 text-3xs font-bold">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {t.auditorVerified}
+                </span>
+              </div>
 
-          {/* Step-by-Step Flow Map */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            
-            {/* Step 1 */}
-            <div className="bg-slate-950/60 border border-slate-900 p-4.5 rounded-2xl space-y-2 relative group hover:border-slate-800 transition">
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-indigo-400">{t.step1}</span>
-              <p className="text-xs font-bold text-slate-200">{lang === "tr" ? "Supplier (Tedarikçi)" : "Supplier"}</p>
-              <p className="text-xs text-slate-400 leading-relaxed">{t.step1Desc}</p>
-              <div className="absolute top-1/2 -right-3 hidden md:block text-slate-700 text-xl font-bold">➜</div>
-            </div>
+              {/* Title Block */}
+              <div className="space-y-1 max-w-[70%]">
+                <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.projectDetails}</span>
+                <h2 className="text-xl font-bold text-white tracking-tight">{currentProject.name}</h2>
+                <p className="text-xs text-[#8E97A4] font-medium">{currentProject.originPort} ➔ {currentProject.destPort}</p>
+              </div>
 
-            {/* Step 2 */}
-            <div className="bg-slate-950/60 border border-slate-900 p-4.5 rounded-2xl space-y-2 relative group hover:border-slate-800 transition">
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-teal-400">{t.step2}</span>
-              <p className="text-xs font-bold text-slate-200">{lang === "tr" ? "Yatırımcı (Lender)" : "Lenders"}</p>
-              <p className="text-xs text-slate-400 leading-relaxed">{t.step2Desc}</p>
-              <div className="absolute top-1/2 -right-3 hidden md:block text-slate-700 text-xl font-bold">➜</div>
-            </div>
+              {/* Flat Shipping Rota Illustration */}
+              <div className="bg-[#14161A]/80 border border-[#22272E] p-6 rounded-2xl space-y-4">
+                <div className="relative flex items-center justify-between">
+                  {/* Shipping Track Line */}
+                  <div className="absolute left-0 right-0 h-0.5 bg-[#2D333F]" />
+                  
+                  {/* Finished Track Line */}
+                  <div 
+                    className="absolute left-0 h-0.5 bg-teal-600 transition-all duration-700" 
+                    style={{ 
+                      width: currentProject.status === "Completed" ? "100%" :
+                             currentProject.status === "Liquidated" ? "30%" :
+                             currentProject.status === "Pending" ? "0%" : "50%"
+                    }} 
+                  />
 
-            {/* Step 3 */}
-            <div className="bg-slate-950/60 border border-slate-900 p-4.5 rounded-2xl space-y-2 relative group hover:border-slate-800 transition">
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-amber-400">{t.step3}</span>
-              <p className="text-xs font-bold text-slate-200">{lang === "tr" ? "Denetçi (Validator)" : "Validator"}</p>
-              <p className="text-xs text-slate-400 leading-relaxed">{t.step3Desc}</p>
-              <div className="absolute top-1/2 -right-3 hidden md:block text-slate-700 text-xl font-bold">➜</div>
-            </div>
+                  {/* Dispatch Point */}
+                  <div className="relative z-10 flex flex-col items-center gap-1.5">
+                    <div className="h-4.5 w-4.5 rounded-full bg-teal-600 border-4 border-[#14161A]" />
+                    <span className="text-3xs font-bold text-[#8E97A4] mt-1">{currentProject.originPort.split(" ")[0]}</span>
+                  </div>
 
-            {/* Step 4 */}
-            <div className="bg-slate-950/60 border border-slate-900 p-4.5 rounded-2xl space-y-2 group hover:border-slate-800 transition">
-              <span className="text-2xs font-extrabold uppercase tracking-wider text-emerald-400">{t.step4}</span>
-              <p className="text-xs font-bold text-slate-200">{lang === "tr" ? "Alıcı (Buyer)" : "Buyer"}</p>
-              <p className="text-xs text-slate-400 leading-relaxed">{t.step4Desc}</p>
-            </div>
-          </div>
-        </section>
+                  {/* Current Position / Vessel */}
+                  <div 
+                    className="absolute z-20 flex flex-col items-center gap-1.5 transition-all duration-700"
+                    style={{ 
+                      left: currentProject.status === "Completed" ? "90%" :
+                            currentProject.status === "Liquidated" ? "30%" :
+                            currentProject.status === "Pending" ? "10%" : "50%",
+                      transform: "translateX(-50%)"
+                    }}
+                  >
+                    <div className="h-9 w-9 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
+                    </div>
+                    <span className="text-4xs font-black uppercase text-amber-500 tracking-wider">
+                      {currentProject.status === "Active" ? t.atSea : 
+                       currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
+                       currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
+                       (lang === "tr" ? "Temerrüt" : "Breached")}
+                    </span>
+                  </div>
 
-        {/* Dynamic Navigation & Layout grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Main Action Workspace (2 cols) */}
-          <div className="lg:col-span-2 space-y-6">
-            
-            {/* Main Tabs */}
-            <nav className="flex bg-slate-900/60 border border-slate-900 rounded-2xl p-1">
-              <button
-                onClick={() => setActiveTab("overview")}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 ${
-                  activeTab === "overview" ? "bg-indigo-600 text-white shadow-lg" : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                📊 {t.activePipelines}
-              </button>
-              <button
-                onClick={() => setActiveTab("create")}
-                className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 ${
-                  activeTab === "create" ? "bg-indigo-600 text-white shadow-lg" : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                ➕ {t.createTitle}
-              </button>
-            </nav>
+                  {/* Destination Point */}
+                  <div className="relative z-10 flex flex-col items-center gap-1.5">
+                    <div className={`h-4.5 w-4.5 rounded-full border-4 border-[#14161A] ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
+                    <span className="text-3xs font-bold text-[#8E97A4] mt-1">{currentProject.destPort.split(" ")[0]}</span>
+                  </div>
+                </div>
+              </div>
 
-            {/* Tab: Pipelines Overview */}
-            {activeTab === "overview" && (
-              <div className="space-y-6">
+              {/* Stats Metrics Block */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                {/* Statistics Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-slate-900/40 border border-slate-900/80 p-5 rounded-2xl">
-                    <span className="text-2xs font-bold text-slate-400 uppercase tracking-wider">{t.totalFinanced}</span>
-                    <span className="text-2xl font-black text-slate-200 mt-1 block">
-                      {formatNumber(projects.reduce((acc, p) => acc + (p.status === "Active" ? p.targetAmount : 0), 0))} USDC
-                    </span>
-                  </div>
-                  <div className="bg-slate-900/40 border border-slate-900/80 p-5 rounded-2xl">
-                    <span className="text-2xs font-bold text-slate-400 uppercase tracking-wider">{t.lockedCollateral}</span>
-                    <span className="text-2xl font-black text-slate-200 mt-1 block">
-                      {formatNumber(projects.reduce((acc, p) => acc + (p.status === "Active" ? p.collateralLocked : 0), 0))} USDC
-                    </span>
-                  </div>
-                  <div className="bg-slate-900/40 border border-slate-900/80 p-5 rounded-2xl">
-                    <span className="text-2xs font-bold text-slate-400 uppercase tracking-wider">{t.avgYield}</span>
-                    <span className="text-2xl font-black text-emerald-400 mt-1 block">5.00 %</span>
-                  </div>
+                {/* Stat 1: Funded Amount */}
+                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.fundedAmount}</span>
+                  <p className="text-lg font-bold text-white mt-1.5">
+                    {formatNumber(currentProject.fundedAmount)} <span className="text-xs text-[#8E97A4] font-medium">/ {formatNumber(currentProject.targetAmount)} USDC</span>
+                  </p>
+                  
+                  {currentProject.status === "Pending" && (
+                    <div className="flex gap-2 pt-3 w-full">
+                      <button 
+                        onClick={() => fundProject(currentProject.id, 5000)}
+                        className="flex-1 bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-xs font-bold py-2 rounded-lg transition"
+                      >
+                        +5.000 USDC
+                      </button>
+                      <button 
+                        onClick={() => fundProject(currentProject.id, currentProject.targetAmount - currentProject.fundedAmount)}
+                        className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] text-xs font-extrabold py-2 rounded-lg transition shadow-sm"
+                      >
+                        {t.fillTarget}
+                      </button>
+                    </div>
+                  )}
                 </div>
 
-                {/* Pipelines List */}
-                {projects.map(p => {
-                  const allApproved = p.milestones.every(m => m.status === "Approved");
-                  const hasMissedDeadline = p.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
+                {/* Stat 2: Locked Collateral */}
+                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lockedCollateralLabel}</span>
+                  <p className="text-lg font-bold text-white mt-1.5">{formatNumber(currentProject.collateralLocked)} USDC</p>
+                </div>
 
-                  return (
-                    <div key={p.id} className="bg-slate-900/30 border border-slate-900 rounded-2xl p-6 hover:border-slate-800/80 transition space-y-4">
-                      
-                      {/* Project Header */}
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <span className={`text-3xs font-extrabold px-3 py-1 rounded-full border uppercase tracking-wider ${
-                            p.status === "Active" ? "bg-blue-500/10 text-blue-400 border-blue-500/20" :
-                            p.status === "Pending" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
-                            p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
-                            "bg-red-500/10 text-red-400 border-red-500/20"
-                          }`}>
-                            {p.status === "Active" ? t.statusActive :
-                             p.status === "Pending" ? t.statusPending :
-                             p.status === "Completed" ? t.statusCompleted :
-                             t.statusLiquidated}
-                          </span>
-                          <h3 className="text-base font-bold text-slate-200 mt-2.5">{p.name}</h3>
-                          <div className="flex gap-4 text-2xs text-slate-500 mt-1 font-medium">
-                            <span>{t.supplier}: <strong className="text-slate-400">{p.borrower}</strong></span>
-                            <span>{t.buyer}: <strong className="text-slate-400">{p.buyer}</strong></span>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-2xs text-slate-500 block font-bold uppercase tracking-wider">{t.targetFinancing}</span>
-                          <span className="text-lg font-black text-indigo-400 mt-0.5 block">{formatNumber(p.targetAmount)} USDC</span>
-                        </div>
-                      </div>
+                {/* Stat 3: Yield */}
+                <div className="bg-[#181A20] border border-[#252A33] p-5 rounded-xl space-y-1">
+                  <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider">{t.lenderYield}</span>
+                  <p className="text-lg font-black text-teal-400 mt-1.5">%5.00</p>
+                </div>
 
-                      {/* Funding Progress Bar (Only visible if Pending/Active) */}
-                      {(p.status === "Pending" || p.status === "Active") && (
-                        <div className="space-y-1.5 bg-slate-950/40 p-4 border border-slate-900/60 rounded-xl">
-                          <div className="flex justify-between text-xs font-bold">
-                            <span className="text-slate-400">{t.funded}: {formatNumber(p.fundedAmount)} / {formatNumber(p.targetAmount)} USDC</span>
-                            <span className="text-indigo-400">{Math.round((p.fundedAmount / p.targetAmount) * 100)}%</span>
-                          </div>
-                          <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-indigo-500 to-teal-400 transition-all duration-500"
-                              style={{ width: `${(p.fundedAmount / p.targetAmount) * 100}%` }}
-                            />
-                          </div>
-
-                          {/* Lender Actions when Pending */}
-                          {p.status === "Pending" && (
-                            <div className="flex justify-between items-center pt-2.5">
-                              <span className="text-3xs text-amber-400/90 font-medium">⚠️ {lang === "tr" ? "Yatırımcıların bütçeyi doldurması bekleniyor." : "Awaiting lender funding target."}</span>
-                              <div className="flex gap-2">
-                                <button 
-                                  onClick={() => fundProject(p.id, 5000)}
-                                  className="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold px-3 py-1.5 rounded-lg text-2xs transition"
-                                >
-                                  +5.000 USDC
-                                </button>
-                                <button 
-                                  onClick={() => fundProject(p.id, p.targetAmount - p.fundedAmount)}
-                                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-4.5 py-1.5 rounded-lg text-2xs transition shadow-md shadow-indigo-600/10"
-                                >
-                                  {t.fillTarget}
-                                </button>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Milestone execution tree map */}
-                      <div className="space-y-3">
-                        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                          <span>📦</span> {t.milestoneExecution}
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {p.milestones.map(m => (
-                            <div key={m.id} className="bg-slate-950/80 border border-slate-900 rounded-xl p-4 space-y-3 flex flex-col justify-between">
-                              <div className="space-y-1.5">
-                                <div className="flex justify-between items-center">
-                                  <span className="font-extrabold text-2xs text-indigo-400"># {m.id}</span>
-                                  <span className={`text-3xs px-2 py-0.5 rounded-full font-bold ${
-                                    m.status === "Approved" ? "bg-emerald-500/10 text-emerald-400" :
-                                    m.status === "ProofSubmitted" ? "bg-blue-500/10 text-blue-400 animate-pulse" :
-                                    m.status === "Rejected" ? "bg-red-500/10 text-red-400" :
-                                    "bg-slate-900 text-slate-500"
-                                  }`}>
-                                    {m.status === "Approved" ? (lang === "tr" ? "Onaylandı" : "Approved") :
-                                     m.status === "ProofSubmitted" ? (lang === "tr" ? "Kanıt Sunuldu" : "Proof Submitted") :
-                                     m.status === "Rejected" ? (lang === "tr" ? "Reddedildi" : "Rejected") :
-                                     (lang === "tr" ? "Bekliyor" : "Pending")}
-                                  </span>
-                                </div>
-                                <p className="text-xs font-semibold text-slate-200 line-clamp-2 leading-relaxed">{m.description}</p>
-                              </div>
-
-                              <div className="space-y-2.5 pt-2 border-t border-slate-900/60">
-                                <div className="flex justify-between text-3xs text-slate-500 font-medium">
-                                  <span>Vade: {m.deadline}h</span>
-                                  <span className="font-bold text-slate-400">{formatNumber(m.amountToRelease)} USDC</span>
-                                </div>
-
-                                {/* Actions on Milestone (Supplier/Validator roles) */}
-                                {p.status === "Active" && (
-                                  <div className="pt-1">
-                                    {m.status === "Pending" && (
-                                      <button
-                                        onClick={() => submitProof(p.id, m.id)}
-                                        className="w-full bg-indigo-600/10 hover:bg-indigo-600/30 text-indigo-400 font-bold py-2 rounded-lg text-3xs transition border border-indigo-500/20"
-                                      >
-                                        {t.submitProof}
-                                      </button>
-                                    )}
-                                    {m.status === "ProofSubmitted" && (
-                                      <div className="flex gap-1.5">
-                                        <button
-                                          onClick={() => approveMilestone(p.id, m.id, false)}
-                                          className="flex-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold py-1.5 rounded-lg text-3xs transition border border-red-500/10"
-                                        >
-                                          {t.rejectBtn}
-                                        </button>
-                                        <button
-                                          onClick={() => approveMilestone(p.id, m.id, true)}
-                                          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 rounded-lg text-3xs transition shadow-sm"
-                                        >
-                                          {t.approveBtn}
-                                        </button>
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Repayment and default options */}
-                      {p.status === "Active" && (
-                        <div className="bg-slate-950/80 border border-slate-900 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
-                          <div>
-                            <span className="text-slate-500 font-bold uppercase tracking-wider text-3xs block">{t.repaymentObligation}</span>
-                            <span className="text-slate-200 font-extrabold mt-1 block">{formatNumber(p.targetAmount * 1.05)} USDC</span>
-                          </div>
-
-                          <div className="flex gap-2 w-full md:w-auto">
-                            {allApproved ? (
-                              <button 
-                                onClick={() => buyerRepay(p.id)}
-                                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-black px-5 py-2.5 rounded-xl text-xs transition shadow-md shadow-emerald-500/10 w-full md:w-auto"
-                              >
-                                {t.confirmRepay}
-                              </button>
-                            ) : (
-                              <div className="text-3xs text-amber-400 bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/20 font-medium">
-                                🔒 {t.repayNote}
-                              </div>
-                            )}
-
-                            {hasMissedDeadline && (
-                              <button 
-                                onClick={() => triggerDefault(p.id)}
-                                className="bg-red-600 hover:bg-red-700 text-white font-black px-5 py-2.5 rounded-xl text-xs transition shadow-md shadow-red-600/10 w-full md:w-auto"
-                              >
-                                {t.triggerLiq}
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {p.status === "Completed" && (
-                        <div className="bg-emerald-500/5 border border-emerald-500/10 p-4 rounded-xl text-xs text-emerald-400/90 font-medium leading-relaxed">
-                          🎉 <strong>{lang === "tr" ? "Başarıyla Sonuçlandırıldı." : "Trade Completed."}</strong> {t.settlementFinalized}
-                        </div>
-                      )}
-
-                      {p.status === "Liquidated" && (
-                        <div className="bg-red-500/5 border border-red-500/10 p-4 rounded-xl text-xs text-red-400/90 font-medium leading-relaxed">
-                          🚨 <strong>{lang === "tr" ? "Temerrüt Durumu." : "Project Defaulted."}</strong> {t.projectDefaulted}
-                        </div>
-                      )}
-
-                    </div>
-                  );
-                })}
               </div>
-            )}
 
-            {/* Tab: Create Finance Pipeline */}
-            {activeTab === "create" && (
-              <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-6 space-y-6">
-                <div>
-                  <h3 className="text-md font-extrabold text-slate-200">{t.createTitle}</h3>
-                  <p className="text-xs text-slate-400 mt-1">{t.createDesc}</p>
-                </div>
-
-                <form onSubmit={handleCreateProject} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-400">{t.tradeTitle}</label>
-                      <input 
-                        type="text" 
-                        value={newProjName}
-                        onChange={(e) => setNewProjName(e.target.value)}
-                        placeholder={lang === "tr" ? "örn. Kakao Çekirdeği Sevkiyatı #4" : "e.g. Cocoa Bean Export #4"}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 text-slate-200"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-400">{t.capitalTarget} (USDC)</label>
-                      <input 
-                        type="number" 
-                        value={newProjTarget}
-                        onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 text-slate-200"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-400">{t.supplierAddr}</label>
-                      <input 
-                        type="text" 
-                        value={newProjSupplier}
-                        onChange={(e) => setNewProjSupplier(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs outline-none focus:border-indigo-500 text-slate-400"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-400">{t.buyerAddr}</label>
-                      <input 
-                        type="text" 
-                        value={newProjBuyer}
-                        onChange={(e) => setNewProjBuyer(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs outline-none focus:border-indigo-500 text-slate-400"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Milestone breakdown editor */}
-                  <div className="space-y-3.5 pt-2 border-t border-slate-900">
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.milestoneBreakdown}</h4>
-                    {newProjMilestones.map((m, index) => (
-                      <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-950/60 p-4 border border-slate-900 rounded-xl">
-                        <div className="space-y-1">
-                          <label className="text-3xs text-slate-500 font-bold">{t.milestoneDesc}</label>
-                          <input 
-                            type="text" 
-                            value={m.description}
-                            onChange={(e) => {
-                              const updated = [...newProjMilestones];
-                              updated[index].description = e.target.value;
-                              setNewProjMilestones(updated);
-                            }}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs outline-none text-slate-300"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-3xs text-slate-500 font-bold">{t.hoursToDeadline}</label>
-                          <input 
-                            type="number" 
-                            value={m.deadline}
-                            onChange={(e) => {
-                              const updated = [...newProjMilestones];
-                              updated[index].deadline = Number(e.target.value);
-                              setNewProjMilestones(updated);
-                            }}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs outline-none text-slate-300"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-3xs text-slate-500 font-bold">{t.amountToRelease} (USDC)</label>
-                          <input 
-                            type="number" 
-                            value={m.amountToRelease}
-                            onChange={(e) => {
-                              const updated = [...newProjMilestones];
-                              updated[index].amountToRelease = Number(e.target.value);
-                              setNewProjMilestones(updated);
-                            }}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs outline-none text-slate-300"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-slate-900/60">
-                    <div className="text-2xs text-amber-400 bg-amber-500/5 p-3 rounded-lg border border-amber-500/20 max-w-md font-medium">
-                      ⚠️ {t.collateralNote.replace("{amount}", formatNumber(newProjTarget / 2))}
-                    </div>
-                    <button 
-                      type="submit"
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-500/20 w-full md:w-auto"
+              {/* Milestones progression */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneProgress}</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {currentProject.milestones.map((m, index) => (
+                    <div 
+                      key={m.id} 
+                      className={`p-5 rounded-xl border flex flex-col justify-between gap-4 transition ${
+                        m.status === "Approved" ? "bg-teal-950/15 border-teal-900/60 text-[#A3E635]/80" :
+                        m.status === "ProofSubmitted" ? "bg-[#30210A]/20 border-[#5A4010] text-[#FBBF24]/80 animate-pulse" :
+                        m.status === "Rejected" ? "bg-red-950/20 border-red-900/60" :
+                        "bg-[#14161A]/40 border-[#22272E]"
+                      }`}
                     >
-                      {t.deployBtn}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="inline-flex items-center gap-1 text-3xs font-extrabold uppercase tracking-wider">
+                            {m.status === "Approved" && (
+                              <>
+                                <svg className="w-3.5 h-3.5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span className="text-teal-400">{lang === "tr" ? "Onaylandı" : "Approved"}</span>
+                              </>
+                            )}
+                            {m.status === "ProofSubmitted" && (
+                              <>
+                                <svg className="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span className="text-amber-500">{lang === "tr" ? "Kanıt sunuldu" : "Proof submitted"}</span>
+                              </>
+                            )}
+                            {m.status === "Pending" && (
+                              <>
+                                <svg className="w-3.5 h-3.5 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+                                <span className="text-[#8E97A4]">{lang === "tr" ? "Bekliyor" : "Pending"}</span>
+                              </>
+                            )}
+                            {m.status === "Rejected" && (
+                              <span className="text-red-400">{lang === "tr" ? "Reddedildi" : "Rejected"}</span>
+                            )}
+                          </span>
+                          <span className="text-3xs text-[#8E97A4] font-bold"># {m.id}</span>
+                        </div>
+                        <h4 className="text-xs font-bold text-white leading-snug">{m.description}</h4>
+                      </div>
 
-          </div>
+                      <div className="pt-2 border-t border-[#262B34]/60 space-y-3">
+                        <div className="flex justify-between text-3xs text-[#8E97A4] font-bold">
+                          <span>Vade: {m.deadline}h</span>
+                          <span className="text-white">{formatNumber(m.amountToRelease)} USDC</span>
+                        </div>
 
-          {/* Right Side: On-Chain Event Logger */}
-          <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-6 flex flex-col h-[550px] relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-slate-900 to-transparent pointer-events-none z-10" />
-            
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
-                {t.onChainLogs}
-              </h3>
-              <button 
-                onClick={() => setEventLogs([])}
-                className="text-3xs text-slate-500 hover:text-slate-300 uppercase tracking-wider font-bold"
-              >
-                {t.clear}
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto space-y-3.5 pr-2 scrollbar-thin scrollbar-thumb-slate-800">
-              {eventLogs.length === 0 ? (
-                <div className="text-slate-600 text-xs italic text-center pt-24">No events logged yet.</div>
-              ) : (
-                eventLogs.map((log, index) => (
-                  <div key={index} className="text-2xs bg-slate-950/40 border border-slate-900/60 p-3 rounded-xl space-y-1">
-                    <div className="flex justify-between items-center">
-                      <span className="text-slate-500 font-semibold">{log.timestamp}</span>
-                      <span className={`h-1.5 w-1.5 rounded-full ${
-                        log.type === "success" ? "bg-emerald-400" :
-                        log.type === "warning" ? "bg-amber-400" :
-                        log.type === "error" ? "bg-red-400" :
-                        "bg-indigo-400"
-                      }`} />
+                        {/* Milestone action triggers based on active role */}
+                        {currentProject.status === "Active" && (
+                          <div className="pt-1">
+                            {m.status === "Pending" && (
+                              <button
+                                onClick={() => submitProof(currentProject.id, m.id)}
+                                className="w-full bg-[#1F2228] hover:bg-[#2C313B] border border-[#373F4F] text-[#E2E8F0] py-2 rounded-lg text-3xs font-extrabold transition"
+                              >
+                                {t.submitProof}
+                              </button>
+                            )}
+                            {m.status === "ProofSubmitted" && (
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => approveMilestone(currentProject.id, m.id, false)}
+                                  className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-1.5 rounded-lg text-3xs font-bold transition"
+                                >
+                                  {t.rejectBtn}
+                                </button>
+                                <button
+                                  onClick={() => approveMilestone(currentProject.id, m.id, true)}
+                                  className="flex-1 bg-teal-600 hover:bg-teal-500 text-[#111215] py-1.5 rounded-lg text-3xs font-extrabold transition shadow-sm"
+                                >
+                                  {t.approveBtn}
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-slate-300 leading-normal">{log.message}</p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Settlement and Liquidations */}
+              {currentProject.status === "Active" && (
+                <div className="border-t border-[#242930] pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div>
+                    <span className="text-3xs text-[#8E97A4] font-black uppercase tracking-wider block">{t.repaymentObligation}</span>
+                    <span className="text-lg font-bold text-white mt-1 block">{formatNumber(currentProject.targetAmount * 1.05)} USDC</span>
                   </div>
-                ))
+
+                  <div className="flex gap-3 w-full md:w-auto">
+                    {allApproved ? (
+                      <button 
+                        onClick={() => buyerRepay(currentProject.id)}
+                        className="bg-teal-600 hover:bg-teal-500 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                      >
+                        {t.confirmRepay}
+                      </button>
+                    ) : (
+                      <div className="text-3xs text-[#8E97A4] bg-[#14161A] p-2.5 rounded-lg border border-[#22272E] font-medium max-w-xs">
+                        🔒 {t.repayNote}
+                      </div>
+                    )}
+
+                    {hasMissedDeadline && (
+                      <button 
+                        onClick={() => triggerDefault(currentProject.id)}
+                        className="bg-red-700 hover:bg-red-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                      >
+                        {t.triggerLiq}
+                      </button>
+                    )}
+                  </div>
+                </div>
               )}
+
+              {/* End status cards */}
+              {currentProject.status === "Completed" && (
+                <div className="bg-teal-950/10 border border-teal-900/60 p-4.5 rounded-xl text-xs text-teal-400 font-medium">
+                  🎉 {t.settledSuccess}
+                </div>
+              )}
+              {currentProject.status === "Liquidated" && (
+                <div className="bg-red-950/15 border border-red-900/60 p-4.5 rounded-xl text-xs text-red-400 font-medium">
+                  ⚠️ {t.defaultedWarning}
+                </div>
+              )}
+
+              {/* Verified Trust Footer */}
+              <div className="border-t border-[#242930]/60 pt-4 flex items-center gap-2 text-3xs text-[#8E97A4] font-medium">
+                <svg className="w-3.5 h-3.5 text-[#5F6774]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                {t.trustFooter}
+              </div>
+
             </div>
-          </div>
+          ) : (
+            
+            // Tab: Create Finance Pipeline
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-6">
+              <div>
+                <h3 className="text-md font-bold text-white">{t.createTitle}</h3>
+                <p className="text-xs text-[#8E97A4] mt-1">{t.createDesc}</p>
+              </div>
+
+              <form onSubmit={handleCreateProject} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.tradeTitle}</label>
+                    <input 
+                      type="text" 
+                      value={newProjName}
+                      onChange={(e) => setNewProjName(e.target.value)}
+                      placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.originPortLabel}</label>
+                    <input 
+                      type="text" 
+                      value={newProjOrigin}
+                      onChange={(e) => setNewProjOrigin(e.target.value)}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.destPortLabel}</label>
+                    <input 
+                      type="text" 
+                      value={newProjDest}
+                      onChange={(e) => setNewProjDest(e.target.value)}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.fundingTarget}</label>
+                    <input 
+                      type="number" 
+                      value={newProjTarget}
+                      onChange={(e) => setNewProjTarget(Number(e.target.value))}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.supplierAddr}</label>
+                    <input 
+                      type="text" 
+                      value={newProjSupplier}
+                      onChange={(e) => setNewProjSupplier(e.target.value)}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#8E97A4]">{t.buyerAddr}</label>
+                    <input 
+                      type="text" 
+                      value={newProjBuyer}
+                      onChange={(e) => setNewProjBuyer(e.target.value)}
+                      className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                    />
+                  </div>
+                </div>
+
+                {/* Milestone Builder */}
+                <div className="space-y-4 pt-3 border-t border-[#242930]">
+                  <h4 className="text-xs font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
+                  
+                  {newProjMilestones.map((m, index) => (
+                    <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#14161A]/50 p-4 border border-[#22272E] rounded-xl">
+                      <div className="space-y-1">
+                        <label className="text-3xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
+                        <input 
+                          type="text" 
+                          value={m.description}
+                          onChange={(e) => {
+                            const updated = [...newProjMilestones];
+                            updated[index].description = e.target.value;
+                            setNewProjMilestones(updated);
+                          }}
+                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-3xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
+                        <input 
+                          type="number" 
+                          value={m.deadline}
+                          onChange={(e) => {
+                            const updated = [...newProjMilestones];
+                            updated[index].deadline = Number(e.target.value);
+                            setNewProjMilestones(updated);
+                          }}
+                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-3xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
+                        <input 
+                          type="number" 
+                          value={m.amountToRelease}
+                          onChange={(e) => {
+                            const updated = [...newProjMilestones];
+                            updated[index].amountToRelease = Number(e.target.value);
+                            setNewProjMilestones(updated);
+                          }}
+                          className="w-full bg-[#14161A] border border-[#2B313A] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
+                  <div className="text-3xs text-amber-500 bg-amber-500/5 p-3 rounded-lg border border-amber-500/10 max-w-md font-medium leading-relaxed">
+                    ⚠️ {t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}
+                  </div>
+                  <button 
+                    type="submit"
+                    className="bg-teal-600 hover:bg-teal-500 text-[#111215] font-extrabold px-6 py-3 rounded-xl text-xs transition w-full md:w-auto shadow-md"
+                  >
+                    {t.submitContract}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
 
         </div>
 
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 p-6 text-center text-xs text-slate-500">
-        {t.footer}
-      </footer>
+      {/* Floating collapsible Simulation Drawer at bottom-right */}
+      <div className="fixed bottom-6 right-6 z-50 max-w-sm w-full">
+        {showSimPanel ? (
+          <div className="bg-[#1C1E24] border border-[#2B313A] rounded-2xl p-5 shadow-2xl space-y-4">
+            <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
+              <h3 className="text-xs font-bold text-white flex items-center gap-2">
+                ⚙️ {t.simulationPanel}
+              </h3>
+              <button 
+                onClick={() => setShowSimPanel(false)}
+                className="text-3xs text-[#8E97A4] hover:text-white font-black"
+              >
+                [ Hide ]
+              </button>
+            </div>
+
+            {/* Time Simulator */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="text-3xs">
+                <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
+                <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
+              </div>
+              <button 
+                onClick={() => fastForwardTime(24)}
+                className="text-3xs bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
+              >
+                +24 {t.hours}
+              </button>
+            </div>
+
+            {/* Auto Demo trigger */}
+            <button
+              onClick={runAutoDemo}
+              disabled={demoActive}
+              className={`w-full text-xs font-black py-2.5 rounded-xl border transition ${
+                demoActive
+                  ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
+                  : "bg-teal-600/10 hover:bg-teal-600 text-teal-400 hover:text-[#111215] border-teal-500/20"
+              }`}
+            >
+              {demoActive ? t.demoRunning : t.startDemo}
+            </button>
+
+            {/* Role Switcher */}
+            <div className="space-y-1.5">
+              <label className="text-3xs text-[#8E97A4] font-bold block">{t.roleSelector}</label>
+              <select
+                value={userRole}
+                onChange={(e) => setUserRole(e.target.value as any)}
+                className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-3xs text-white p-2 outline-none focus:border-teal-500 font-medium"
+              >
+                <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
+                <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
+                <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Buyer)" : "Buyer"}</option>
+                <option value="Validator">{userRole === "Validator" ? "Denetçi (Validator)" : "Validator"}</option>
+              </select>
+            </div>
+
+            {/* Interactive log viewer */}
+            <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-36 flex flex-col relative overflow-hidden">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-4xs font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
+                <button onClick={() => setEventLogs([])} className="text-4xs text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+              </div>
+              <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
+                {eventLogs.map((log, i) => (
+                  <div key={i} className="text-4xs bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{log.timestamp}</span>
+                      <span className={`h-1 w-1 rounded-full ${log.type === "success" ? "bg-teal-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
+                    </div>
+                    <p className="text-slate-300 leading-normal">{log.message}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        ) : (
+          <button 
+            onClick={() => setShowSimPanel(true)}
+            className="ml-auto bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] rounded-full h-11 w-11 flex items-center justify-center shadow-2xl text-md text-white transition"
+          >
+            ⚙️
+          </button>
+        )}
+      </div>
+
     </div>
   );
 }
