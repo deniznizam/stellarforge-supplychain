@@ -1552,6 +1552,214 @@ export default function Home() {
               </div>
             </div>
 
+            {/* User Profile Panel ("Profilim") */}
+            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl space-y-4 shadow-md transition-all duration-300">
+              <div className="flex justify-between items-center border-b border-[#1E2128] pb-2.5">
+                <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
+                  <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  {lang === "tr" ? "Profilim" : "My Profile"}
+                </h3>
+                <span className="flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
+                    {lang === "tr" ? "Bağlı" : "Connected"}
+                  </span>
+                </span>
+              </div>
+
+              {/* Profile Details */}
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2 text-[11px] border-b border-[#1E2128]/50 pb-2">
+                  <div>
+                    <span className="text-[#5F6774] block uppercase font-bold tracking-wider">
+                      {lang === "tr" ? "İSİM SOYİSİM" : "FULL NAME"}
+                    </span>
+                    <span className="text-white font-extrabold block mt-0.5">
+                      {userRole === "Lender" && (lang === "tr" ? "Ahmet Yılmaz" : "John Lender")}
+                      {userRole === "Supplier" && (lang === "tr" ? "Mehmet Demir" : "Alpha Cargo Ltd.")}
+                      {userRole === "Buyer" && (lang === "tr" ? "Zeynep Kaya" : "Nestle HQ Rep")}
+                      {userRole === "Validator" && (lang === "tr" ? "Dr. Ayşe Çelik" : "Stellar Swiss Oracle")}
+                      {userRole !== "Lender" && userRole !== "Supplier" && userRole !== "Buyer" && userRole !== "Validator" && "Stellar Sandbox"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[#5F6774] block uppercase font-bold tracking-wider">
+                      {lang === "tr" ? "AKTİF ROL" : "ACTIVE ROLE"}
+                    </span>
+                    <span className="text-orange-400 font-extrabold block mt-0.5 uppercase">
+                      {getRoleTranslation(userRole, lang)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Role specific metrics */}
+                <div className="space-y-1.5">
+                  <span className="text-[#5F6774] text-[10px] block uppercase font-bold tracking-wider">
+                    {lang === "tr" ? "PERFORMANS VE METRİKLER" : "PERFORMANCE METRICS"}
+                  </span>
+                  <div className="bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 grid grid-cols-2 gap-2 text-[11px]">
+                    {userRole === "Lender" && (
+                      <>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Portföy Hacmi" : "Active Portfolio"}</span>
+                          <span className="text-white font-bold block mt-0.5">${formatNumber(myInvestmentVal)}</span>
+                        </div>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Beklenen Getiri" : "Expected Yield"}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">+${formatNumber(expectedYieldVal)}</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Supplier" && (
+                      <>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Kilitli Teminat" : "Locked Deposit"}</span>
+                          <span className="text-white font-bold block mt-0.5">$10,000</span>
+                        </div>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Hakediş" : "Released Payouts"}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">$8,000</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Buyer" && (
+                      <>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Siparişler" : "Orders"}</span>
+                          <span className="text-white font-bold block mt-0.5">2 {lang === "tr" ? "Adet" : "Units"}</span>
+                        </div>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Ödeme Taahhüdü" : "Commitment"}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">$10,000</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Validator" && (
+                      <>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Doğrulanan Kanıt" : "Approved Proofs"}</span>
+                          <span className="text-white font-bold block mt-0.5">6 IPFS</span>
+                        </div>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Güven Skoru" : "Reputation Score"}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">99.8%</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole !== "Lender" && userRole !== "Supplier" && userRole !== "Buyer" && userRole !== "Validator" && (
+                      <>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Rol Durumu" : "Role Status"}</span>
+                          <span className="text-white font-bold block mt-0.5">Active</span>
+                        </div>
+                        <div>
+                          <span className="text-[#5F6774] block">{lang === "tr" ? "Ağ İtibarı" : "Reputation"}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">High</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Last 3 Transactions */}
+                <div className="space-y-1.5 pt-1">
+                  <span className="text-[#5F6774] text-[10px] block uppercase font-bold tracking-wider">
+                    {lang === "tr" ? "SON 3 İŞLEM (STELLAR LEDGER)" : "RECENT ACTIVITY (STELLAR LEDGER)"}
+                  </span>
+                  <div className="space-y-1.5 text-[10px]">
+                    {userRole === "Lender" && (
+                      <>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_82f1...7a8b</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Teminat Yatırma" : "Deposit Funds"}</span>
+                          <span className="text-emerald-400 font-bold">+$3,000</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_12a9...f49b</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Sözleşme Fonlama" : "Fund Contract"}</span>
+                          <span className="text-emerald-400 font-bold">+$3,500</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_49c3...901c</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Bekleyen Yatırım" : "Escrow Yield"}</span>
+                          <span className="text-amber-400 font-bold">Pending</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Supplier" && (
+                      <>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_a8d2...901c</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Teminat Kilitleme" : "Lock Collateral"}</span>
+                          <span className="text-emerald-400 font-bold">$10,000</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_f49b...b77c</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Kanıt Yükleme (IPFS)" : "Submit IPFS Proof"}</span>
+                          <span className="text-emerald-400 font-bold">Success</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_901c...c22a</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Aşama Hakedişi" : "Escrow Release"}</span>
+                          <span className="text-emerald-400 font-bold">+$8,000</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Buyer" && (
+                      <>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_b77c...d8c4</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Sipariş Onayı" : "Confirm Order"}</span>
+                          <span className="text-emerald-400 font-bold">Success</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_c22a...e32f</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Geri Ödeme Taahhüdü" : "Repay Invoice"}</span>
+                          <span className="text-amber-400 font-bold">Pending</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_8812...0192</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Sözleşme Kapatma" : "Settle Deal"}</span>
+                          <span className="text-[#5F6774]">Scheduled</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole === "Validator" && (
+                      <>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_d8c4...901c</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Kanıt Doğrulama" : "Verify Shipment"}</span>
+                          <span className="text-emerald-400 font-bold">Success</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_e32f...f49b</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Oracle İmza Onayı" : "Oracle Signature"}</span>
+                          <span className="text-emerald-400 font-bold">Success</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_1029...7a8b</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Ağ Raporlaması" : "Network Report"}</span>
+                          <span className="text-[#5F6774]">Completed</span>
+                        </div>
+                      </>
+                    )}
+                    {userRole !== "Lender" && userRole !== "Supplier" && userRole !== "Buyer" && userRole !== "Validator" && (
+                      <>
+                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                          <span className="text-slate-400 font-mono">tx_0000...0000</span>
+                          <span className="text-[#8E97A4]">{lang === "tr" ? "Hazır Simülasyon" : "Mock Ready"}</span>
+                          <span className="text-[#5F6774]">Idle</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Developer controls panel */}
             {showSimPanel ? (
               <div className={`bg-[#13151A] border p-5 shadow-md space-y-4 rounded-xl transition-all duration-300 ${
