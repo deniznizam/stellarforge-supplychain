@@ -542,8 +542,13 @@ export default function Home() {
       {/* Top Header */}
       <header className="border-b border-[#242930] bg-[#111215] px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-lg bg-teal-600 flex items-center justify-center shadow-md">
-            <span className="font-black text-sm text-[#111215]">SF</span>
+          <div className="h-9 w-9 rounded-lg bg-teal-600 flex items-center justify-center shadow-md text-[#111215]">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 18h18v2H3v-2z" />
+              <path d="M2 10c3 0 4.5 1.5 5 3.5h10c.5-2 2-3.5 5-3.5v-2H2v2z" />
+              <path d="M8 13.5h8v4.5H8v-4.5z" />
+              <path d="M12 2l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" fill="#E2E8F0" />
+            </svg>
           </div>
           <div>
             <h1 className="text-md font-bold tracking-tight text-white">{t.title}</h1>
@@ -646,8 +651,8 @@ export default function Home() {
           </aside>
         )}
 
-        {/* Center/Main workspace (Lg: col-span-3 when side selector is active) */}
-        <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-3" : "lg:col-span-4"}`}>
+        {/* Center/Main workspace (Lg: col-span-2 when side selector is active) */}
+        <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-2" : "lg:col-span-3"}`}>
           
           {activeTab === "pipelines" ? (
             <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-8 relative">
@@ -683,35 +688,36 @@ export default function Home() {
                 />
 
                 {/* Dispatch Point */}
-                <div className="absolute left-[10%] -translate-x-1/2 flex flex-col items-center gap-1">
-                  <div className="h-4 w-4 rounded-full bg-teal-600 border-4 border-[#14161A]" />
-                  <span className="text-[10px] font-bold text-[#8E97A4] mt-1">{currentProject.originPort.split(" ")[0]}</span>
+                <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
+                  <div className="h-3.5 w-3.5 rounded-full bg-teal-600 border-2 border-[#14161A] shadow" />
+                  <span className="text-[10px] font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.originPort.split(" ")[0]}</span>
                 </div>
 
                 {/* Current Position / Vessel */}
                 <div 
-                  className="absolute z-20 flex flex-col items-center gap-1 transition-all duration-700 -translate-x-1/2"
+                  className="absolute z-20 flex flex-col items-center transition-all duration-700 -translate-x-1/2"
                   style={{ 
                     left: currentProject.status === "Completed" ? "90%" :
                           currentProject.status === "Liquidated" ? "30%" :
-                          currentProject.status === "Pending" ? "10%" : "50%"
+                          currentProject.status === "Pending" ? "10%" : "50%",
+                    top: "8px"
                   }}
                 >
-                  <div className="h-8 w-8 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
-                  </div>
-                  <span className="text-[9px] font-black uppercase text-amber-500 tracking-wider">
+                  <span className="text-[9px] font-black uppercase text-amber-500 tracking-wider mb-1 block whitespace-nowrap">
                     {currentProject.status === "Active" ? t.atSea : 
                      currentProject.status === "Pending" ? (lang === "tr" ? "Limanda" : "Port loading") :
                      currentProject.status === "Completed" ? (lang === "tr" ? "Teslim Edildi" : "Delivered") :
                      (lang === "tr" ? "Temerrüt" : "Breached")}
                   </span>
+                  <div className="h-8 w-8 rounded-full bg-amber-500 text-[#111215] flex items-center justify-center border-4 border-[#14161A] shadow-md">
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6"/></svg>
+                  </div>
                 </div>
 
                 {/* Destination Point */}
-                <div className="absolute left-[90%] -translate-x-1/2 flex flex-col items-center gap-1">
-                  <div className={`h-4 w-4 rounded-full border-4 border-[#14161A] ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
-                  <span className="text-[10px] font-bold text-[#8E97A4] mt-1">{currentProject.destPort.split(" ")[0]}</span>
+                <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
+                  <div className={`h-3.5 w-3.5 rounded-full border-2 border-[#14161A] shadow ${currentProject.status === "Completed" ? "bg-teal-600" : "bg-[#2D333F]"}`} />
+                  <span className="text-[10px] font-bold text-[#8E97A4] mt-5 whitespace-nowrap">{currentProject.destPort.split(" ")[0]}</span>
                 </div>
               </div>
 
@@ -1033,95 +1039,95 @@ export default function Home() {
 
         </div>
 
-      </main>
-
-      {/* Floating collapsible Simulation Drawer at bottom-right */}
-      <div className="fixed bottom-6 right-6 z-50 max-w-sm w-full">
-        {showSimPanel ? (
-          <div className="bg-[#1C1E24] border border-[#2B313A] rounded-2xl p-5 shadow-2xl space-y-4">
-            <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
-              <h3 className="text-xs font-bold text-white flex items-center gap-2">
-                ⚙️ {t.simulationPanel}
-              </h3>
-              <button 
-                onClick={() => setShowSimPanel(false)}
-                className="text-[9px] text-[#8E97A4] hover:text-white font-black"
-              >
-                [ Hide ]
-              </button>
-            </div>
-
-            {/* Time Simulator */}
-            <div className="flex justify-between items-center gap-3">
-              <div className="text-[9px]">
-                <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
-                <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
+        {/* Right Column: Simulation Controls & Logs */}
+        <aside className="lg:col-span-1 space-y-4">
+          {showSimPanel ? (
+            <div className="bg-[#1C1E24] border border-[#2B313A] rounded-2xl p-5 shadow-md space-y-4">
+              <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
+                <h3 className="text-xs font-bold text-white flex items-center gap-2">
+                  ⚙️ {t.simulationPanel}
+                </h3>
+                <button 
+                  onClick={() => setShowSimPanel(false)}
+                  className="text-[9px] text-[#8E97A4] hover:text-white font-black"
+                >
+                  [ Hide ]
+                </button>
               </div>
-              <button 
-                onClick={() => fastForwardTime(24)}
-                className="text-[9px] bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
-              >
-                +24 {t.hours}
-              </button>
-            </div>
 
-            {/* Auto Demo trigger */}
-            <button
-              onClick={runAutoDemo}
-              disabled={demoActive}
-              className={`w-full text-xs font-black py-2.5 rounded-xl border transition ${
-                demoActive
-                  ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
-                  : "bg-teal-600/10 hover:bg-teal-600 text-teal-400 hover:text-[#111215] border-teal-500/20"
-              }`}
-            >
-              {demoActive ? t.demoRunning : t.startDemo}
-            </button>
-
-            {/* Role Switcher */}
-            <div className="space-y-1.5">
-              <label className="text-[9px] text-[#8E97A4] font-bold block">{t.roleSelector}</label>
-              <select
-                value={userRole}
-                onChange={(e) => setUserRole(e.target.value as any)}
-                className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-[9px] text-white p-2 outline-none focus:border-teal-500 font-medium"
-              >
-                <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
-                <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
-                <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Buyer)" : "Buyer"}</option>
-                <option value="Validator">{userRole === "Validator" ? "Denetçi (Validator)" : "Validator"}</option>
-              </select>
-            </div>
-
-            {/* Interactive log viewer */}
-            <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-36 flex flex-col relative overflow-hidden">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[8px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
-                <button onClick={() => setEventLogs([])} className="text-[8px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+              {/* Time Simulator */}
+              <div className="flex justify-between items-center gap-3">
+                <div className="text-[9px]">
+                  <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
+                  <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
+                </div>
+                <button 
+                  onClick={() => fastForwardTime(24)}
+                  className="text-[9px] bg-[#242930] hover:bg-[#2D333F] border border-[#333B49] text-white font-bold py-1.5 px-3 rounded-lg transition"
+                >
+                  +24 {t.hours}
+                </button>
               </div>
-              <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
-                {eventLogs.map((log, i) => (
-                  <div key={i} className="text-[8px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">{log.timestamp}</span>
-                      <span className={`h-1 w-1 rounded-full ${log.type === "success" ? "bg-teal-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
+
+              {/* Auto Demo trigger */}
+              <button
+                onClick={runAutoDemo}
+                disabled={demoActive}
+                className={`w-full text-xs font-black py-2.5 rounded-xl border transition ${
+                  demoActive
+                    ? "bg-[#14161A] text-slate-600 border-[#22272E] cursor-not-allowed"
+                    : "bg-teal-600/10 hover:bg-teal-600 text-teal-400 hover:text-[#111215] border-teal-500/20"
+                }`}
+              >
+                {demoActive ? t.demoRunning : t.startDemo}
+              </button>
+
+              {/* Role Switcher */}
+              <div className="space-y-1.5">
+                <label className="text-[9px] text-[#8E97A4] font-bold block">{t.roleSelector}</label>
+                <select
+                  value={userRole}
+                  onChange={(e) => setUserRole(e.target.value as any)}
+                  className="w-full bg-[#14161A] border border-[#2B313A] rounded-xl text-[9px] text-white p-2 outline-none focus:border-teal-500 font-medium"
+                >
+                  <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Supplier)" : "Supplier"}</option>
+                  <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Lender)" : "Lender"}</option>
+                  <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Buyer)" : "Buyer"}</option>
+                  <option value="Validator">{userRole === "Validator" ? "Denetçi (Validator)" : "Validator"}</option>
+                </select>
+              </div>
+
+              {/* Interactive log viewer */}
+              <div className="bg-[#14161A] border border-[#22272E] rounded-xl p-3.5 h-36 flex flex-col relative overflow-hidden">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-[8px] font-black text-[#8E97A4] uppercase tracking-wider">{t.onChainLogs}</span>
+                  <button onClick={() => setEventLogs([])} className="text-[8px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+                </div>
+                <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
+                  {eventLogs.map((log, i) => (
+                    <div key={i} className="text-[8px] bg-[#1C1E24]/60 p-2 rounded-lg space-y-0.5 border border-[#242930]">
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">{log.timestamp}</span>
+                        <span className={`h-1 w-1 rounded-full ${log.type === "success" ? "bg-teal-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
+                      </div>
+                      <p className="text-slate-300 leading-normal">{log.message}</p>
                     </div>
-                    <p className="text-slate-300 leading-normal">{log.message}</p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-          </div>
-        ) : (
-          <button 
-            onClick={() => setShowSimPanel(true)}
-            className="ml-auto bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] rounded-full h-11 w-11 flex items-center justify-center shadow-2xl text-md text-white transition"
-          >
-            ⚙️
-          </button>
-        )}
-      </div>
+            </div>
+          ) : (
+            <button 
+              onClick={() => setShowSimPanel(true)}
+              className="w-full bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] rounded-2xl p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm"
+            >
+              ⚙️ {t.simulationPanel} [ Show ]
+            </button>
+          )}
+        </aside>
+
+      </main>
 
     </div>
   );
