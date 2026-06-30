@@ -104,7 +104,20 @@ const translations = {
     milestoneExecution: "Milestone Progress Map",
     hours: "hrs",
     repaymentObligation: "Repayment Obligation (Principal + 5% Yield)",
-    createTitle: "Register Supply Trade"
+    createTitle: "Register Supply Trade",
+    guideTitle: "How StellarForge Works",
+    guideSubtitle: "Learn the mechanics of Milestone-Locked Reverse Factoring",
+    slide1Title: "1. Supplier Security Deposit",
+    slide1Desc: "The Supplier locks 50% of the target amount in the Vault as collateral. This protects Lenders in case of failure or default.",
+    slide2Title: "2. Lender Capital Crowdfund",
+    slide2Desc: "Lenders pool USDC to fund the Supplier's production budget, backed by the Buyer's ultimate obligation to pay.",
+    slide3Title: "3. Milestone-Based Payouts",
+    slide3Desc: "Funds are locked in Escrow. As the Supplier uploads shipping documents, Oracle nodes verify and release payouts stage-by-stage.",
+    slide4Title: "4. Buyer Repayment & Release",
+    slide4Desc: "Upon cargo arrival, the Buyer pays back the principal + 5% yield. Lenders are reimbursed, and the Supplier's collateral is fully unlocked.",
+    closeGuide: "Got it, go to Dashboard",
+    next: "Next",
+    prev: "Previous"
   },
   tr: {
     title: "StellarForge Finance",
@@ -174,7 +187,20 @@ const translations = {
     milestoneExecution: "Milestone İlerleme Haritası",
     hours: "saat",
     repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)",
-    createTitle: "Yeni Ticari Finansman Kaydı"
+    createTitle: "Yeni Ticari Finansman Kaydı",
+    guideTitle: "StellarForge Nasıl Çalışır?",
+    guideSubtitle: "Milestone Kilitli Ters Faktoring Mekanizmasını Keşfedin",
+    slide1Title: "1. Tedarikçi Teminat Blokesi",
+    slide1Desc: "Tedarikçi, bütçenin %50'sini güvence teminatı olarak Vault kasasına kilitler. Bu, olası bir temerrüt durumunda yatırımcıları korur.",
+    slide2Title: "2. Yatırımcı Sermaye Fonlaması",
+    slide2Desc: "Yatırımcılar, alıcı firmanın nihai geri ödeme taahhüdüne güvenerek tedarikçinin bütçesini fonlar.",
+    slide3Title: "3. Milestone Aşamalı Ödeme",
+    slide3Desc: "Sermaye Escrow'da kilitlenir. Tedarikçi sevkiyat belgelerini yükledikçe, bağımsız denetçiler (Oracle) onaylar ve fon adım adım serbest kalır.",
+    slide4Title: "4. Alıcı Geri Ödemesi ve İade",
+    slide4Desc: "Ürünler teslim edildiğinde alıcı anapara + %5 faiz öder. Yatırımcılar paralarını alır, tedarikçinin teminatı serbest bırakılır.",
+    closeGuide: "Anladım, Gösterge Paneline Git",
+    next: "İleri",
+    prev: "Geri"
   }
 };
 
@@ -192,6 +218,10 @@ export default function Home() {
   const [currentTime, setCurrentTime] = useState(0);
   const [demoActive, setDemoActive] = useState(false);
   const [showSimPanel, setShowSimPanel] = useState(true);
+
+  // Onboarding Guide Slide Deck state
+  const [showGuide, setShowGuide] = useState(true);
+  const [guideSlide, setGuideSlide] = useState(0);
 
   // Active Project Selection
   const [selectedProjectId, setSelectedProjectId] = useState<number>(1);
@@ -559,20 +589,28 @@ export default function Home() {
         {/* Global Nav Tabs */}
         <div className="flex bg-[#1D2128] border border-[#2B313A] rounded-lg p-0.5">
           <button
-            onClick={() => setActiveTab("pipelines")}
+            onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
             className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-              activeTab === "pipelines" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+              activeTab === "pipelines" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
             📊 {t.activePipelines}
           </button>
           <button
-            onClick={() => setActiveTab("create")}
+            onClick={() => { setActiveTab("create"); setShowGuide(false); }}
             className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-              activeTab === "create" ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
+              activeTab === "create" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
             ➕ {t.createNewPipeline}
+          </button>
+          <button
+            onClick={() => { setShowGuide(true); }}
+            className={`py-1.5 px-4 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+              showGuide ? "bg-[#2D343F] text-amber-400 shadow-sm" : "text-[#8E97A4] hover:text-white"
+            }`}
+          >
+            ❓ {lang === "tr" ? "Rehber" : "How it Works"}
           </button>
         </div>
 
@@ -654,7 +692,130 @@ export default function Home() {
         {/* Center/Main workspace (Lg: col-span-2 when side selector is active) */}
         <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-2" : "lg:col-span-3"}`}>
           
-          {activeTab === "pipelines" ? (
+          {showGuide ? (
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-8 space-y-8 relative min-h-[500px] flex flex-col justify-between transition-all duration-300">
+              
+              {/* Onboarding Header */}
+              <div className="space-y-2">
+                <span className="text-xs text-amber-500 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
+                <h2 className="text-2xl font-bold text-white tracking-tight">{t.guideTitle}</h2>
+                <p className="text-sm text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
+              </div>
+
+              {/* Progress Stepper Visual */}
+              <div className="grid grid-cols-4 gap-2 relative py-4">
+                <div className="absolute left-[12%] right-[12%] top-1/2 -translate-y-1/2 h-0.5 bg-[#2D333F]" />
+                
+                {[0, 1, 2, 3].map((step) => {
+                  const isActive = guideSlide === step;
+                  const isCompleted = guideSlide > step;
+                  return (
+                    <button
+                      key={step}
+                      onClick={() => setGuideSlide(step)}
+                      className="relative z-10 flex flex-col items-center gap-2 group"
+                    >
+                      <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 transition ${
+                        isActive ? "bg-amber-500 text-[#111215] border-amber-500 font-bold" :
+                        isCompleted ? "bg-[#1C1E24] text-amber-400 border-amber-500" :
+                        "bg-[#14161A] text-[#5F6774] border-[#2B313A] group-hover:border-[#373F4D]"
+                      }`}>
+                        {step + 1}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Slide Content Card */}
+              <div className="bg-[#14161A]/85 border border-[#22272E] p-6 rounded-2xl flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300">
+                {guideSlide === 0 && (
+                  <>
+                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3 18h18v2H3v-2z" />
+                      <path d="M2 10c3 0 4.5 1.5 5 3.5h10c.5-2 2-3.5 5-3.5v-2H2v2z" />
+                      <path d="M8 13.5h8v4.5H8v-4.5z" />
+                    </svg>
+                    <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
+                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
+                  </>
+                )}
+                {guideSlide === 1 && (
+                  <>
+                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" />
+                      <path d="M12 6v12" />
+                    </svg>
+                    <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
+                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
+                  </>
+                )}
+                {guideSlide === 2 && (
+                  <>
+                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                    <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
+                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
+                  </>
+                )}
+                {guideSlide === 3 && (
+                  <>
+                    <svg className="w-12 h-12 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
+                    <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
+                  </>
+                )}
+              </div>
+
+              {/* Slide Deck Actions */}
+              <div className="flex justify-between items-center pt-4 border-t border-[#242930]">
+                <button
+                  disabled={guideSlide === 0}
+                  onClick={() => setGuideSlide(prev => prev - 1)}
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                    guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-white"
+                  }`}
+                >
+                  ⬅️ {t.prev}
+                </button>
+
+                {/* Dot Indicators */}
+                <div className="flex gap-2">
+                  {[0, 1, 2, 3].map((step) => (
+                    <button 
+                      key={step} 
+                      onClick={() => setGuideSlide(step)}
+                      className={`h-2.5 rounded-full transition-all duration-300 ${
+                        guideSlide === step ? "bg-amber-500 w-5" : "bg-[#2D333F] w-2.5"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {guideSlide === 3 ? (
+                  <button
+                    onClick={() => setShowGuide(false)}
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-md"
+                  >
+                    🚀 {t.closeGuide}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setGuideSlide(prev => prev + 1)}
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-md"
+                  >
+                    {t.next} ➡️
+                  </button>
+                )}
+              </div>
+
+            </div>
+          ) : activeTab === "pipelines" ? (
             <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-6 md:p-8 space-y-8 relative">
               
               {/* Trust Signal / Oracle Badge */}
