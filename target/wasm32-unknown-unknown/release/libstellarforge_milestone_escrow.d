@@ -1,0 +1,1 @@
+C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\wasm32-unknown-unknown\release\libstellarforge_milestone_escrow.rlib: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\milestone_escrow\src\lib.rs

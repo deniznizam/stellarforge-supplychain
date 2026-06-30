@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "contracts/token",
+    "contracts/vault",
+    "contracts/oracle",
+    "contracts/milestone_escrow",
+]
+resolver = "2"
