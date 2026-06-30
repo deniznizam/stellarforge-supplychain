@@ -337,25 +337,42 @@ export default function Home() {
   };
 
   const connectWallet = async () => {
+    logEvent("info", lang === "tr" ? "Cüzdan bağlantısı başlatılıyor..." : "Initializing wallet connection...");
+    
+    // Set a safety timeout of 500ms. If Freighter doesn't respond, immediately use mock address.
+    let resolved = false;
+    const timeoutPromise = new Promise<string | null>((resolve) => setTimeout(() => resolve(null), 500));
+
     try {
-      const connected = await isConnected();
-      if (connected) {
-        const res = await getAddress();
-        if (res && res.address) {
-          setWalletAddress(res.address);
-          setWalletConnected(true);
-          logEvent("success", `Freighter connected: ${res.address.substring(0, 6)}...`);
+      const freighterPromise = (async (): Promise<string | null> => {
+        const connected = await isConnected();
+        if (connected) {
+          const res = await getAddress();
+          return res?.address || null;
         }
-      } else {
-        const mockAddress = "GC" + Math.random().toString(36).substring(2, 15).toUpperCase();
-        setWalletAddress(mockAddress);
+        return null;
+      })();
+
+      const address = await Promise.race([freighterPromise, timeoutPromise]);
+      if (address && typeof address === "string") {
+        setWalletAddress(address);
         setWalletConnected(true);
-        logEvent("info", `Connected via StellarForge Sandbox: ${mockAddress.substring(0, 6)}...`);
+        logEvent("success", `Freighter connected: ${address.substring(0, 8)}...`);
+        resolved = true;
       }
     } catch (e) {
+      console.warn("Freighter API error, falling back to sandbox:", e);
+    }
+
+    if (!resolved) {
+      // Fallback path
       const mockAddress = "GC" + Math.random().toString(36).substring(2, 15).toUpperCase();
       setWalletAddress(mockAddress);
       setWalletConnected(true);
+      logEvent("success", lang === "tr" 
+        ? `StellarForge Sandbox cüzdanı bağlandı: ${mockAddress.substring(0, 8)}...` 
+        : `Connected via StellarForge Sandbox: ${mockAddress.substring(0, 8)}...`
+      );
     }
   };
 
@@ -599,27 +616,41 @@ export default function Home() {
         <div className="flex bg-[#1D2128] border border-[#2B313A] p-0.5 rounded-none">
           <button
             onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
               activeTab === "pipelines" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            📊 {t.activePipelines}
+            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            {t.activePipelines}
           </button>
           <button
             onClick={() => { setActiveTab("create"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
               activeTab === "create" && !showGuide ? "bg-[#2D343F] text-white shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            ➕ {t.createNewPipeline}
+            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            {t.createNewPipeline}
           </button>
           <button
             onClick={() => { setShowGuide(true); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-1.5 rounded-none ${
+            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-none ${
               showGuide ? "bg-[#2D343F] text-amber-400 shadow-sm" : "text-[#8E97A4] hover:text-white"
             }`}
           >
-            ❓ {lang === "tr" ? "Rehber" : "How it Works"}
+            <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            {lang === "tr" ? "Rehber" : "How it Works"}
           </button>
         </div>
 
@@ -805,7 +836,11 @@ export default function Home() {
                     guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#232731] hover:bg-[#2D3341] border border-[#343B48] text-white"
                   }`}
                 >
-                  ⬅️ {t.prev}
+                  <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                  {t.prev}
                 </button>
 
                 {/* Dot Indicators */}
@@ -824,16 +859,23 @@ export default function Home() {
                 {guideSlide === 3 ? (
                   <button
                     onClick={() => setShowGuide(false)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none flex items-center gap-1"
                   >
-                    🚀 {t.closeGuide}
+                    <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {t.closeGuide}
                   </button>
                 ) : (
                   <button
                     onClick={() => setGuideSlide(prev => prev + 1)}
-                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none"
+                    className="bg-amber-500 hover:bg-amber-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-none flex items-center gap-1"
                   >
-                    {t.next} ➡️
+                    {t.next}
+                    <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
                   </button>
                 )}
               </div>
@@ -844,7 +886,7 @@ export default function Home() {
               
               {/* Trust Signal / Oracle Badge */}
               <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-950/40 text-amber-400 border border-amber-900/60 text-xs font-bold">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-950/40 text-amber-400 border border-amber-900/60 text-xs font-bold rounded-none">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                   {t.auditorVerified}
                 </span>
@@ -1051,8 +1093,12 @@ export default function Home() {
                         {t.confirmRepay}
                       </button>
                     ) : (
-                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 border border-[#22272E] font-medium max-w-xs rounded-none">
-                        🔒 {t.repayNote}
+                      <div className="text-xs text-[#8E97A4] bg-[#14161A] p-2.5 border border-[#22272E] font-medium max-w-xs rounded-none flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-[#8E97A4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        {t.repayNote}
                       </div>
                     )}
 
@@ -1070,13 +1116,22 @@ export default function Home() {
 
               {/* End status cards */}
               {currentProject.status === "Completed" && (
-                <div className="bg-emerald-950/10 border border-emerald-900/60 p-4.5 text-xs text-emerald-400 font-medium rounded-none">
-                  🎉 {t.settledSuccess}
+                <div className="bg-[#102A1E]/30 border border-emerald-900/60 p-4.5 text-xs text-emerald-400 font-medium rounded-none flex items-center gap-1.5">
+                  <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                  {t.settledSuccess}
                 </div>
               )}
               {currentProject.status === "Liquidated" && (
-                <div className="bg-red-950/15 border border-red-900/60 p-4.5 text-xs text-red-400 font-medium rounded-none">
-                  ⚠️ {t.defaultedWarning}
+                <div className="bg-[#2D1212]/30 border border-red-900/60 p-4.5 text-xs text-red-400 font-medium rounded-none flex items-center gap-1.5">
+                  <svg className="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                  {t.defaultedWarning}
                 </div>
               )}
 
@@ -1208,8 +1263,13 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#242930]">
-                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 border border-amber-500/10 max-w-md font-medium leading-relaxed rounded-none">
-                    ⚠️ {t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}
+                  <div className="text-xs text-amber-500 bg-amber-500/5 p-3 border border-amber-500/10 max-w-md font-medium leading-relaxed rounded-none flex items-start gap-1.5">
+                    <svg className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    <span>{t.collateralWarning.replace("{amount}", formatNumber(newProjTarget / 2))}</span>
                   </div>
                   <button 
                     type="submit"
@@ -1230,7 +1290,11 @@ export default function Home() {
             <div className="bg-[#1C1E24] border border-[#2B313A] p-5 shadow-md space-y-4 rounded-none">
               <div className="flex justify-between items-center border-b border-[#242930] pb-2.5">
                 <h3 className="text-xs font-bold text-white flex items-center gap-2">
-                  ⚙️ {t.simulationPanel}
+                  <svg className="w-4 h-4 text-amber-500 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                  {t.simulationPanel}
                 </h3>
                 <button 
                   onClick={() => setShowSimPanel(false)}
@@ -1307,7 +1371,11 @@ export default function Home() {
               onClick={() => setShowSimPanel(true)}
               className="w-full bg-[#1C1E24] hover:bg-[#20232A] border border-[#2B313A] p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm rounded-none"
             >
-              ⚙️ {t.simulationPanel} [ Show ]
+              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              {t.simulationPanel} [ Show ]
             </button>
           )}
         </aside>
