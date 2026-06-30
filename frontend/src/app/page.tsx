@@ -217,6 +217,7 @@ export default function Home() {
   const [walletConnected, setWalletConnected] = useState(true);
   const [walletAddress, setWalletAddress] = useState("GB...BUYER (Alıcı)");
   const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Buyer");
+  const [tourStep, setTourStep] = useState(0);
 
   const handleRoleChange = (role: "Lender" | "Supplier" | "Buyer" | "Validator") => {
     setUserRole(role);
@@ -796,7 +797,11 @@ export default function Home() {
       <main className="max-w-7xl mx-auto p-6 md:p-8 space-y-8">
 
         {/* Marketing Monitor Component */}
-        <div className="w-full bg-[#13151A] border border-orange-500/20 p-4.5 relative overflow-hidden transition-all duration-300 min-h-[60px] flex flex-col justify-center group hover:border-orange-500/50 hover:bg-[#181B22] rounded-xl">
+        <div className={`w-full bg-[#13151A] border p-4.5 relative overflow-hidden transition-all duration-300 min-h-[60px] flex flex-col justify-center group hover:bg-[#181B22] rounded-xl ${
+          tourStep === 4 
+            ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] border-orange-500" 
+            : "border-orange-500/20 hover:border-orange-500/50"
+        }`}>
           <style>{`
             @keyframes marquee {
               0% { transform: translateX(100%); }
@@ -864,7 +869,9 @@ export default function Home() {
 
         {/* Stats Row Cards */}
         {!showGuide && activeTab === "pipelines" && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+          <div className={`grid grid-cols-1 md:grid-cols-4 gap-5 transition-all duration-300 ${
+            tourStep === 1 ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] p-2 bg-[#13151A]/40 rounded-2xl" : ""
+          }`}>
             {/* Stat 1: Total Pool */}
             <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
               <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
@@ -1072,7 +1079,9 @@ export default function Home() {
                 </div>
 
                 {/* Projects Grid exactly mapping the Figma snapshot (2 columns layout) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300 ${
+                  tourStep === 2 ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] p-2 bg-[#13151A]/40 rounded-2xl" : ""
+                }`}>
                   {projects.map((p) => {
                     const allApproved = p.milestones.every(m => m.status === "Approved");
                     const hasMissedDeadline = p.milestones.some(m => currentTime > m.deadline && m.status !== "Approved");
@@ -1465,7 +1474,11 @@ export default function Home() {
           <aside className="lg:col-span-1 space-y-6">
             
             {/* Active Role Control Block */}
-            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl space-y-4">
+            <div className={`bg-[#13151A] border p-5 rounded-xl space-y-4 transition-all duration-300 ${
+              tourStep === 3 
+                ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] border-orange-500" 
+                : "border-[#1E2128]"
+            }`}>
               <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block">
                 {lang === "tr" ? "AKTİF ROL" : "ACTIVE ROLE"}
               </span>
@@ -1514,7 +1527,11 @@ export default function Home() {
 
             {/* Developer controls panel */}
             {showSimPanel ? (
-              <div className="bg-[#13151A] border border-[#1E2128] p-5 shadow-md space-y-4 rounded-xl">
+              <div className={`bg-[#13151A] border p-5 shadow-md space-y-4 rounded-xl transition-all duration-300 ${
+                tourStep === 5 
+                  ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] border-orange-500" 
+                  : "border-[#1E2128]"
+              }`}>
                 <div className="flex justify-between items-center border-b border-[#1E2128] pb-2.5">
                   <h3 className="text-xs font-bold text-white flex items-center gap-2">
                     <svg className="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1600,6 +1617,97 @@ export default function Home() {
             
           </aside>
 
+        </div>
+        {/* Onboarding Interactive Tour Panel */}
+        {tourStep > 0 && (
+          <div className="fixed bottom-24 right-6 z-50 bg-[#13151A] border-2 border-orange-500 p-5 rounded-xl shadow-2xl max-w-sm w-80 animate-fadeIn space-y-4">
+            <div className="flex justify-between items-center border-b border-[#1E2128] pb-2">
+              <span className="text-[10px] text-orange-400 font-black tracking-widest uppercase">
+                {lang === "tr" ? `ADIM ${tourStep} / 5` : `STEP ${tourStep} / 5`}
+              </span>
+              <button 
+                onClick={() => setTourStep(0)}
+                className="text-xs text-[#5F6774] hover:text-white font-extrabold"
+              >
+                [ {lang === "tr" ? "Kapat" : "Close"} ]
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="text-xs font-black text-white uppercase tracking-wider">
+                {tourStep === 1 && (lang === "tr" ? "1. Genel Havuz İstatistikleri" : "1. Global Pool Stats")}
+                {tourStep === 2 && (lang === "tr" ? "2. Ticaret Projesi Kartları" : "2. Trade Project Cards")}
+                {tourStep === 3 && (lang === "tr" ? "3. Aktif Hesap Rolleri" : "3. Active Simulator Roles")}
+                {tourStep === 4 && (lang === "tr" ? "4. Pazarlama Monitörü" : "4. Marketing Ticker")}
+                {tourStep === 5 && (lang === "tr" ? "5. Zaman ve Blok Saati" : "5. Time & Block Simulator")}
+              </h4>
+              <p className="text-[11px] text-[#8E97A4] leading-relaxed">
+                {tourStep === 1 && (lang === "tr" 
+                  ? "Toplam havuz büyüklüğünü, aktif projeleri, yatırımlarınızı ve beklenen getiri oranlarını buradan takip edersiniz." 
+                  : "Track total pool size, active trade projects, your mock investments, and expected yield rates here.")}
+                {tourStep === 2 && (lang === "tr" 
+                  ? "Santos'tan Hamburg'a uzanan sevkiyat rotalarını, toplanan USDC fonlarını ve onaylanması gereken aşamaları (Milestones) listeler." 
+                  : "Lists active shipping routes (e.g. Santos to Hamburg), funded USDC amounts, and stage-by-stage milestone approvals.")}
+                {tourStep === 3 && (lang === "tr" 
+                  ? "Geliştirici modunda işlemler yapmak için rolünüzü (Tedarikçi, Alıcı vb.) değiştirebilir, cüzdan imzanızı simüle edebilirsiniz." 
+                  : "Switch your account type (Supplier, Buyer, Oracle, etc.) to perform simulation actions with the correct wallet signature.")}
+                {tourStep === 4 && (lang === "tr" 
+                  ? "Akıllı sözleşmeyle sıfır temerrüt riski sunan bu platformun iş akışını ve vizyonunu hızlıca özetleyen kayar şerit." 
+                  : "Typographic scrolling ticker that summarizes the zero-risk milestone factoring mechanism at a glance.")}
+                {tourStep === 5 && (lang === "tr" 
+                  ? "Ledger süresini ileri alarak proje teslim tarihlerini simüle edebilir, E2E otomatik demoyu tek tıkla izleyebilirsiniz." 
+                  : "Advance blockchain time (+24h) to test deadlines, and watch the full automatic end-to-end demo flow.")}
+              </p>
+            </div>
+
+            <div className="flex justify-between pt-2 border-t border-[#1E2128]">
+              <button
+                disabled={tourStep === 1}
+                onClick={() => setTourStep(prev => Math.max(1, prev - 1))}
+                className={`px-3 py-1.5 text-[10px] font-bold rounded transition ${
+                  tourStep === 1 ? "text-slate-600 bg-[#0B0C0E] cursor-not-allowed" : "bg-[#1E2128] hover:bg-[#2A2F3D] text-white"
+                }`}
+              >
+                {lang === "tr" ? "Geri" : "Prev"}
+              </button>
+              
+              {tourStep === 5 ? (
+                <button
+                  onClick={() => setTourStep(0)}
+                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[10px] rounded transition shadow-md"
+                >
+                  {lang === "tr" ? "Bitir" : "Finish"}
+                </button>
+              ) : (
+                <button
+                  onClick={() => setTourStep(prev => Math.min(5, prev + 1))}
+                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[10px] rounded transition shadow-md"
+                >
+                  {lang === "tr" ? "İleri" : "Next"}
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Floating Help Chain Icon Button */}
+        <div className="fixed bottom-6 right-6 z-50 group flex flex-col items-end">
+          {/* Tooltip balloon */}
+          <div className="bg-[#13151A] border border-orange-500/30 text-orange-400 text-[10px] font-extrabold px-3 py-1.5 rounded-lg shadow-lg mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap uppercase tracking-wider">
+            {lang === "tr" ? "Yardıma mı ihtiyacınız var?" : "Need help?"}
+          </div>
+          
+          <button
+            onClick={() => setTourStep(prev => (prev > 0 ? 0 : 1))}
+            className="h-12 w-12 rounded-full bg-[#13151A] border-2 border-orange-500/40 hover:border-orange-500 text-orange-400 hover:text-white flex items-center justify-center shadow-lg transition-all duration-300 scale-100 hover:scale-105 active:scale-95 relative"
+          >
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              <circle cx="12" cy="12" r="1" fill="currentColor" />
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-orange-500 text-[#111215] font-black text-[9px] h-4 w-4 rounded-full flex items-center justify-center tracking-tighter shadow-md">i</span>
+          </button>
         </div>
 
       </main>
