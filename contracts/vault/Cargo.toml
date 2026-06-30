@@ -8,3 +8,6 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 soroban-sdk = "20.0.0"
+
+[dev-dependencies]
+soroban-sdk = { version = "20.0.0", features = ["testutils"] }
