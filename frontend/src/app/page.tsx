@@ -107,14 +107,14 @@ const translations = {
     createTitle: "Register Supply Trade",
     guideTitle: "How StellarForge Works",
     guideSubtitle: "Learn the mechanics of Milestone-Locked Reverse Factoring",
-    slide1Title: "1. Supplier Security Deposit",
-    slide1Desc: "The Supplier locks 50% of the target amount in the Vault as collateral. This protects Lenders in case of failure or default.",
+    slide1Title: "1. Supplier Security Deposit (Vault Setup)",
+    slide1Desc: "Before production begins, the Supplier deposits 50% of the target budget into the Vault smart contract. This serves as an on-chain safety pledge. If the Supplier fails to perform or default, these funds are automatically liquidated and distributed to protect Lenders.",
     slide2Title: "2. Lender Capital Crowdfund",
-    slide2Desc: "Lenders pool USDC to fund the Supplier's production budget, backed by the Buyer's ultimate obligation to pay.",
-    slide3Title: "3. Milestone-Based Payouts",
-    slide3Desc: "Funds are locked in Escrow. As the Supplier uploads shipping documents, Oracle nodes verify and release payouts stage-by-stage.",
+    slide2Desc: "Lenders pool USDC to fund the Supplier's production budget. This is backed by the creditworthiness and payment obligation of the reputable Buyer. This model allows small suppliers to leverage the financial strength of giant buyers (e.g., Nestle, Zara) to obtain early funding.",
+    slide3Title: "3. Milestone-Based Payouts (Escrow)",
+    slide3Desc: "Funds are locked in the Escrow contract and not handed over all at once. As the Supplier completes stages (e.g., raw material procurement, shipping packaging) and uploads shipping manifests, independent Oracle Validators verify the proofs on-chain, releasing funds stage-by-stage.",
     slide4Title: "4. Buyer Repayment & Release",
-    slide4Desc: "Upon cargo arrival, the Buyer pays back the principal + 5% yield. Lenders are reimbursed, and the Supplier's collateral is fully unlocked.",
+    slide4Desc: "Upon cargo arrival, the Buyer repays the total capital + 5% yield. Lenders are reimbursed with interest, and the Supplier's initial 50% security deposit is fully unlocked and returned to their wallet.",
     closeGuide: "Got it, go to Dashboard",
     next: "Next",
     prev: "Previous"
@@ -190,14 +190,14 @@ const translations = {
     createTitle: "Yeni Ticari Finansman Kaydı",
     guideTitle: "StellarForge Nasıl Çalışır?",
     guideSubtitle: "Milestone Kilitli Ters Faktoring Mekanizmasını Keşfedin",
-    slide1Title: "1. Tedarikçi Teminat Blokesi",
-    slide1Desc: "Tedarikçi, bütçenin %50'sini güvence teminatı olarak Vault kasasına kilitler. Bu, olası bir temerrüt durumunda yatırımcıları korur.",
+    slide1Title: "1. Tedarikçi Teminat Blokesi (Vault Kurulumu)",
+    slide1Desc: "Tedarikçi (Supplier), üretime başlamadan önce bütçenin yarısını (%50) Vault akıllı sözleşmesine güvence teminatı olarak kilitler. Bu bloke, işin ciddiyetini garanti altına alır. Tedarikçi taahhüdünü yerine getirmez veya projeyi terk ederse, kilitli teminat yatırımcılara paylaştırılır.",
     slide2Title: "2. Yatırımcı Sermaye Fonlaması",
-    slide2Desc: "Yatırımcılar, alıcı firmanın nihai geri ödeme taahhüdüne güvenerek tedarikçinin bütçesini fonlar.",
-    slide3Title: "3. Milestone Aşamalı Ödeme",
-    slide3Desc: "Sermaye Escrow'da kilitlenir. Tedarikçi sevkiyat belgelerini yükledikçe, bağımsız denetçiler (Oracle) onaylar ve fon adım adım serbest kalır.",
+    slide2Desc: "Yatırımcılar (Lenders), büyük ve itibarlı Alıcı firmanın (örn: Nestle, Zara) nihai geri ödeme taahhüdüne dayanarak tedarikçinin üretim bütçesini fonlar. Yatırımcıların USDC sermayesi, tedarikçinin kendi kredi puanı yetersiz olsa bile güvence altındadır.",
+    slide3Title: "3. Milestone Aşamalı Ödeme (Escrow)",
+    slide3Desc: "Fonlanan sermaye tek seferde tedarikçiye verilmez; Milestone Escrow sözleşmesinde kilitli kalır. Tedarikçi üretim/sevkiyat adımlarını tamamlayıp kanıtları (konşimento vb.) sisteme yükledikçe, bağımsız Denetçiler (Oracle) onay verir ve fon adım adım serbest kalır.",
     slide4Title: "4. Alıcı Geri Ödemesi ve İade",
-    slide4Desc: "Ürünler teslim edildiğinde alıcı anapara + %5 faiz öder. Yatırımcılar paralarını alır, tedarikçinin teminatı serbest bırakılır.",
+    slide4Desc: "Tüm sevkiyat tamamlanıp kargo alıcıya ulaştığında, Alıcı (Buyer) anapara + %5 faizi akıllı sözleşmeye yatırır. Yatırımcılar paralarını faiziyle geri alır, tedarikçinin Vault'ta kilitli olan %50 teminatı ise çözülerek cüzdanına iade edilir.",
     closeGuide: "Anladım, Gösterge Paneline Git",
     next: "İleri",
     prev: "Geri"
@@ -693,7 +693,7 @@ export default function Home() {
         <div className={`space-y-6 ${activeTab === "pipelines" ? "lg:col-span-2" : "lg:col-span-3"}`}>
           
           {showGuide ? (
-            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-8 space-y-8 relative min-h-[500px] flex flex-col justify-between transition-all duration-300">
+            <div className="bg-[#1C1E24] border border-[#2B313A]/80 rounded-2xl p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300">
               
               {/* Onboarding Header */}
               <div className="space-y-2">
@@ -703,7 +703,7 @@ export default function Home() {
               </div>
 
               {/* Progress Stepper Visual */}
-              <div className="grid grid-cols-4 gap-2 relative py-4">
+              <div className="grid grid-cols-4 gap-2 relative py-2">
                 <div className="absolute left-[12%] right-[12%] top-1/2 -translate-y-1/2 h-0.5 bg-[#2D333F]" />
                 
                 {[0, 1, 2, 3].map((step) => {
@@ -770,6 +770,21 @@ export default function Home() {
                     <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
                   </>
                 )}
+              </div>
+
+              {/* Brand Concept Illustration */}
+              <div className="border-t border-[#242930] pt-6 space-y-3">
+                <span className="text-[10px] text-[#8E97A4] font-black uppercase tracking-wider block text-center">
+                  {lang === "tr" ? "GÖRSEL TİCARET FİNANSMANI İŞ AKIŞI" : "VISUAL TRADE FINANCE WORKFLOW"}
+                </span>
+                <div className="relative rounded-xl overflow-hidden border border-[#2B313A] bg-[#14161A]">
+                  <img 
+                    src="/stellarforge_illustration.jpg" 
+                    alt="StellarForge Supply Chain Finance Illustration" 
+                    className="w-full h-auto object-cover opacity-90 max-h-48"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#14161A] via-transparent to-transparent" />
+                </div>
               </div>
 
               {/* Slide Deck Actions */}
