@@ -51,7 +51,7 @@ const translations = {
     myInvestment: "My Investment",
     expectedYield: "Expected Yield",
     simulationPanel: "Developer Tools",
-    ledgerTime: "Ledger Time:",
+    ledgerTime: "Ledger Time (Simulated block clock for contract deadlines):",
     add24h: "+24 Hours",
     startDemo: "Run E2E Demo Simulation",
     demoRunning: "Demo Running...",
@@ -135,7 +135,7 @@ const translations = {
     myInvestment: "YATIRIMIM",
     expectedYield: "BEKLENEN GETİRİ",
     simulationPanel: "Geliştirici Araçları",
-    ledgerTime: "Ledger Zamanı:",
+    ledgerTime: "Ledger Zamanı (Sözleşme sürelerini simüle eden yapay blok saati):",
     add24h: "+24 Saat",
     startDemo: "E2E Akıllı Demosu Başlat",
     demoRunning: "Demo Yürütülüyor...",
@@ -215,8 +215,21 @@ export default function Home() {
   
   // Wallet
   const [walletConnected, setWalletConnected] = useState(true);
-  const [walletAddress, setWalletAddress] = useState("GBQK...7JKL");
+  const [walletAddress, setWalletAddress] = useState("GB...BUYER (Alıcı)");
   const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Buyer");
+
+  const handleRoleChange = (role: "Lender" | "Supplier" | "Buyer" | "Validator") => {
+    setUserRole(role);
+    if (role === "Lender") {
+      setWalletAddress("GC...LEND (Yatırımcı)");
+    } else if (role === "Supplier") {
+      setWalletAddress("GD...SUPP (Tedarikçi)");
+    } else if (role === "Buyer") {
+      setWalletAddress("GB...BUYER (Alıcı)");
+    } else if (role === "Validator") {
+      setWalletAddress("GA...ORACL (Oracle)");
+    }
+  };
 
   // Time & Simulator
   const [currentTime, setCurrentTime] = useState(0);
@@ -1468,17 +1481,34 @@ export default function Home() {
                   return (
                     <button
                       key={role.id}
-                      onClick={() => setUserRole(role.id as any)}
+                      onClick={() => handleRoleChange(role.id as any)}
                       className={`w-full text-left p-3 text-xs font-bold transition rounded-lg border ${
                         isActive
                           ? "bg-orange-950/20 text-orange-400 border-orange-500/40"
                           : "bg-[#0B0C0E]/40 text-[#8E97A4] border-[#1E2128] hover:border-[#272B35]"
                       }`}
                     >
-                      {lang === "tr" ? role.labelTr : role.labelEn}
+                      <div className="flex justify-between items-center">
+                        <span>{lang === "tr" ? role.labelTr : role.labelEn}</span>
+                        {isActive && (
+                          <span className="text-[8px] bg-orange-500 text-[#111215] px-1 py-0.5 rounded font-black tracking-wider uppercase animate-pulse">
+                            {lang === "tr" ? "AKTİF ADRES" : "ACTIVE ADDR"}
+                          </span>
+                        )}
+                      </div>
                     </button>
                   );
                 })}
+              </div>
+
+              {/* Explanatory description of how role is proven in production */}
+              <div className="text-[10px] text-[#8E97A4] leading-normal pt-2 border-t border-[#1E2128] space-y-1">
+                <span className="text-orange-400 font-extrabold block">🛡️ {lang === "tr" ? "Rolümü Nasıl Kanıtlarım?" : "How do I prove my role?"}</span>
+                <p>
+                  {lang === "tr" 
+                    ? "Gerçek bir dApp'te rolünüz cüzdanınızın şifreleme imzası (Stellar adresi) ile kanıtlanır. Simülatörde rol seçtiğinizde cüzdan adresiniz otomatik olarak o rolün adresine geçer."
+                    : "In a real dApp, your role is cryptographically proven by signing with your wallet. Selecting a role here simulates switching your active Stellar address."}
+                </p>
               </div>
             </div>
 
