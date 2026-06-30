@@ -32,9 +32,147 @@ interface EventLog {
   message: string;
 }
 
+// Translations
+const translations = {
+  en: {
+    title: "StellarForge",
+    subtitle: "Milestone-Backed Supply Chain Finance",
+    simulatorTime: "Ledger Simulator Time:",
+    hours: "hrs",
+    connectWallet: "Connect Wallet",
+    activePortfolio: "Active Portfolio",
+    activeProjects: "Projects",
+    undergoingExecution: "Undergoing milestone execution",
+    totalFinanced: "Total Financed Capital",
+    lockedCollateral: "Locked Supplier Collateral",
+    avgYield: "Avg Yield Generated",
+    activePipelines: "Active Supply Chain Pipelines",
+    noActiveProjects: "No active trade finance projects found. Create a new pipeline as a Supplier.",
+    targetFinancing: "Target Financing",
+    funded: "Funded",
+    milestoneExecution: "Milestone Execution Tree",
+    dashboardTab: "Monitor Hub",
+    createTab: "Supplier Factory",
+    fundTab: "Lending Market",
+    executionTab: "Milestone Center",
+    settlementTab: "Settlement Desk",
+    factoryTitle: "Supplier Project Factory",
+    factoryDesc: "Register a new trade financing pipeline backed by milestones and deposit collateral protection.",
+    tradeTitle: "Trade Contract Title",
+    capitalTarget: "Capital Target",
+    supplierAddr: "Supplier Address (Borrower)",
+    buyerAddr: "Buyer Address (Obligor)",
+    milestoneBreakdown: "Milestone Breakdown",
+    milestoneDesc: "Description",
+    hoursToDeadline: "Hours to Deadline",
+    amountToRelease: "Amount to Release",
+    collateralNote: "Note: Collateral requirement is {amount} USDC. Ensure collateral is deposited in the Vault before initializing.",
+    deployBtn: "Deploy Trade Finance Pipeline",
+    activeLending: "Active Lending Markets",
+    lendingDesc: "Supply capital to trade finance pipelines. Earn 5.00% yield on final buyer delivery.",
+    noLending: "No projects currently seeking capital. Check back soon.",
+    requiredCapital: "Required Capital",
+    fundingDeadline: "Funding Deadline",
+    expectedROI: "Expected ROI",
+    fillTarget: "Fill Target",
+    executionTitle: "Supplier & Validator Execution Desk",
+    executionDesc: "Suppliers submit logistics/delivery proof hashes. Validators whitelist and approve releases.",
+    noExecution: "No active projects currently in execution. Fund a pending project to activate.",
+    submitProof: "Submit Shipping Proof",
+    rejectBtn: "Reject",
+    approveBtn: "Approve & Payout",
+    fundedSettled: "Funded & Settled",
+    settlementTitle: "Settlement & Risk Default Desk",
+    settlementDesc: "Buyers repay completed supply trades. Keepers trigger collateral default liquidation on breach.",
+    noSettlement: "No active trades currently in settlement phase.",
+    repaymentObligation: "Repayment Obligation (Principal + 5% Yield)",
+    confirmRepay: "Confirm Delivery & Repay",
+    repayNote: "Repayment available once all milestones are Approved.",
+    triggerLiq: "Trigger Liquidation (Default)",
+    settlementFinalized: "Settlement Finalized. All lenders paid back with 5% yield split. Collateral released back to Supplier.",
+    projectDefaulted: "Project Defaulted. Collateral liquidated and distributed pro-rata to lenders.",
+    onChainLogs: "On-Chain Event Logs",
+    clear: "Clear",
+    footer: "StellarForge Finance • Built for Stellar Soroban Smart Contract Architecture",
+    toastUSDC: "USDC Token contract initialized successfully.",
+    toastCollateral: "Supplier registered {amount} USDC collateral to Vault.",
+    toastProject: "Organic Coffee Export project registered on-chain."
+  },
+  tr: {
+    title: "StellarForge",
+    subtitle: "Milestone Destekli Tedarik Zinciri Finansmanı",
+    simulatorTime: "Ledger Simülatör Zamanı:",
+    hours: "saat",
+    connectWallet: "Cüzdanı Bağla",
+    activePortfolio: "Aktif Portföy",
+    activeProjects: "Proje",
+    undergoingExecution: "Milestone süreçleri devam ediyor",
+    totalFinanced: "Toplam Finanse Edilen Sermaye",
+    lockedCollateral: "Kilitli Tedarikçi Teminatı",
+    avgYield: "Ortalama Faiz Oranı",
+    activePipelines: "Aktif Tedarik Zinciri Finansmanları",
+    noActiveProjects: "Aktif ticaret finansmanı projesi bulunamadı. Tedarikçi olarak yeni bir finansman başlatın.",
+    targetFinancing: "Hedef Finansman",
+    funded: "Toplanan",
+    milestoneExecution: "Milestone İlerleme Ağacı",
+    dashboardTab: "İşlem İzleme",
+    createTab: "Tedarikçi Fabrikası",
+    fundTab: "Yatırım Pazarı",
+    executionTab: "Milestone Yönetimi",
+    settlementTab: "Ödeme & Settlement",
+    factoryTitle: "Tedarikçi Proje Fabrikası",
+    factoryDesc: "Milestone hedefleri ve emanet kasa korumalı yeni bir tedarik finansmanı başlatın.",
+    tradeTitle: "Ticari Sözleşme Başlığı",
+    capitalTarget: "Finansman Hedefi",
+    supplierAddr: "Tedarikçi Adresi (Borçlu)",
+    buyerAddr: "Alıcı Adresi (Yükümlü)",
+    milestoneBreakdown: "Milestone Dağılımı",
+    milestoneDesc: "Açıklama",
+    hoursToDeadline: "Teslimat Süresi (Saat)",
+    amountToRelease: "Serbest Bırakılacak Tutar",
+    collateralNote: "Not: Teminat gereksinimi {amount} USDC'dir. Başlatmadan önce teminatın kasaya (Vault) yatırıldığından emin olun.",
+    deployBtn: "Finansman Sözleşmesini Başlat",
+    activeLending: "Aktif Yatırım Fırsatları",
+    lendingDesc: "Tedarik zinciri finansmanlarına sermaye sağlayın. Alıcı teslimatı onayladığında %5 net faiz kazanın.",
+    noLending: "Şu anda fon arayan bir proje bulunmuyor. Lütfen daha sonra tekrar kontrol edin.",
+    requiredCapital: "Gerekli Sermaye",
+    fundingDeadline: "Fonlama Süresi",
+    expectedROI: "Beklenen Getiri",
+    fillTarget: "Tamamını Fonla",
+    executionTitle: "Tedarikçi & Denetçi İşlem Masası",
+    executionDesc: "Tedarikçiler sevkiyat kanıtlarını (hash) sunar. Denetçiler bunları doğrulayarak ödemeyi serbest bırakır.",
+    noExecution: "Şu anda yürütme aşamasında olan aktif bir proje yok. Aktifleştirmek için bekleyen bir projeyi fonlayın.",
+    submitProof: "Sevkiyat Kanıtı Gönder",
+    rejectBtn: "Reddet",
+    approveBtn: "Onayla & Öde",
+    fundedSettled: "Ödendi & Tamamlandı",
+    settlementTitle: "Ödeme & Risk Likidasyon Masası",
+    settlementDesc: "Alıcılar tamamlanan projeleri geri öder. Gecikme durumunda likidatörler teminatı çözer.",
+    noSettlement: "Şu anda ödeme veya tasfiye aşamasında olan aktif bir ticaret bulunmuyor.",
+    repaymentObligation: "Geri Ödeme Yükümlülüğü (Anapara + %5 Faiz)",
+    confirmRepay: "Teslimatı Onayla ve Öde",
+    repayNote: "Geri ödeme seçeneği, tüm milestone hedefleri Onaylandıktan sonra aktifleşir.",
+    triggerLiq: "Likidasyonu Tetikle (Temerrüt)",
+    settlementFinalized: "Geri Ödeme Tamamlandı. Tüm yatırımcılara %5 faiz dahil geri ödeme yapıldı. Teminat tedarikçiye iade edildi.",
+    projectDefaulted: "Proje Temerrüde Düştü. Teminat tasfiye edildi ve yatırımcılara payları oranında dağıtıldı.",
+    onChainLogs: "Zincir Üstü Event Akışı",
+    clear: "Temizle",
+    footer: "StellarForge Finance • Stellar Soroban Akıllı Sözleşme Mimarisi Üzerine İnşa Edilmiştir",
+    toastUSDC: "USDC Token sözleşmesi başarıyla başlatıldı.",
+    toastCollateral: "Tedarikçi Vault'a {amount} USDC teminat kilitledi.",
+    toastProject: "Organik Kahve İhracatı projesi zincir üstünde oluşturuldu."
+  }
+};
+
 export default function Home() {
   // Navigation
   const [activeTab, setActiveTab] = useState<"dashboard" | "create" | "fund" | "execution" | "settlement">("dashboard");
+
+  // Language
+  const [lang, setLang] = useState<"en" | "tr">("tr");
+
+  // Hydration fix
+  const [mounted, setMounted] = useState(false);
 
   // Wallet
   const [walletConnected, setWalletConnected] = useState(false);
@@ -46,7 +184,7 @@ export default function Home() {
   const [projects, setProjects] = useState<Project[]>([
     {
       id: 1,
-      name: "Apparel Shipment (Istanbul to Hamburg)",
+      name: "Tekstil Sevkiyatı (İstanbul - Hamburg)",
       borrower: "GD...Supplier",
       buyer: "GB...Buyer",
       targetAmount: 10000,
@@ -57,7 +195,7 @@ export default function Home() {
       milestones: [
         {
           id: 1,
-          description: "Raw Material Procurement",
+          description: "Hammadde Tedariki",
           deadline: 48,
           amountToRelease: 3000,
           proofHash: "ipfs://procurement-receipt-xml",
@@ -65,7 +203,7 @@ export default function Home() {
         },
         {
           id: 2,
-          description: "Manufacturing & Quality Control",
+          description: "Üretim & Kalite Kontrol",
           deadline: 96,
           amountToRelease: 4000,
           proofHash: "ipfs://factory-batch-qa-report",
@@ -73,7 +211,7 @@ export default function Home() {
         },
         {
           id: 3,
-          description: "Customs Clearance & Cargo Loading",
+          description: "Gümrük İşlemleri & Gemi Yükleme",
           deadline: 144,
           amountToRelease: 3000,
           proofHash: "",
@@ -83,7 +221,7 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Organic Coffee Export (Santos to Rotterdam)",
+      name: "Organik Kahve İhracatı (Santos - Rotterdam)",
       borrower: "GD...Supplier",
       buyer: "GB...Buyer",
       targetAmount: 25000,
@@ -94,7 +232,7 @@ export default function Home() {
       milestones: [
         {
           id: 1,
-          description: "Harvesting & Sorting",
+          description: "Hasat & Tasnif",
           deadline: 72,
           amountToRelease: 10000,
           proofHash: "",
@@ -102,7 +240,7 @@ export default function Home() {
         },
         {
           id: 2,
-          description: "Milling & Packaging",
+          description: "İşleme & Paketleme",
           deadline: 120,
           amountToRelease: 15000,
           proofHash: "",
@@ -112,11 +250,18 @@ export default function Home() {
     },
   ]);
 
-  const [eventLogs, setEventLogs] = useState<EventLog[]>([
-    { timestamp: "10:30", type: "success", message: "USDC Token contract initialized successfully." },
-    { timestamp: "10:32", type: "info", message: "Supplier registered 12,500 USDC collateral to Vault." },
-    { timestamp: "10:35", type: "success", message: "Organic Coffee Export project registered on-chain." },
-  ]);
+  const [eventLogs, setEventLogs] = useState<EventLog[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+    // Initialize default event logs with correct language translations
+    const defaultLogs: EventLog[] = [
+      { timestamp: "10:30", type: "success", message: translations[lang].toastUSDC },
+      { timestamp: "10:32", type: "info", message: translations[lang].toastCollateral.replace("{amount}", formatNumber(12500)) },
+      { timestamp: "10:35", type: "success", message: translations[lang].toastProject },
+    ];
+    setEventLogs(defaultLogs);
+  }, [lang]);
 
   // Form states for creating a new project
   const [newProjName, setNewProjName] = useState("");
@@ -125,9 +270,16 @@ export default function Home() {
   const [newProjTarget, setNewProjTarget] = useState(15000);
   const [newProjDeadline, setNewProjDeadline] = useState(48);
   const [newProjMilestones, setNewProjMilestones] = useState<Omit<Milestone, "status" | "proofHash">[]>([
-    { id: 1, description: "Milestone 1 Description", deadline: 96, amountToRelease: 7500 },
-    { id: 2, description: "Milestone 2 Description", deadline: 168, amountToRelease: 7500 },
+    { id: 1, description: "Milestone 1 Açıklaması", deadline: 96, amountToRelease: 7500 },
+    { id: 2, description: "Milestone 2 Açıklaması", deadline: 168, amountToRelease: 7500 },
   ]);
+
+  const t = translations[lang];
+
+  // Format numbers properly based on selected locale
+  const formatNumber = (num: number) => {
+    return num.toLocaleString(lang === "tr" ? "tr-TR" : "en-US");
+  };
 
   // Connect Freighter Wallet
   const connectWallet = async () => {
@@ -169,7 +321,7 @@ export default function Home() {
     // Validate milestone sums
     const totalMilestoneAmount = newProjMilestones.reduce((acc, curr) => acc + curr.amountToRelease, 0);
     if (totalMilestoneAmount !== newProjTarget) {
-      logEvent("error", `Total milestone values (${totalMilestoneAmount} USDC) must equal the funding target (${newProjTarget} USDC).`);
+      logEvent("error", `Total milestone values (${formatNumber(totalMilestoneAmount)} USDC) must equal the funding target (${formatNumber(newProjTarget)} USDC).`);
       return;
     }
 
@@ -191,7 +343,7 @@ export default function Home() {
     };
 
     setProjects(prev => [...prev, newProject]);
-    logEvent("success", `New project "${newProjName}" initialized on-chain. Collateral required: ${newProjTarget / 2} USDC.`);
+    logEvent("success", `New project "${newProjName}" initialized on-chain. Collateral required: ${formatNumber(newProjTarget / 2)} USDC.`);
     setActiveTab("dashboard");
     // Reset form
     setNewProjName("");
@@ -202,7 +354,7 @@ export default function Home() {
       if (p.id === id) {
         const nextFunded = Math.min(p.targetAmount, p.fundedAmount + amount);
         const nextStatus = nextFunded >= p.targetAmount ? "Active" : p.status;
-        logEvent("success", `Lender supplied ${amount} USDC to project #${id}. Funded: ${nextFunded}/${p.targetAmount} USDC.`);
+        logEvent("success", `Lender supplied ${formatNumber(amount)} USDC to project #${id}. Funded: ${formatNumber(nextFunded)}/${formatNumber(p.targetAmount)} USDC.`);
         if (nextStatus === "Active") {
           logEvent("info", `Project #${id} meets funding target! Shifted state to Active. Execution phase started.`);
         }
@@ -236,7 +388,7 @@ export default function Home() {
           if (m.id === milestoneId) {
             const nextStatus = accept ? "Approved" as const : "Rejected" as const;
             if (accept) {
-              logEvent("success", `Oracle & Validator approved Milestone #${milestoneId} of Project #${projectId}. Released ${m.amountToRelease} USDC to Supplier.`);
+              logEvent("success", `Oracle & Validator approved Milestone #${milestoneId} of Project #${projectId}. Released ${formatNumber(m.amountToRelease)} USDC to Supplier.`);
             } else {
               logEvent("warning", `Milestone #${milestoneId} of Project #${projectId} rejected. Incomplete verification.`);
             }
@@ -254,8 +406,8 @@ export default function Home() {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const repayment = p.targetAmount * 1.05; // 5% yield
-        logEvent("success", `Buyer confirmed final delivery. Transferred ${repayment} USDC repayment (principal + yield) to Escrow.`);
-        logEvent("info", `Collateral of ${p.collateralLocked} USDC returned to Supplier.`);
+        logEvent("success", `Buyer confirmed final delivery. Transferred ${formatNumber(repayment)} USDC repayment (principal + yield) to Escrow.`);
+        logEvent("info", `Collateral of ${formatNumber(p.collateralLocked)} USDC returned to Supplier.`);
         logEvent("success", `Lenders reimbursed pro-rata with 5% yield split.`);
         return { ...p, status: "Completed", fundedAmount: 0 };
       }
@@ -267,7 +419,7 @@ export default function Home() {
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         logEvent("error", `Project #${projectId} breached milestone deadlines. Liquidation triggered.`);
-        logEvent("success", `Collateral pool of ${p.collateralLocked} USDC claimed from Vault.`);
+        logEvent("success", `Collateral pool of ${formatNumber(p.collateralLocked)} USDC claimed from Vault.`);
         logEvent("info", `5% keeper fee paid to liquidator.`);
         logEvent("success", `Remaining collateral + unreleased escrow distributed to lenders pro-rata.`);
         return { ...p, status: "Liquidated" };
@@ -296,6 +448,17 @@ export default function Home() {
     });
   };
 
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center font-sans">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-teal-400 animate-pulse" />
+          <p className="text-sm font-semibold text-slate-400">Loading StellarForge...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans antialiased">
       {/* Premium Header */}
@@ -305,35 +468,53 @@ export default function Home() {
             <span className="font-extrabold text-xl text-slate-950">SF</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-200 to-slate-200 bg-clip-text text-transparent">StellarForge</h1>
-            <p className="text-xs text-slate-400">Milestone-Backed Supply Chain Finance</p>
+            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-200 to-slate-200 bg-clip-text text-transparent">
+              {t.title}
+            </h1>
+            <p className="text-xs text-slate-400">{t.subtitle}</p>
           </div>
         </div>
 
         {/* Ledger Time Simulator */}
         <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl p-1.5 px-3">
-          <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Ledger Simulator Time:</span>
-          <span className="text-sm font-bold text-slate-200">{currentTime} hrs</span>
+          <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">{t.simulatorTime}</span>
+          <span className="text-sm font-bold text-slate-200">{currentTime} {t.hours}</span>
           <button 
             onClick={() => fastForwardTime(24)}
             className="ml-2 text-xs bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 font-bold py-1 px-2.5 rounded-lg transition border border-indigo-500/30"
           >
-            +24 hrs
+            +24 {t.hours}
           </button>
         </div>
 
-        {/* Wallet connection */}
-        <div className="flex items-center gap-4">
+        {/* Language Selection & Wallet connection */}
+        <div className="flex items-center gap-3">
+          {/* Language Toggle */}
+          <div className="flex bg-slate-900 border border-slate-800 rounded-xl p-1">
+            <button 
+              onClick={() => setLang("en")}
+              className={`px-2.5 py-1 rounded-lg text-2xs font-extrabold transition ${lang === "en" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-slate-200"}`}
+            >
+              EN
+            </button>
+            <button 
+              onClick={() => setLang("tr")}
+              className={`px-2.5 py-1 rounded-lg text-2xs font-extrabold transition ${lang === "tr" ? "bg-indigo-600 text-white" : "text-slate-400 hover:text-slate-200"}`}
+            >
+              TR
+            </button>
+          </div>
+
           <select 
             value={userRole} 
             onChange={(e) => setUserRole(e.target.value as any)}
             className="bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-300 p-2 outline-none focus:border-indigo-500"
           >
-            <option value="Supplier">Supplier (Borrower)</option>
-            <option value="Lender">Lender (Funder)</option>
-            <option value="Buyer">Buyer (Repayer)</option>
-            <option value="Validator">Validator (Oracle)</option>
-            <option value="Liquidator">Liquidator (Keeper)</option>
+            <option value="Supplier">{userRole === "Supplier" ? "Tedarikçi (Borçlu)" : "Supplier (Borrower)"}</option>
+            <option value="Lender">{userRole === "Lender" ? "Yatırımcı (Fon Sağlayıcı)" : "Lender (Funder)"}</option>
+            <option value="Buyer">{userRole === "Buyer" ? "Alıcı (Yükümlü)" : "Buyer (Repayer)"}</option>
+            <option value="Validator">{userRole === "Validator" ? "Denetçi (Oracle)" : "Validator (Oracle)"}</option>
+            <option value="Liquidator">{userRole === "Liquidator" ? "Likidatör (Keeper)" : "Liquidator (Keeper)"}</option>
           </select>
 
           <button
@@ -345,7 +526,7 @@ export default function Home() {
             }`}
           >
             <div className={`h-2 w-2 rounded-full ${walletConnected ? "bg-teal-400 animate-pulse" : "bg-white"}`} />
-            {walletConnected ? `${walletAddress.substring(0, 8)}...` : "Connect Wallet"}
+            {walletConnected ? `${walletAddress.substring(0, 8)}...` : t.connectWallet}
           </button>
         </div>
       </header>
@@ -354,33 +535,33 @@ export default function Home() {
       <section className="p-6 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-slate-900/50 border border-slate-900 p-5 rounded-2xl relative overflow-hidden group hover:border-slate-800 transition">
           <div className="absolute top-0 right-0 h-24 w-24 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition" />
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Active Portfolio</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t.activePortfolio}</p>
           <p className="text-3xl font-extrabold mt-2 text-slate-200">
-            {projects.filter(p => p.status === "Active").length} Projects
+            {projects.filter(p => p.status === "Active").length} {t.activeProjects}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Undergoing milestone execution</p>
+          <p className="text-xs text-slate-500 mt-1">{t.undergoingExecution}</p>
         </div>
         <div className="bg-slate-900/50 border border-slate-900 p-5 rounded-2xl relative overflow-hidden group hover:border-slate-800 transition">
           <div className="absolute top-0 right-0 h-24 w-24 bg-teal-500/5 rounded-full blur-2xl group-hover:bg-teal-500/10 transition" />
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Financed Capital</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t.totalFinanced}</p>
           <p className="text-3xl font-extrabold mt-2 text-slate-200">
-            {projects.reduce((acc, p) => acc + (p.status === "Active" ? p.targetAmount : 0), 0).toLocaleString()} USDC
+            {formatNumber(projects.reduce((acc, p) => acc + (p.status === "Active" ? p.targetAmount : 0), 0))} USDC
           </p>
-          <p className="text-xs text-slate-500 mt-1">Milestone funds currently locked</p>
+          <p className="text-xs text-slate-500 mt-1">{t.undergoingExecution}</p>
         </div>
         <div className="bg-slate-900/50 border border-slate-900 p-5 rounded-2xl relative overflow-hidden group hover:border-slate-800 transition">
           <div className="absolute top-0 right-0 h-24 w-24 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition" />
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Locked Supplier Collateral</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t.lockedCollateral}</p>
           <p className="text-3xl font-extrabold mt-2 text-slate-200">
-            {projects.reduce((acc, p) => acc + (p.status === "Active" ? p.collateralLocked : 0), 0).toLocaleString()} USDC
+            {formatNumber(projects.reduce((acc, p) => acc + (p.status === "Active" ? p.collateralLocked : 0), 0))} USDC
           </p>
-          <p className="text-xs text-slate-500 mt-1">Risk protection pool active</p>
+          <p className="text-xs text-slate-500 mt-1">{t.undergoingExecution}</p>
         </div>
         <div className="bg-slate-900/50 border border-slate-900 p-5 rounded-2xl relative overflow-hidden group hover:border-slate-800 transition">
           <div className="absolute top-0 right-0 h-24 w-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition" />
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Avg Yield generated</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t.avgYield}</p>
           <p className="text-3xl font-extrabold mt-2 text-slate-200">5.00 %</p>
-          <p className="text-xs text-slate-500 mt-1">Paid on successful buyer delivery</p>
+          <p className="text-xs text-slate-500 mt-1">{t.undergoingExecution}</p>
         </div>
       </section>
 
@@ -393,11 +574,11 @@ export default function Home() {
           {/* Tab Selection */}
           <nav className="flex bg-slate-900/70 border border-slate-900 rounded-xl p-1">
             {[
-              { id: "dashboard", label: "Monitor Hub" },
-              { id: "create", label: "Supplier Factory" },
-              { id: "fund", label: "Lending Market" },
-              { id: "execution", label: "Milestone Center" },
-              { id: "settlement", label: "Settlement Desk" },
+              { id: "dashboard", label: t.dashboardTab },
+              { id: "create", label: t.createTab },
+              { id: "fund", label: t.fundTab },
+              { id: "execution", label: t.executionTab },
+              { id: "settlement", label: t.settlementTab },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -416,10 +597,10 @@ export default function Home() {
           {/* Tab content: Monitor Hub */}
           {activeTab === "dashboard" && (
             <div className="space-y-6">
-              <h2 className="text-lg font-bold tracking-tight text-slate-200">Active Supply Chain Pipelines</h2>
+              <h2 className="text-lg font-bold tracking-tight text-slate-200">{t.activePipelines}</h2>
               {projects.length === 0 ? (
                 <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-12 text-center text-slate-500">
-                  No active trade finance projects found. Create a new pipeline as a Supplier.
+                  {t.noActiveProjects}
                 </div>
               ) : (
                 projects.map(p => (
@@ -437,15 +618,15 @@ export default function Home() {
                         <h3 className="text-md font-bold text-slate-200 mt-2">{p.name}</h3>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-slate-400">Target Financing</p>
-                        <p className="text-lg font-bold text-indigo-300">{p.targetAmount.toLocaleString()} USDC</p>
+                        <p className="text-xs text-slate-400">{t.targetFinancing}</p>
+                        <p className="text-lg font-bold text-indigo-300">{formatNumber(p.targetAmount)} USDC</p>
                       </div>
                     </div>
 
                     {/* Progress Bar */}
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs text-slate-400">
-                        <span>Funded: {p.fundedAmount.toLocaleString()} USDC</span>
+                        <span>{t.funded}: {formatNumber(p.fundedAmount)} USDC</span>
                         <span>{Math.round((p.fundedAmount / p.targetAmount) * 100)}%</span>
                       </div>
                       <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
@@ -458,7 +639,7 @@ export default function Home() {
 
                     {/* Milestones Flow */}
                     <div className="pt-2 border-t border-slate-900 space-y-3">
-                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Milestone Execution Tree</h4>
+                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.milestoneExecution}</h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {p.milestones.map(m => (
                           <div key={m.id} className="bg-slate-950 border border-slate-900 rounded-xl p-3 space-y-2 text-xs">
@@ -476,7 +657,7 @@ export default function Home() {
                             <p className="text-slate-400 line-clamp-1">{m.description}</p>
                             <div className="flex justify-between text-2xs text-slate-500">
                               <span>Deadline: {m.deadline}h</span>
-                              <span className="font-medium text-slate-400">{m.amountToRelease} USDC</span>
+                              <span className="font-medium text-slate-400">{formatNumber(m.amountToRelease)} USDC</span>
                             </div>
                           </div>
                         ))}
@@ -492,24 +673,24 @@ export default function Home() {
           {activeTab === "create" && (
             <div className="bg-slate-900/40 border border-slate-900 rounded-2xl p-6 space-y-6">
               <div>
-                <h2 className="text-lg font-bold text-slate-200">Supplier Project Factory</h2>
-                <p className="text-xs text-slate-400 mt-1">Register a new trade financing pipeline backed by milestones and deposit collateral protection.</p>
+                <h2 className="text-lg font-bold text-slate-200">{t.factoryTitle}</h2>
+                <p className="text-xs text-slate-400 mt-1">{t.factoryDesc}</p>
               </div>
 
               <form onSubmit={handleCreateProject} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-400">Trade Contract Title</label>
+                    <label className="text-xs font-semibold text-slate-400">{t.tradeTitle}</label>
                     <input 
                       type="text" 
                       value={newProjName}
                       onChange={(e) => setNewProjName(e.target.value)}
-                      placeholder="e.g. Grain Export Shipment X-20"
+                      placeholder={lang === "tr" ? "örn. Buğday İhracat Sevkiyatı X-20" : "e.g. Grain Export Shipment X-20"}
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm outline-none focus:border-indigo-500 text-slate-200"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-400">Capital Target (USDC)</label>
+                    <label className="text-xs font-semibold text-slate-400">{t.capitalTarget} (USDC)</label>
                     <input 
                       type="number" 
                       value={newProjTarget}
@@ -521,7 +702,7 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-400">Supplier Address (Borrower)</label>
+                    <label className="text-xs font-semibold text-slate-400">{t.supplierAddr}</label>
                     <input 
                       type="text" 
                       value={newProjSupplier}
@@ -530,7 +711,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-400">Buyer Address (Obligor)</label>
+                    <label className="text-xs font-semibold text-slate-400">{t.buyerAddr}</label>
                     <input 
                       type="text" 
                       value={newProjBuyer}
@@ -542,12 +723,12 @@ export default function Home() {
 
                 {/* Milestone Builder */}
                 <div className="space-y-3 pt-2 border-t border-slate-900">
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Milestone Breakdown</h4>
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t.milestoneBreakdown}</h4>
                   
                   {newProjMilestones.map((m, index) => (
                     <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-950/40 p-4 border border-slate-900 rounded-xl">
                       <div className="space-y-1">
-                        <label className="text-2xs text-slate-500 font-bold">Description</label>
+                        <label className="text-2xs text-slate-500 font-bold">{t.milestoneDesc}</label>
                         <input 
                           type="text" 
                           value={m.description}
@@ -560,7 +741,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-2xs text-slate-500 font-bold">Hours to Deadline</label>
+                        <label className="text-2xs text-slate-500 font-bold">{t.hoursToDeadline}</label>
                         <input 
                           type="number" 
                           value={m.deadline}
@@ -573,7 +754,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-2xs text-slate-500 font-bold">Amount to Release (USDC)</label>
+                        <label className="text-2xs text-slate-500 font-bold">{t.amountToRelease} (USDC)</label>
                         <input 
                           type="number" 
                           value={m.amountToRelease}
@@ -589,15 +770,15 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="flex justify-between items-center pt-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4">
                   <div className="text-xs text-amber-400 bg-amber-500/5 p-3 rounded-lg border border-amber-500/20 max-w-md">
-                    Note: Collateral requirement is <strong>{(newProjTarget / 2).toLocaleString()} USDC</strong>. Ensure collateral is deposited in the Vault before initializing.
+                    {t.collateralNote.replace("{amount}", formatNumber(newProjTarget / 2))}
                   </div>
                   <button 
                     type="submit"
-                    className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl text-xs font-bold text-white transition shadow-lg shadow-indigo-500/20"
+                    className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl text-xs font-bold text-white transition shadow-lg shadow-indigo-500/20 w-full md:w-auto"
                   >
-                    Deploy Trade Finance Pipeline
+                    {t.deployBtn}
                   </button>
                 </div>
               </form>
@@ -609,14 +790,14 @@ export default function Home() {
             <div className="space-y-6">
               <div className="flex justify-between items-center">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-200">Active Lending Markets</h2>
-                  <p className="text-xs text-slate-400 mt-1">Supply capital to trade finance pipelines. Earn 5.00% yield on final buyer delivery.</p>
+                  <h2 className="text-lg font-bold text-slate-200">{t.activeLending}</h2>
+                  <p className="text-xs text-slate-400 mt-1">{t.lendingDesc}</p>
                 </div>
               </div>
 
               {projects.filter(p => p.status === "Pending").length === 0 ? (
                 <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-12 text-center text-slate-500">
-                  No projects currently seeking capital. Check back soon.
+                  {t.noLending}
                 </div>
               ) : (
                 projects.filter(p => p.status === "Pending").map(p => (
@@ -624,7 +805,7 @@ export default function Home() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-md font-bold text-slate-200">{p.name}</h3>
-                        <p className="text-xs text-slate-500 mt-1">Borrower: {p.borrower} | Buyer: {p.buyer}</p>
+                        <p className="text-xs text-slate-500 mt-1">Supplier: {p.borrower} | Buyer: {p.buyer}</p>
                       </div>
                       <div className="text-right">
                         <span className="text-2xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">
@@ -635,20 +816,20 @@ export default function Home() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-950/60 rounded-xl text-xs">
                       <div>
-                        <span className="text-slate-500 block">Required Capital</span>
-                        <span className="font-bold text-slate-200 text-sm mt-1 block">{p.targetAmount.toLocaleString()} USDC</span>
+                        <span className="text-slate-500 block">{t.requiredCapital}</span>
+                        <span className="font-bold text-slate-200 text-sm mt-1 block">{formatNumber(p.targetAmount)} USDC</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">Supplier Collateral</span>
-                        <span className="font-bold text-slate-200 text-sm mt-1 block">{p.collateralLocked.toLocaleString()} USDC</span>
+                        <span className="text-slate-500 block">{t.lockedCollateral}</span>
+                        <span className="font-bold text-slate-200 text-sm mt-1 block">{formatNumber(p.collateralLocked)} USDC</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">Funding Deadline</span>
-                        <span className="font-bold text-slate-200 text-sm mt-1 block">{p.fundingDeadline} hrs</span>
+                        <span className="text-slate-500 block">{t.fundingDeadline}</span>
+                        <span className="font-bold text-slate-200 text-sm mt-1 block">{p.fundingDeadline} {t.hours}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500 block">Expected ROI</span>
-                        <span className="font-bold text-emerald-400 text-sm mt-1 block">5.00 %</span>
+                        <span className="text-slate-500 block">{t.expectedROI}</span>
+                        <span className="font-bold text-emerald-400 text-sm mt-1 block">{t.expectedROI === "Expected ROI" ? "5.00 %" : "%5,00"}</span>
                       </div>
                     </div>
 
@@ -664,13 +845,13 @@ export default function Home() {
                           onClick={() => fundProject(p.id, 2500)}
                           className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-semibold px-4 py-2 rounded-xl text-xs transition"
                         >
-                          +2,500
+                          +2.500
                         </button>
                         <button 
                           onClick={() => fundProject(p.id, p.targetAmount - p.fundedAmount)}
                           className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg shadow-indigo-500/20"
                         >
-                          Fill Target
+                          {t.fillTarget}
                         </button>
                       </div>
                     </div>
@@ -684,13 +865,13 @@ export default function Home() {
           {activeTab === "execution" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-lg font-bold text-slate-200">Supplier & Validator Execution Desk</h2>
-                <p className="text-xs text-slate-400 mt-1">Suppliers submit logistics/delivery proof hashes. Validators whitelist and approve releases.</p>
+                <h2 className="text-lg font-bold text-slate-200">{t.executionTitle}</h2>
+                <p className="text-xs text-slate-400 mt-1">{t.executionDesc}</p>
               </div>
 
               {projects.filter(p => p.status === "Active").length === 0 ? (
                 <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-12 text-center text-slate-500">
-                  No active projects currently in execution. Fund a pending project to activate.
+                  {t.noExecution}
                 </div>
               ) : (
                 projects.filter(p => p.status === "Active").map(p => (
@@ -713,7 +894,7 @@ export default function Home() {
                               </span>
                             </div>
                             <h4 className="text-sm font-bold text-slate-200">{m.description}</h4>
-                            <p className="text-xs text-slate-500">Release Payout: <strong className="text-slate-300">{m.amountToRelease.toLocaleString()} USDC</strong> | Deadline: {m.deadline}h</p>
+                            <p className="text-xs text-slate-500">{t.amountToRelease}: <strong className="text-slate-300">{formatNumber(m.amountToRelease)} USDC</strong> | Deadline: {m.deadline}h</p>
                             {m.proofHash && (
                               <p className="text-2xs font-mono text-indigo-300">Proof: {m.proofHash}</p>
                             )}
@@ -726,7 +907,7 @@ export default function Home() {
                                 onClick={() => submitProof(p.id, m.id, `ipfs://proof-milestone-${m.id}-cid-${Math.random().toString(36).substring(4, 9)}`)}
                                 className="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 font-bold px-4.5 py-2.5 rounded-xl text-xs transition border border-indigo-500/30 w-full md:w-auto"
                               >
-                                Submit Shipping Proof
+                                {t.submitProof}
                               </button>
                             )}
 
@@ -737,20 +918,20 @@ export default function Home() {
                                   onClick={() => approveMilestone(p.id, m.id, false)}
                                   className="bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold px-4 py-2 rounded-xl text-xs transition border border-red-500/20 flex-1 md:flex-initial"
                                 >
-                                  Reject
+                                  {t.rejectBtn}
                                 </button>
                                 <button 
                                   onClick={() => approveMilestone(p.id, m.id, true)}
                                   className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5.5 py-2 rounded-xl text-xs transition flex-1 md:flex-initial shadow-lg shadow-emerald-600/20"
                                 >
-                                  Approve & Payout
+                                  {t.approveBtn}
                                 </button>
                               </div>
                             )}
 
                             {m.status === "Approved" && (
                               <span className="text-emerald-400 text-xs font-semibold bg-emerald-500/5 px-3 py-1.5 rounded-lg border border-emerald-500/20">
-                                Funded & Settled
+                                {t.fundedSettled}
                               </span>
                             )}
                           </div>
@@ -767,13 +948,13 @@ export default function Home() {
           {activeTab === "settlement" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-lg font-bold text-slate-200">Settlement & Risk Default Desk</h2>
-                <p className="text-xs text-slate-400 mt-1">Buyers repay completed supply trades. Keepers trigger collateral default liquidation on breach.</p>
+                <h2 className="text-lg font-bold text-slate-200">{t.settlementTitle}</h2>
+                <p className="text-xs text-slate-400 mt-1">{t.settlementDesc}</p>
               </div>
 
               {projects.filter(p => p.status === "Active" || p.status === "Completed" || p.status === "Liquidated").length === 0 ? (
                 <div className="bg-slate-900/30 border border-slate-900 rounded-2xl p-12 text-center text-slate-500">
-                  No active trades currently in settlement phase.
+                  {t.noSettlement}
                 </div>
               ) : (
                 projects.filter(p => p.status === "Active" || p.status === "Completed" || p.status === "Liquidated").map(p => {
@@ -785,7 +966,7 @@ export default function Home() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h3 className="text-md font-bold text-slate-200">{p.name}</h3>
-                          <p className="text-xs text-slate-500 mt-1">Buyer Obligor: {p.buyer} | Supplier: {p.borrower}</p>
+                          <p className="text-xs text-slate-500 mt-1">Buyer: {p.buyer} | Supplier: {p.borrower}</p>
                         </div>
                         <div>
                           <span className={`text-2xs font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider ${
@@ -801,8 +982,8 @@ export default function Home() {
                       {p.status === "Active" && (
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-950 p-4 border border-slate-900 rounded-xl text-xs">
                           <div>
-                            <span className="text-slate-500 block">Repayment Obligation (Principal + 5% Yield)</span>
-                            <span className="font-bold text-slate-200 text-md mt-1 block">{(p.targetAmount * 1.05).toLocaleString()} USDC</span>
+                            <span className="text-slate-500 block">{t.repaymentObligation}</span>
+                            <span className="font-bold text-slate-200 text-md mt-1 block">{formatNumber(p.targetAmount * 1.05)} USDC</span>
                           </div>
                           
                           <div className="flex gap-2 w-full md:w-auto">
@@ -812,11 +993,11 @@ export default function Home() {
                                 onClick={() => buyerRepay(p.id)}
                                 className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-indigo-500/20 w-full md:w-auto"
                               >
-                                Confirm Delivery & Repay
+                                {t.confirmRepay}
                               </button>
                             ) : (
                               <div className="text-xs text-amber-400 bg-amber-500/5 p-2 rounded-lg border border-amber-500/20">
-                                Repayment available once all milestones are Approved.
+                                {t.repayNote}
                               </div>
                             )}
 
@@ -826,7 +1007,7 @@ export default function Home() {
                                 onClick={() => triggerDefault(p.id)}
                                 className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-red-600/20 w-full md:w-auto"
                               >
-                                Trigger Liquidation (Default)
+                                {t.triggerLiq}
                               </button>
                             )}
                           </div>
@@ -835,13 +1016,13 @@ export default function Home() {
 
                       {p.status === "Completed" && (
                         <div className="bg-emerald-500/5 border border-emerald-500/10 p-4 rounded-xl text-xs text-emerald-400">
-                          <strong>Settlement Finalized.</strong> All lenders paid back with 5% yield split. Collateral released back to Supplier.
+                          {t.settlementFinalized}
                         </div>
                       )}
 
                       {p.status === "Liquidated" && (
                         <div className="bg-red-500/5 border border-red-500/10 p-4 rounded-xl text-xs text-red-400">
-                          <strong>Project Defaulted.</strong> Collateral liquidated and distributed pro-rata to lenders.
+                          {t.projectDefaulted}
                         </div>
                       )}
                     </div>
@@ -860,13 +1041,13 @@ export default function Home() {
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
-              On-Chain Event Logs
+              {t.onChainLogs}
             </h3>
             <button 
               onClick={() => setEventLogs([])}
               className="text-3xs text-slate-500 hover:text-slate-300 uppercase tracking-wider font-bold"
             >
-              Clear
+              {t.clear}
             </button>
           </div>
 
@@ -896,7 +1077,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-900 bg-slate-950 p-6 text-center text-xs text-slate-500">
-        StellarForge Finance • Built for Stellar Soroban Smart Contract Architecture
+        {t.footer}
       </footer>
     </div>
   );
