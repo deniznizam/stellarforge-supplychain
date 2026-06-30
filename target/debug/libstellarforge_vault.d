@@ -1,0 +1,1 @@
+C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\debug\libstellarforge_vault.rlib: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\vault\src\lib.rs

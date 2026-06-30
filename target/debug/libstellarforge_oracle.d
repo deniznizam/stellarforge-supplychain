@@ -1,0 +1,1 @@
+C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\debug\libstellarforge_oracle.rlib: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\oracle\src\lib.rs

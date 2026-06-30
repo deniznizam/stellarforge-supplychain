@@ -8,6 +8,8 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 soroban-sdk = "20.0.0"
+stellarforge-vault = { path = "../vault" }
+stellarforge-oracle = { path = "../oracle" }
 
 [dev-dependencies]
 soroban-sdk = { version = "20.0.0", features = ["testutils"] }
