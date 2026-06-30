@@ -26,9 +26,9 @@ StellarForge is an end-to-end decentralized application (dApp) built on Stellar 
 
 The system is split into four primary modular contracts:
 1. **Token Contract**: Standard Stellar Soroban Token interface (handling project currencies like USDC).
-2. **Vault Contract**: Manages borrower collateral, locks/unlocks collateral, and performs liquidations.
-3. **MilestoneEscrow Contract (Core/Orchestrator)**: Handles project lifecycle (creation, funding, milestone progress, buyer repayment, and pro-rata distributions).
-4. **Oracle/Validator Contract**: Multi-validator registry that evaluates milestone delivery proofs.
+2. **Vault Contract**: Manages borrower collateral (lock, release, and liquidation).
+3. **MilestoneEscrow Contract (Core/Orchestrator)**: Handles project lifecycle, crowdfund pooling, milestone releases, buyer repayment, and distributions.
+4. **Oracle/Validator Contract**: Manages whitelist of validators; evaluates milestone proof hashes (1-of-N consensus for simplicity).
 
 ---
 
@@ -43,7 +43,7 @@ pub struct Milestone {
     pub description: String,
     pub deadline: u64,
     pub amount_to_release: i128,
-    pub proof_hash: String,           // IPFS CID/Hash containing evidence
+    pub proof_hash: String,           // IPFS CID containing evidence
     pub status: MilestoneStatus,
 }
 
@@ -88,7 +88,7 @@ pub enum MilestoneStatus {
 * `create_project(env: &Env, borrower: Address, buyer: Option<Address>, target_amount: i128, milestones: Vec<Milestone>) -> u64`
 * `fund_project(env: &Env, project_id: u64, amount: i128)`
 * `submit_milestone_proof(env: &Env, project_id: u64, milestone_id: u32, proof_hash: String)`
-* `approve_milestone(env: &Env, project_id: u64, milestone_id: u32)`
+* `approve_milestone(env: &Env, project_id: u64, milestone_id: u32)` -> *Called by Whitelisted Validator*
 * `buyer_confirm_and_repay(env: &Env, project_id: u64, repayment_amount: i128)`
 * `trigger_liquidation(env: &Env, project_id: u64)`
 
@@ -99,12 +99,12 @@ pub enum MilestoneStatus {
 * `release_collateral(env: &Env, borrower: Address, recipient: Address, amount: i128)`
 * `liquidate_collateral(env: &Env, borrower: Address, recipient: Address) -> i128`
 * `get_collateral_amount(env: &Env, borrower: Address) -> i128`
-* `get_health_factor(env: &Env, project_id: u64) -> i128`
 
 #### 1.2.3 Oracle/Validator Contract
 * `initialize(env: &Env, admin: Address)`
 * `add_validator(env: &Env, validator: Address)`
 * `remove_validator(env: &Env, validator: Address)`
+* `is_validator(env: &Env, validator: Address) -> bool`
 * `validate_proof(env: &Env, project_id: u64, milestone_id: u32, proof_hash: String) -> bool`
 
 ---
@@ -116,38 +116,54 @@ pub enum MilestoneStatus {
 graph TD
     Pending[Project Created & Collateral Deposited] -->|Lenders Fund| Active[Active Project]
     Active -->|Submit IPFS Proof| ProofSubmitted[Milestone Proof Submitted]
-    ProofSubmitted -->|Oracle/Lender Vote| Approved[Milestone Approved -> Partial Release]
+    ProofSubmitted -->|Validator Approval| Approved[Milestone Approved -> Partial Release]
     Approved -->|Next Milestones| Active
     Approved -->|Final Milestone Delivery| DeliveryConfirmed[Delivery Confirmed]
-    DeliveryConfirmed -->|Buyer Repays Principal + Interest| Completed[Completed & Collateral Returned]
+    DeliveryConfirmed -->|Buyer Repays Principal + Yield| Completed[Completed & Collateral Returned]
     Active -->|Deadline Missed| Liquidated[Liquidation Triggered -> Collateral Distributed]
 ```
 
-1. **Collateralization & Creation**: The borrower calls `Vault.deposit_collateral` to lock 120-150% LTV equivalent of tokens. Then, calls `MilestoneEscrow.create_project`, which checks the vault balance.
-2. **Crowdfunding**: Investors call `MilestoneEscrow.fund_project`. The funds are escrowed in the escrow contract. Once `target_amount` is reached, state changes to `Active`.
-3. **Execution**: The borrower uploads proof to IPFS and calls `submit_milestone_proof(..., proof_hash)`.
-4. **Verification & Partial Release**:
-   - For minor milestones: The validator triggers `approve_milestone` (calls `Oracle.validate_proof`).
-   - For major milestones: A pro-rata vote of lenders is conducted on-chain (or simulated via validator logic).
-   - Once approved, `Escrow` sends the specific milestone's allocation to the borrower (`Token.transfer`).
-5. **Buyer Repayment (Reverse Factoring)**: Upon final delivery, the Buyer calls `buyer_confirm_and_repay` transferring `target_amount + interest` back to the Escrow contract. The escrow distributes:
-   - To lenders: Principal + Yield (pro-rata).
-   - To borrower: Leftover profit and releases Vault collateral.
-6. **Default & Liquidation**: If current timestamp exceeds milestone deadline and status is not approved:
+1. **Collateralization & Creation**: The borrower deposits stable collateral to Vault (`Vault.deposit_collateral`). Then, `MilestoneEscrow.create_project` is called, verifying the locked amount is at least 50% (adjustable ratio) of the project target.
+2. **Crowdfunding**: Lenders call `MilestoneEscrow.fund_project`. Funds are held in Escrow. Once `target_amount` is met, project status updates to `Active`.
+3. **Execution & Submission**: Borrower uploads documentation to IPFS and calls `submit_milestone_proof(..., proof_hash)`.
+4. **Verification & Release**:
+   - Validation is simplified to a **1-of-N Whitelisted Validator** model. Any address registered on the Oracle contract can call `approve_milestone`.
+   - On approval, the Milestone's specific allocation is sent to the borrower.
+5. **Buyer Repayment (Reverse Factoring)**: Upon final delivery, the Buyer calls `buyer_confirm_and_repay` transferring `target_amount + interest` back to the Escrow.
+   - Escrow returns collateral to the borrower via the Vault.
+   - Escrow distributes principal + yield (pro-rata) to lenders.
+6. **Default & Liquidation**: Liquidation is **strictly time-bound**. If the current ledger timestamp exceeds the milestone deadline and status is not approved:
    - Anyone can call `trigger_liquidation`.
-   - 5-10% of the collateral goes to the liquidator address as a keeper reward.
-   - Remaining collateral and remaining escrowed project funds are returned to lenders pro-rata.
+   - A fixed liquidator bonus (5% of collateral) is sent to the trigger address.
+   - The remaining collateral is claimed from the Vault and distributed along with any unreleased escrow funds to lenders pro-rata.
 
 ---
 
-## 3. Error Handling & Security
+## 3. Soroban Event Streaming
+
+To enable real-time UI updates, the contracts will emit structured events using `env.events().publish()`:
+
+| Event Name | Topics | Data Payload | Emitted By |
+| :--- | :--- | :--- | :--- |
+| **ProjectCreated** | `("proj_created", project_id: u64)` | `(borrower: Address, target_amount: i128, token: Address)` | `MilestoneEscrow` |
+| **ProjectActive** | `("proj_active", project_id: u64)` | `()` | `MilestoneEscrow` |
+| **ProofSubmitted** | `("proof_submitted", project_id: u64, milestone_id: u32)` | `(proof_hash: String)` | `MilestoneEscrow` |
+| **MilestoneApproved** | `("milestone_approved", project_id: u64, milestone_id: u32)` | `(amount_released: i128)` | `MilestoneEscrow` |
+| **RepaymentReceived** | `("repaid", project_id: u64)` | `(repayment_amount: i128, buyer: Address)` | `MilestoneEscrow` |
+| **ProjectLiquidated** | `("liquidated", project_id: u64)` | `(collateral_claimed: i128, liquidator: Address)` | `MilestoneEscrow` |
+
+The frontend will subscribe to these events using Soroban RPC's `getEvents` query, dynamically updating dashboards.
+
+---
+
+## 4. Error Handling & Security
 
 1. **Authorization**:
-   - Standard `require_auth()` is used on all sensitive user functions.
-   - Restrictive checks ensure `submit_milestone_proof` can only be initiated by the project borrower.
-   - `buyer_confirm_and_repay` requires the buyer's authorization.
+   - `borrower.require_auth()` ensures only the registered borrower can submit proofs.
+   - Validator authorization checks against `Oracle.is_validator(validator)` during approval steps.
+   - `buyer.require_auth()` ensures only the specified buyer can confirm and repay.
 2. **Reentrancy**:
-   - State updates occur strictly before token transfer operations.
+   - All state updates occur strictly before token transfer operations.
 3. **Custom Errors**:
    - `NotAuthorized`: User is not authorized to execute this action.
    - `InvalidState`: Project state does not permit the requested transaction.
@@ -160,18 +176,18 @@ graph TD
 
 ---
 
-## 4. Verification & Testing Plan
+## 5. Verification & Testing Plan
 
-### 4.1 Smart Contract Tests (Soroban Rust Test Framework)
+### 5.1 Smart Contract Tests (Soroban Rust Test Framework)
 1. **Happy Path Integration Test**: Verifies creation, funding, 3 milestones approval, and buyer repayment with interest split.
 2. **Insufficient Collateral Test**: Fails project creation when collateral deposited is below LTV threshold.
 3. **Liquidation & Reward Test**: Triggers liquidation after deadline breach, verifying liquidator bonus and pro-rata lender distribution.
 4. **Auth Violation Test**: Ensures only borrower can submit proof, only validator can approve milestones, and only buyer can repay.
 5. **Project Expiry Refund Test**: Ensures lenders get refunded if funding target isn't met by deadline.
 6. **Partial Milestone Release & Pro-rata Distribution**: Verifies multiple lenders receive accurate fractions of yield.
-7. **Oracle Validation Failure**: Ensures incorrect proof hashes result in `OracleValidationFailed`.
+7. **Oracle Validation Failure**: Ensures incorrect proof hashes result in validation rejection.
 
-### 4.2 Frontend Tests (Jest + RTL)
+### 5.2 Frontend Tests (Jest + RTL)
 1. **Dashboard Rendering**: Verify project list, milestones tracker, and values display.
 2. **Wallet Connection State**: Verify UI changes upon Freighter connection.
 3. **Loading & Toast Notification States**: Verify spinner and transaction feedback (Success/Error).
@@ -180,8 +196,16 @@ graph TD
 
 ---
 
-## 5. CI/CD & Deployment Workflow
+## 6. CI/CD & Deployment Workflow
 
-- **CI Pipeline (`contracts.yml`)**: Run formatter, check clippy linting, run 7 integration tests, compile contract WASMs, and deploy contracts to Futurenet.
+- **CI Pipeline (`contracts.yml`)**: Run formatter, check clippy linting, run 7 integration test suites, compile contract WASMs, and deploy contracts to Futurenet.
 - **Frontend Pipeline (`frontend.yml`)**: Run Node tests, compile frontend build, and deploy to Vercel/Netlify.
 - **Initialization Script (`scripts/deploy.js`)**: Automates sequential contract deployment and linking of Vault, Oracle, and Escrow addresses.
+
+---
+
+## 7. Scope & MVP Pragmatism (Out of Scope for Orange Belt)
+To manage implementation risk within the timeline, the following features are explicitly out of scope:
+- On-chain lender voting for milestone approval (simplified to whitelisted validator approval).
+- Dynamic price feeds / Volatile asset Oracle (collateral is assumed to be stable USDC/XLM, liquidation is purely time-bound).
+- Multi-signature / M-of-N validator consensus (simplified to 1-of-N whitelist validation).
