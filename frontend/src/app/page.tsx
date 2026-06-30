@@ -783,50 +783,63 @@ export default function Home() {
       <main className="max-w-7xl mx-auto p-6 md:p-8 space-y-8">
 
         {/* Marketing Monitor Component */}
-        <div className="w-full bg-[#13151A] border border-orange-500/20 p-4 relative overflow-hidden transition-all duration-300 min-h-[60px] flex flex-col justify-center group hover:border-orange-500/50 hover:bg-[#181B22] rounded-xl">
+        <div className="w-full bg-[#13151A] border border-orange-500/20 p-4.5 relative overflow-hidden transition-all duration-300 min-h-[60px] flex flex-col justify-center group hover:border-orange-500/50 hover:bg-[#181B22] rounded-xl">
           <style>{`
             @keyframes marquee {
               0% { transform: translateX(100%); }
               100% { transform: translateX(-100%); }
             }
             .animate-marquee {
-              animation: marquee 30s linear infinite;
+              animation: marquee 40s linear infinite;
             }
           `}</style>
 
           {/* Non-hovered state: Marquee text */}
           <div className="group-hover:hidden w-full overflow-hidden whitespace-nowrap relative flex items-center">
-            <div className="absolute left-2 z-10 bg-[#13151A] px-2 py-0.5 text-[10px] font-black text-orange-400 border border-orange-500/30 uppercase tracking-widest flex items-center gap-1.5 animate-pulse rounded">
-              <span className="h-1.5 w-1.5 rounded-full bg-orange-400" />
-              {lang === "tr" ? "MONİTÖR" : "MONITOR"}
-            </div>
-            <div className="inline-block animate-marquee pl-[120px] text-xs font-bold text-[#8E97A4] tracking-wide">
+            <div className="inline-block animate-marquee pl-[20px] text-xs font-black text-orange-400 tracking-widest uppercase select-none">
               {lang === "tr" 
-                ? "💡 Neden Biz? / Why StellarForge? · KOBİ'lerin dev alıcılar karşısındaki teminat ve sermaye tıkanıklığını çözen akıllı protokol · Soroban güvencesiyle sıfır riskli ticaret finansmanı ·" 
-                : "💡 Why StellarForge? · Smart protocol unlocking production capital for suppliers backed by giant buyers · Risk-free trade finance secured by Soroban ·"}
+                ? "★ STELLARFORGE · NEDEN BİZ? · GÜVENLİ TİCARET FİNANSMANI · ORACLE DOĞRULAMALI MILESTONE ESCROW · SIFIR TEMERRÜT RİSKİ · KOBİ SERMAYE GEÇİDİ · ★" 
+                : "★ STELLARFORGE · WHY US? · SECURE SUPPLY CHAIN FINANCE · ORACLE-VERIFIED ESCROW PAYOUTS · ZERO DEFAULT RISK · ★"}
             </div>
           </div>
 
           {/* Hovered state: Concise Marketing Pitch */}
           <div className="hidden group-hover:grid grid-cols-1 md:grid-cols-3 gap-6 text-left py-2 px-4 transition-all duration-300">
-            <div className="space-y-1">
-              <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">🎯 {lang === "tr" ? "Neden Biz?" : "Why StellarForge?"}</h4>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" />
+                </svg>
+                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Neden Biz?" : "Why StellarForge?"}</h4>
+              </div>
               <p className="text-xs text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "KOBİ'lerin dev alıcılar (Nestle, Zara) karşısındaki teminat ve nakit tıkanıklığını çözeriz." 
                   : "We unlock capital for suppliers using the creditworthiness of giant buyers."}
               </p>
             </div>
-            <div className="space-y-1 border-l border-[#1E2128] pl-6">
-              <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">⚡ {lang === "tr" ? "Nasıl Çalışır?" : "How It Works?"}</h4>
+            <div className="space-y-2 border-l border-[#1E2128] pl-6">
+              <div className="flex items-center gap-2">
+                <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Nasıl Çalışır?" : "How It Works?"}</h4>
+              </div>
               <p className="text-xs text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "Tedarikçi %50 teminat kilitler ➔ Yatırımcı fonlar ➔ Oracle on-chain sevkiyat kanıtıyla parayı adım adım öder." 
                   : "Supplier locks 50% ➔ Lenders pool USDC ➔ Oracles verify proofs on-chain to release escrow payouts."}
               </p>
             </div>
-            <div className="space-y-1 border-l border-[#1E2128] pl-6">
-              <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">🔒 {lang === "tr" ? "Sonuç & Güvence" : "Settle & Guarantee"}</h4>
+            <div className="space-y-2 border-l border-[#1E2128] pl-6">
+              <div className="flex items-center gap-2">
+                <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Sonuç & Güvence" : "Settle & Guarantee"}</h4>
+              </div>
               <p className="text-xs text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "Teslimatta alıcı öder, yatırımcı %5 kazanır, teminat iade edilir. Akıllı sözleşmeyle sıfır temerrüt riski!" 
