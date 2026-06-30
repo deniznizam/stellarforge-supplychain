@@ -32,9 +32,34 @@ The system is split into four primary modular contracts:
 
 ---
 
-## 1. Smart Contract Details (Soroban Rust)
+## 1. Concrete Application Scenario (Example)
 
-### 1.1 Data Structures & Enums
+To anchor the user experience and testing, we use the following concrete scenario throughout development, documentation, and the final demo:
+
+* **Supplier/Borrower (Tedarikçi)**: "Acme Logistics" requests a **10,000 USDC** loan for manufacturing raw components.
+* **Funding Target**: 10,000 USDC.
+* **Collateral Required**: Acme deposits **5,000 USDC** (50% collateral ratio) into the `Vault` contract.
+* **Yield (Faiz)**: 5% (500 USDC) paid by the buyer upon successful completion.
+* **Milestones**:
+  1. *Milestone 1 (Material Procurement)*: 3,000 USDC released to supplier. Deadline: T+10 days.
+  2. *Milestone 2 (Component Assembly)*: 4,000 USDC released to supplier. Deadline: T+20 days.
+  3. *Milestone 3 (Final Quality Assurance & Delivery)*: 3,000 USDC released to supplier. Deadline: T+30 days.
+* **Repayment**: The Buyer ("MegaCorp") verifies Milestone 3, takes delivery, and deposits **10,500 USDC** (10,000 principal + 500 yield) into the escrow.
+* **Distribution**:
+  - Investors (Lenders) receive their funded principal pro-rata + 500 USDC yield.
+  - Acme Logistics receives their 5,000 USDC collateral back from the `Vault`.
+
+---
+
+## 2. Smart Contract Details (Soroban Rust)
+
+### 2.1 Soroban-Specific Architectural Advantages
+StellarForge is designed specifically around the Soroban architecture:
+- **Built-in Authorization Framework**: We utilize `address.require_auth()` for cryptographic validation instead of custom signature verification schemes, reducing gas usage and vulnerability windows.
+- **State Rent & TTL Model**: Project storage keys (`Project` and `Milestone`) utilize Soroban's `Persistent` storage type, while temporary validator claims and voting status keys use `Temporary` storage to minimize storage fee footprints and prevent state-bloat rent penalties.
+- **Stellar Asset Contract (SAC) Integration**: All asset interactions directly align with Stellar's official token interface, allowing seamless interoperability with native XLM or anchored assets (USDC, EURC) without requiring custom wrapping contracts.
+
+### 2.2 Data Structures & Enums
 ```rust
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -56,6 +81,7 @@ pub struct Project {
     pub token: Address,               // Token contract address (USDC/XLM)
     pub target_amount: i128,          // Total funding requested
     pub funded_amount: i128,          // Total pooled from lenders
+    pub funding_deadline: u64,        // Deadline to meet funding target
     pub milestones: Vec<Milestone>,   // Project milestones
     pub status: ProjectStatus,
     pub created_at: u64,
@@ -81,18 +107,19 @@ pub enum MilestoneStatus {
 }
 ```
 
-### 1.2 Contract Interfaces
+### 2.3 Contract Interfaces
 
-#### 1.2.1 MilestoneEscrow Contract
+#### 2.3.1 MilestoneEscrow Contract
 * `initialize(env: &Env, admin: Address, vault: Address, oracle: Address, token: Address)`
-* `create_project(env: &Env, borrower: Address, buyer: Option<Address>, target_amount: i128, milestones: Vec<Milestone>) -> u64`
-* `fund_project(env: &Env, project_id: u64, amount: i128)`
+* `create_project(env: &Env, borrower: Address, buyer: Option<Address>, target_amount: i128, funding_deadline: u64, milestones: Vec<Milestone>) -> u64`
+* `fund_project(env: &Env, lender: Address, project_id: u64, amount: i128)`
+* `claim_refund(env: &Env, lender: Address, project_id: u64)` -> *Lenders clawback funds if funding target is missed by deadline*
 * `submit_milestone_proof(env: &Env, project_id: u64, milestone_id: u32, proof_hash: String)`
 * `approve_milestone(env: &Env, project_id: u64, milestone_id: u32)` -> *Called by Whitelisted Validator*
 * `buyer_confirm_and_repay(env: &Env, project_id: u64, repayment_amount: i128)`
 * `trigger_liquidation(env: &Env, project_id: u64)`
 
-#### 1.2.2 Vault Contract
+#### 2.3.2 Vault Contract
 * `initialize(env: &Env, escrow: Address)`
 * `deposit_collateral(env: &Env, borrower: Address, token: Address, amount: i128)`
 * `lock_collateral(env: &Env, borrower: Address, amount: i128)`
@@ -100,7 +127,7 @@ pub enum MilestoneStatus {
 * `liquidate_collateral(env: &Env, borrower: Address, recipient: Address) -> i128`
 * `get_collateral_amount(env: &Env, borrower: Address) -> i128`
 
-#### 1.2.3 Oracle/Validator Contract
+#### 2.3.3 Oracle/Validator Contract
 * `initialize(env: &Env, admin: Address)`
 * `add_validator(env: &Env, validator: Address)`
 * `remove_validator(env: &Env, validator: Address)`
@@ -109,9 +136,9 @@ pub enum MilestoneStatus {
 
 ---
 
-## 2. Operation Flows & Logic
+## 3. Operation Flows & Logic
 
-### 2.1 Project Lifecycle
+### 3.1 Project Lifecycle
 ```mermaid
 graph TD
     Pending[Project Created & Collateral Deposited] -->|Lenders Fund| Active[Active Project]
@@ -121,6 +148,7 @@ graph TD
     Approved -->|Final Milestone Delivery| DeliveryConfirmed[Delivery Confirmed]
     DeliveryConfirmed -->|Buyer Repays Principal + Yield| Completed[Completed & Collateral Returned]
     Active -->|Deadline Missed| Liquidated[Liquidation Triggered -> Collateral Distributed]
+    Pending -->|Funding Deadline Missed| Refunded[Refund Triggered -> Lenders Claim Refund]
 ```
 
 1. **Collateralization & Creation**: The borrower deposits stable collateral to Vault (`Vault.deposit_collateral`). Then, `MilestoneEscrow.create_project` is called, verifying the locked amount is at least 50% (adjustable ratio) of the project target.
@@ -139,7 +167,7 @@ graph TD
 
 ---
 
-## 3. Soroban Event Streaming
+## 4. Soroban Event Streaming
 
 To enable real-time UI updates, the contracts will emit structured events using `env.events().publish()`:
 
@@ -152,11 +180,9 @@ To enable real-time UI updates, the contracts will emit structured events using 
 | **RepaymentReceived** | `("repaid", project_id: u64)` | `(repayment_amount: i128, buyer: Address)` | `MilestoneEscrow` |
 | **ProjectLiquidated** | `("liquidated", project_id: u64)` | `(collateral_claimed: i128, liquidator: Address)` | `MilestoneEscrow` |
 
-The frontend will subscribe to these events using Soroban RPC's `getEvents` query, dynamically updating dashboards.
-
 ---
 
-## 4. Error Handling & Security
+## 5. Error Handling & Security
 
 1. **Authorization**:
    - `borrower.require_auth()` ensures only the registered borrower can submit proofs.
@@ -176,18 +202,18 @@ The frontend will subscribe to these events using Soroban RPC's `getEvents` quer
 
 ---
 
-## 5. Verification & Testing Plan
+## 6. Verification & Testing Plan
 
-### 5.1 Smart Contract Tests (Soroban Rust Test Framework)
+### 6.1 Smart Contract Tests (Soroban Rust Test Framework)
 1. **Happy Path Integration Test**: Verifies creation, funding, 3 milestones approval, and buyer repayment with interest split.
 2. **Insufficient Collateral Test**: Fails project creation when collateral deposited is below LTV threshold.
 3. **Liquidation & Reward Test**: Triggers liquidation after deadline breach, verifying liquidator bonus and pro-rata lender distribution.
 4. **Auth Violation Test**: Ensures only borrower can submit proof, only validator can approve milestones, and only buyer can repay.
-5. **Project Expiry Refund Test**: Ensures lenders get refunded if funding target isn't met by deadline.
+5. **Project Expiry Refund Test**: Ensures lenders get refunded via `claim_refund` if funding target isn't met by deadline.
 6. **Partial Milestone Release & Pro-rata Distribution**: Verifies multiple lenders receive accurate fractions of yield.
 7. **Oracle Validation Failure**: Ensures incorrect proof hashes result in validation rejection.
 
-### 5.2 Frontend Tests (Jest + RTL)
+### 6.2 Frontend Tests (Jest + RTL)
 1. **Dashboard Rendering**: Verify project list, milestones tracker, and values display.
 2. **Wallet Connection State**: Verify UI changes upon Freighter connection.
 3. **Loading & Toast Notification States**: Verify spinner and transaction feedback (Success/Error).
@@ -196,7 +222,17 @@ The frontend will subscribe to these events using Soroban RPC's `getEvents` quer
 
 ---
 
-## 6. CI/CD & Deployment Workflow
+## 7. Frontend User Experience Guidelines
+
+To ensure maximum accessibility, the user interface will reject complex cryptographic jargon in favor of clear business-oriented supply chain terminology:
+
+* **Avoid**: "Invoke MilestoneEscrow trigger_liquidation method", "Address signature authorization required", "LTV vault factor".
+* **Use**: "Liquidate Defaulted Project", "Confirm Wallet Signature", "Collateral Ratio".
+* **Visual Presentation**: Use clean color-coded status pills (e.g., Green for "Repaid/Completed", Yellow for "Awaiting Proof", Red for "Defaulted"). Interactive milestones should utilize simple step-by-step wizard trackers.
+
+---
+
+## 8. CI/CD & Deployment Workflow
 
 - **CI Pipeline (`contracts.yml`)**: Run formatter, check clippy linting, run 7 integration test suites, compile contract WASMs, and deploy contracts to Futurenet.
 - **Frontend Pipeline (`frontend.yml`)**: Run Node tests, compile frontend build, and deploy to Vercel/Netlify.
@@ -204,7 +240,7 @@ The frontend will subscribe to these events using Soroban RPC's `getEvents` quer
 
 ---
 
-## 7. Scope & MVP Pragmatism (Out of Scope for Orange Belt)
+## 9. Scope & MVP Pragmatism (Out of Scope for Orange Belt)
 To manage implementation risk within the timeline, the following features are explicitly out of scope:
 - On-chain lender voting for milestone approval (simplified to whitelisted validator approval).
 - Dynamic price feeds / Volatile asset Oracle (collateral is assumed to be stable USDC/XLM, liquidation is purely time-bound).
