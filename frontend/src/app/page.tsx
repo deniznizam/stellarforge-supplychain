@@ -218,6 +218,12 @@ export default function Home() {
   const [walletAddress, setWalletAddress] = useState("GB...BUYER (Alıcı)");
   const [userRole, setUserRole] = useState<"Supplier" | "Buyer" | "Lender" | "Validator" | "Liquidator">("Buyer");
   const [tourStep, setTourStep] = useState(0);
+  const [userInvestments, setUserInvestments] = useState<Record<string, number>>({
+    "SF-001": 3000,
+    "SF-002": 3500,
+    "SF-003": 0,
+    "SF-004": 0,
+  });
 
   const handleRoleChange = (role: "Lender" | "Supplier" | "Buyer" | "Validator") => {
     setUserRole(role);
@@ -537,6 +543,13 @@ export default function Home() {
         const nextFunded = Math.min(p.targetAmount, p.fundedAmount + amount);
         const nextStatus = nextFunded >= p.targetAmount ? "Active" : p.status;
         logEvent("success", `Lender supplied ${formatNumber(amount)} USDC. Funded: ${formatNumber(nextFunded)}/${formatNumber(p.targetAmount)} USDC.`);
+        
+        // Dynamically increment user's investment share
+        setUserInvestments(inv => ({
+          ...inv,
+          [id]: (inv[id] || 0) + amount
+        }));
+
         return { ...p, fundedAmount: nextFunded, status: nextStatus };
       }
       return p;
@@ -646,7 +659,8 @@ export default function Home() {
     // Fund
     setTimeout(() => {
       setProjects(prev => prev.map(p => p.id === "SF-005" ? { ...p, fundedAmount: 20000, status: "Active" } : p));
-      logEvent("success", "Lenders funded 20,000 USDC target. Status: Active.");
+      setUserInvestments(inv => ({ ...inv, "SF-005": 5000 }));
+      logEvent("success", "Lenders funded 20,000 USDC target. Status: Active. Lender share: 5,000 USDC.");
     }, 3500);
 
     // Submit Proof 1
@@ -688,10 +702,23 @@ export default function Home() {
     // Repay
     setTimeout(() => {
       setProjects(prev => prev.map(p => p.id === "SF-005" ? { ...p, status: "Completed", fundedAmount: 20000 } : p));
-      logEvent("success", "Buyer settled repayment. 10,000 USDC collateral returned to supplier.");
+      setUserInvestments(inv => {
+        const next = { ...inv };
+        delete next["SF-005"];
+        return next;
+      });
+      logEvent("success", "Buyer settled repayment. 10,000 USDC collateral returned to supplier. Investment returned to lender.");
       setDemoActive(false);
     }, 11500);
   };
+
+  // Dynamic stats calculations based on actual active projects and lender stakes
+  const totalPoolVal = projects.reduce((acc, p) => acc + p.targetAmount, 0);
+  const activeProjectsVal = projects.filter(p => p.status === "Active").length;
+  const myInvestmentVal = projects
+    .filter(p => p.status === "Active" || p.status === "Pending")
+    .reduce((acc, p) => acc + (userInvestments[p.id] || 0), 0);
+  const expectedYieldVal = myInvestmentVal * 0.05;
 
   if (!mounted) return null;
 
@@ -879,8 +906,8 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.totalPool}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">$100,000</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">USDC — 4 projede</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(totalPoolVal)}</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">USDC — {projects.length} {lang === "tr" ? "projede" : "projects"}</span>
               </div>
             </div>
 
@@ -891,8 +918,8 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.activeProjectsLabel}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">2</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">proje devam ediyor</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">{activeProjectsVal}</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">{lang === "tr" ? "proje devam ediyor" : "projects running"}</span>
               </div>
             </div>
 
@@ -903,8 +930,8 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.myInvestment}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">$6,500</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">Bağlı değil</span>
+                <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(myInvestmentVal)}</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">{walletConnected ? (lang === "tr" ? "Cüzdan Aktif" : "Wallet Active") : (lang === "tr" ? "Bağlı değil" : "Disconnected")}</span>
               </div>
             </div>
 
@@ -915,8 +942,8 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
-                <p className="text-xl font-bold text-orange-400 tracking-tight mt-0.5">+$325</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">@5% yıllık getiri</span>
+                <p className="text-xl font-bold text-orange-400 tracking-tight mt-0.5">+${formatNumber(expectedYieldVal)}</p>
+                <span className="text-[10px] text-[#5F6774] font-medium">@5% {lang === "tr" ? "yıllık getiri" : "annual yield"}</span>
               </div>
             </div>
           </div>
