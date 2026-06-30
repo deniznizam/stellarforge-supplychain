@@ -739,7 +739,7 @@ export default function Home() {
           </svg>
           <div>
             <h1 className="text-base font-black tracking-tight text-white">{t.title}</h1>
-            <p className="text-[10px] text-[#5F6774] font-bold uppercase tracking-wider">{t.tagline}</p>
+            <p className="text-[11px] text-[#5F6774] font-bold uppercase tracking-wider">{t.tagline}</p>
           </div>
         </div>
 
@@ -747,7 +747,7 @@ export default function Home() {
         <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
           <button
             onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               activeTab === "pipelines" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -758,7 +758,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setActiveTab("create"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               activeTab === "create" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -769,7 +769,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setShowGuide(true); }}
-            className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               showGuide ? "bg-[#1E2128] text-orange-400" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -783,7 +783,7 @@ export default function Home() {
         {/* Primary Wallet connection */}
         <div className="flex items-center gap-4">
           
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 text-[#10B981] border border-emerald-900/60 text-[10px] font-bold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 text-[#10B981] border border-emerald-900/60 text-[11px] font-bold uppercase tracking-wider">
             <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
             {t.auditorVerified}
           </span>
@@ -791,13 +791,13 @@ export default function Home() {
           <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "en" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-[13px] font-extrabold transition rounded ${lang === "en" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "tr" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-[13px] font-extrabold transition rounded ${lang === "tr" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -805,7 +805,7 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 border ${
+            className={`px-4.5 py-2 rounded-lg text-[13px] font-bold transition flex items-center gap-2 border ${
               walletConnected
                 ? "bg-orange-950/20 text-orange-400 border-orange-500/30"
                 : "bg-orange-500 hover:bg-orange-400 text-[#111215] shadow-sm font-extrabold"
@@ -841,7 +841,7 @@ export default function Home() {
 
           {/* Non-hovered state: Marquee text */}
           <div className="group-hover:hidden w-full overflow-hidden whitespace-nowrap relative flex items-center">
-            <div className="inline-block animate-marquee pl-[20px] text-xs font-black text-orange-400 tracking-widest uppercase select-none">
+            <div className="inline-block animate-marquee pl-[20px] text-[13px] font-black text-orange-400 tracking-widest uppercase select-none">
               {lang === "tr" 
                 ? "★ STELLARFORGE · NEDEN BİZ? · GÜVENLİ TİCARET FİNANSMANI · ORACLE DOĞRULAMALI MILESTONE ESCROW · SIFIR TEMERRÜT RİSKİ · KOBİ SERMAYE GEÇİDİ · ★" 
                 : "★ STELLARFORGE · WHY US? · SECURE SUPPLY CHAIN FINANCE · ORACLE-VERIFIED ESCROW PAYOUTS · ZERO DEFAULT RISK · ★"}
@@ -857,9 +857,9 @@ export default function Home() {
                   <circle cx="12" cy="12" r="6" />
                   <circle cx="12" cy="12" r="2" />
                 </svg>
-                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Neden Biz?" : "Why StellarForge?"}</h4>
+                <h4 className="text-[13px] font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Neden Biz?" : "Why StellarForge?"}</h4>
               </div>
-              <p className="text-xs text-[#8E97A4] leading-relaxed">
+              <p className="text-[13px] text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "KOBİ'lerin dev alıcılar (Nestle, Zara) karşısındaki teminat ve nakit tıkanıklığını çözeriz." 
                   : "We unlock capital for suppliers using the creditworthiness of giant buyers."}
@@ -870,9 +870,9 @@ export default function Home() {
                 <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                 </svg>
-                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Nasıl Çalışır?" : "How It Works?"}</h4>
+                <h4 className="text-[13px] font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Nasıl Çalışır?" : "How It Works?"}</h4>
               </div>
-              <p className="text-xs text-[#8E97A4] leading-relaxed">
+              <p className="text-[13px] text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "Tedarikçi %50 teminat kilitler ➔ Yatırımcı fonlar ➔ Oracle on-chain sevkiyat kanıtıyla parayı adım adım öder." 
                   : "Supplier locks 50% ➔ Lenders pool USDC ➔ Oracles verify proofs on-chain to release escrow payouts."}
@@ -883,9 +883,9 @@ export default function Home() {
                 <svg className="w-4.5 h-4.5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <h4 className="text-xs font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Sonuç & Güvence" : "Settle & Guarantee"}</h4>
+                <h4 className="text-[13px] font-black text-orange-400 uppercase tracking-wider">{lang === "tr" ? "Sonuç & Güvence" : "Settle & Guarantee"}</h4>
               </div>
-              <p className="text-xs text-[#8E97A4] leading-relaxed">
+              <p className="text-[13px] text-[#8E97A4] leading-relaxed">
                 {lang === "tr" 
                   ? "Teslimatta alıcı öder, yatırımcı %5 kazanır, teminat iade edilir. Akıllı sözleşmeyle sıfır temerrüt riski!" 
                   : "Buyer repays at delivery, lenders earn 5% yield, deposit is returned. Risk-free escrow settlement."}
@@ -905,9 +905,9 @@ export default function Home() {
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
               </div>
               <div>
-                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.totalPool}</span>
+                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.totalPool}</span>
                 <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(totalPoolVal)}</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">USDC — {projects.length} {lang === "tr" ? "projede" : "projects"}</span>
+                <span className="text-[11px] text-[#5F6774] font-medium">USDC — {projects.length} {lang === "tr" ? "projede" : "projects"}</span>
               </div>
             </div>
 
@@ -917,9 +917,9 @@ export default function Home() {
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
               </div>
               <div>
-                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.activeProjectsLabel}</span>
+                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.activeProjectsLabel}</span>
                 <p className="text-xl font-bold text-white tracking-tight mt-0.5">{activeProjectsVal}</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">{lang === "tr" ? "proje devam ediyor" : "projects running"}</span>
+                <span className="text-[11px] text-[#5F6774] font-medium">{lang === "tr" ? "proje devam ediyor" : "projects running"}</span>
               </div>
             </div>
 
@@ -929,9 +929,9 @@ export default function Home() {
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
               <div>
-                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.myInvestment}</span>
+                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.myInvestment}</span>
                 <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(myInvestmentVal)}</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">{walletConnected ? (lang === "tr" ? "Cüzdan Aktif" : "Wallet Active") : (lang === "tr" ? "Bağlı değil" : "Disconnected")}</span>
+                <span className="text-[11px] text-[#5F6774] font-medium">{walletConnected ? (lang === "tr" ? "Cüzdan Aktif" : "Wallet Active") : (lang === "tr" ? "Bağlı değil" : "Disconnected")}</span>
               </div>
             </div>
 
@@ -941,9 +941,9 @@ export default function Home() {
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
               </div>
               <div>
-                <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
+                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
                 <p className="text-xl font-bold text-orange-400 tracking-tight mt-0.5">+${formatNumber(expectedYieldVal)}</p>
-                <span className="text-[10px] text-[#5F6774] font-medium">@5% {lang === "tr" ? "yıllık getiri" : "annual yield"}</span>
+                <span className="text-[11px] text-[#5F6774] font-medium">@5% {lang === "tr" ? "yıllık getiri" : "annual yield"}</span>
               </div>
             </div>
           </div>
@@ -960,9 +960,9 @@ export default function Home() {
                 
                 {/* Onboarding Header */}
                 <div className="space-y-2">
-                  <span className="text-xs text-orange-400 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
+                  <span className="text-[13px] text-orange-400 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
                   <h2 className="text-2xl font-bold text-white tracking-tight">{t.guideTitle}</h2>
-                  <p className="text-sm text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
+                  <p className="text-[15px] text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
                 </div>
 
                 {/* Progress Stepper Visual */}
@@ -998,7 +998,7 @@ export default function Home() {
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
-                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
+                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide1Desc}</p>
                     </>
                   )}
                   {guideSlide === 1 && (
@@ -1007,7 +1007,7 @@ export default function Home() {
                         <circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M12 6v12" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
-                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
+                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide2Desc}</p>
                     </>
                   )}
                   {guideSlide === 2 && (
@@ -1016,7 +1016,7 @@ export default function Home() {
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
-                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
+                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide3Desc}</p>
                     </>
                   )}
                   {guideSlide === 3 && (
@@ -1025,14 +1025,14 @@ export default function Home() {
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
-                      <p className="text-xs md:text-sm text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
+                      <p className="text-[13px] md:text-[15px] text-[#8E97A4] max-w-md leading-relaxed">{t.slide4Desc}</p>
                     </>
                   )}
                 </div>
 
                 {/* Brand Concept Illustration */}
                 <div className="border-t border-[#1E2128] pt-6 space-y-3">
-                  <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block text-center">
+                  <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider block text-center">
                     {lang === "tr" ? "GÖRSEL TİCARET FİNANSMANI İŞ AKIŞI" : "VISUAL TRADE FINANCE WORKFLOW"}
                   </span>
                   <div className="relative overflow-hidden border border-[#1E2128] bg-[#0B0C0E] rounded-xl">
@@ -1050,7 +1050,7 @@ export default function Home() {
                   <button
                     disabled={guideSlide === 0}
                     onClick={() => setGuideSlide(prev => prev - 1)}
-                    className={`px-4 py-2 text-xs font-bold transition flex items-center gap-1.5 rounded-lg ${
+                    className={`px-4 py-2 text-[13px] font-bold transition flex items-center gap-1.5 rounded-lg ${
                       guideSlide === 0 ? "text-[#5F6774] cursor-not-allowed" : "bg-[#1E2128] hover:bg-[#2A2F3D] text-white"
                     }`}
                   >
@@ -1075,7 +1075,7 @@ export default function Home() {
                   {guideSlide === 3 ? (
                     <button
                       onClick={() => setShowGuide(false)}
-                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-[13px] transition shadow-md rounded-lg flex items-center gap-1"
                     >
                       <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <polyline points="20 6 9 17 4 12" />
@@ -1085,7 +1085,7 @@ export default function Home() {
                   ) : (
                     <button
                       onClick={() => setGuideSlide(prev => prev + 1)}
-                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-[13px] transition shadow-md rounded-lg flex items-center gap-1"
                     >
                       {t.next}
                       <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1102,7 +1102,7 @@ export default function Home() {
                 {/* Header info */}
                 <div className="flex justify-between items-center border-b border-[#1E2128] pb-3">
                   <h2 className="text-lg font-black text-white">{lang === "tr" ? "Projeler" : "Projects"}</h2>
-                  <span className="text-xs text-[#5F6774] font-bold">4 {lang === "tr" ? "proje listelendi" : "projects listed"}</span>
+                  <span className="text-[13px] text-[#5F6774] font-bold">4 {lang === "tr" ? "proje listelendi" : "projects listed"}</span>
                 </div>
 
                 {/* Projects Grid exactly mapping the Figma snapshot (2 columns layout) */}
@@ -1128,8 +1128,8 @@ export default function Home() {
                         {/* Project Header Row */}
                         <div className="flex justify-between items-start">
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-bold text-[#5F6774]">{p.id}</span>
-                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded border tracking-wider ${
+                            <span className="text-[11px] font-bold text-[#5F6774]">{p.id}</span>
+                            <span className={`text-[11px] font-black uppercase px-2 py-0.5 rounded border tracking-wider ${
                               p.status === "Active" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" :
                               p.status === "Pending" ? "bg-blue-500/10 text-blue-400 border-blue-500/20" :
                               p.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
@@ -1142,7 +1142,7 @@ export default function Home() {
                             </span>
                           </div>
 
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-950/20 text-[#10B981] border border-emerald-900/40 text-[9px] font-bold uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-950/20 text-[#10B981] border border-emerald-900/40 text-[10px] font-bold uppercase tracking-wider">
                             <span className="h-1 w-1 rounded-full bg-[#10B981]" />
                             {lang === "tr" ? "Oracle Doğrulamalı" : "Oracle Verified"}
                           </span>
@@ -1151,7 +1151,7 @@ export default function Home() {
                         {/* Title Block */}
                         <div>
                           <h3 className="text-base font-bold text-white leading-tight">{p.name}</h3>
-                          <p className="text-xs text-[#8E97A4] font-medium mt-0.5">{p.originPort} ➔ {p.destPort}</p>
+                          <p className="text-[13px] text-[#8E97A4] font-medium mt-0.5">{p.originPort} ➔ {p.destPort}</p>
                         </div>
 
                         {/* Visual Shipping Route map */}
@@ -1171,7 +1171,7 @@ export default function Home() {
                           {/* Port Origin */}
                           <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
                             <div className="h-2.5 w-2.5 rounded-full bg-orange-400 border-2 border-[#0B0C0E]" />
-                            <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.originPortCode}</span>
+                            <span className="text-[11px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.originPortCode}</span>
                           </div>
 
                           {/* Cargo vessel position */}
@@ -1192,14 +1192,14 @@ export default function Home() {
                           {/* Port Destination */}
                           <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
                             <div className={`h-2.5 w-2.5 rounded-full border-2 border-[#0B0C0E] ${p.status === "Completed" ? "bg-orange-400" : "bg-[#1E2128]"}`} />
-                            <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.destPortCode}</span>
+                            <span className="text-[11px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.destPortCode}</span>
                           </div>
                         </div>
 
                         {/* Capital Funding Progress Bar */}
                         <div className="space-y-2">
-                          <div className="flex justify-between text-xs font-bold text-white">
-                            <span className="text-[#8E97A4] font-black uppercase text-[10px] tracking-wider">{t.fundedAmount}</span>
+                          <div className="flex justify-between text-[13px] font-bold text-white">
+                            <span className="text-[#8E97A4] font-black uppercase text-[11px] tracking-wider">{t.fundedAmount}</span>
                             <span>{formatNumber(p.fundedAmount)} / {formatNumber(p.targetAmount)} USDC</span>
                           </div>
 
@@ -1210,7 +1210,7 @@ export default function Home() {
                             />
                           </div>
 
-                          <div className="flex justify-between text-[10px] font-black uppercase tracking-wider">
+                          <div className="flex justify-between text-[11px] font-black uppercase tracking-wider">
                             <span className="text-[#5F6774]">{progressPercent}% {lang === "tr" ? "fonlandı" : "funded"}</span>
                             {progressPercent >= 100 ? (
                               <span className="text-emerald-400">{lang === "tr" ? "Tam fonlandı ✓" : "Fully funded ✓"}</span>
@@ -1222,7 +1222,7 @@ export default function Home() {
 
                         {/* Milestones timeline */}
                         <div className="space-y-3">
-                          <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block">{t.milestoneProgress}</span>
+                          <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider block">{t.milestoneProgress}</span>
                           
                           <div className="flex items-center justify-between gap-1 relative py-2">
                             <div className="absolute left-4 right-4 h-0.5 bg-[#1E2128] z-0" />
@@ -1242,11 +1242,11 @@ export default function Home() {
                                     ) : isSubmitted ? (
                                       <svg className="w-3.5 h-3.5 text-amber-500 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                     ) : (
-                                      <span className="text-xs">{m.id}</span>
+                                      <span className="text-[13px]">{m.id}</span>
                                     )}
                                   </div>
-                                  <span className="text-[9px] font-bold text-white line-clamp-1 mt-1">{m.description}</span>
-                                  <span className="text-[9px] text-[#5F6774] font-medium">{formatNumber(m.amountToRelease)} USDC</span>
+                                  <span className="text-[10px] font-bold text-white line-clamp-1 mt-1">{m.description}</span>
+                                  <span className="text-[10px] text-[#5F6774] font-medium">{formatNumber(m.amountToRelease)} USDC</span>
                                 </div>
                               );
                             })}
@@ -1254,7 +1254,7 @@ export default function Home() {
                         </div>
 
                         {/* Flat Details list */}
-                        <div className="border-t border-[#1E2128] pt-4.5 flex flex-wrap justify-between items-center text-[10px] text-[#8E97A4] font-bold gap-2">
+                        <div className="border-t border-[#1E2128] pt-4.5 flex flex-wrap justify-between items-center text-[11px] text-[#8E97A4] font-bold gap-2">
                           <div>
                             {lang === "tr" ? "Alıcı: " : "Buyer: "}<span className="text-white">{p.buyer}</span>
                           </div>
@@ -1277,7 +1277,7 @@ export default function Home() {
                                     const nextPending = p.milestones.find(m => m.status === "Pending");
                                     if (nextPending) submitProof(p.id, nextPending.id);
                                   }}
-                                  className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                                  className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-[13px] font-extrabold transition shadow-md"
                                 >
                                   {t.submitProof}
                                 </button>
@@ -1289,7 +1289,7 @@ export default function Home() {
                                       const nextSub = p.milestones.find(m => m.status === "ProofSubmitted");
                                       if (nextSub) approveMilestone(p.id, nextSub.id, false);
                                     }}
-                                    className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-2 rounded-lg text-xs font-bold transition"
+                                    className="flex-1 bg-red-950/20 hover:bg-red-950/40 border border-red-900/60 text-red-400 py-2 rounded-lg text-[13px] font-bold transition"
                                   >
                                     {t.rejectBtn}
                                   </button>
@@ -1298,7 +1298,7 @@ export default function Home() {
                                       const nextSub = p.milestones.find(m => m.status === "ProofSubmitted");
                                       if (nextSub) approveMilestone(p.id, nextSub.id, true);
                                     }}
-                                    className="flex-1 bg-orange-500 hover:bg-orange-400 text-[#111215] py-2 rounded-lg text-xs font-extrabold transition shadow-md"
+                                    className="flex-1 bg-orange-500 hover:bg-orange-400 text-[#111215] py-2 rounded-lg text-[13px] font-extrabold transition shadow-md"
                                   >
                                     {t.approveBtn}
                                   </button>
@@ -1311,7 +1311,7 @@ export default function Home() {
                                     e.stopPropagation();
                                     if (allApproved) buyerRepay(p.id);
                                   }}
-                                  className={`w-full py-2.5 rounded-lg text-xs font-extrabold transition shadow-md ${
+                                  className={`w-full py-2.5 rounded-lg text-[13px] font-extrabold transition shadow-md ${
                                     allApproved 
                                       ? "bg-orange-500 hover:bg-orange-400 text-[#111215]" 
                                       : "bg-[#1E2128] text-slate-500 cursor-not-allowed"
@@ -1329,14 +1329,14 @@ export default function Home() {
                                 e.stopPropagation();
                                 fundProject(p.id, p.targetAmount - p.fundedAmount);
                               }}
-                              className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                              className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-[13px] font-extrabold transition shadow-md"
                             >
                               {t.fillTarget}
                             </button>
                           )}
 
                           {p.status === "Completed" && (
-                            <button className="w-full bg-[#102A1E]/30 border border-emerald-900/40 text-emerald-400 py-2.5 rounded-lg text-xs font-bold cursor-default flex items-center justify-center gap-1">
+                            <button className="w-full bg-[#102A1E]/30 border border-emerald-900/40 text-emerald-400 py-2.5 rounded-lg text-[13px] font-bold cursor-default flex items-center justify-center gap-1">
                               <svg className="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
                               </svg>
@@ -1346,7 +1346,7 @@ export default function Home() {
 
                           {/* Fallback button if no actions apply */}
                           {(!((p.status === "Active" && (userRole === "Supplier" || userRole === "Validator" || userRole === "Buyer")) || (p.status === "Pending" && userRole === "Lender")) && p.status !== "Completed") && (
-                            <button className="w-full bg-[#1A1C20] text-[#5F6774] py-2.5 rounded-lg text-xs font-bold cursor-default">
+                            <button className="w-full bg-[#1A1C20] text-[#5F6774] py-2.5 rounded-lg text-[13px] font-bold cursor-default">
                               {lang === "tr" ? "Bu rol için aksiyon yok" : "No action for this role"}
                             </button>
                           )}
@@ -1362,79 +1362,79 @@ export default function Home() {
               <div className="bg-[#13151A] border border-[#1E2128] p-6 md:p-8 space-y-6 rounded-xl">
                 <div>
                   <h3 className="text-md md:text-lg font-bold text-white">{t.createTitle}</h3>
-                  <p className="text-xs md:text-sm text-[#8E97A4] mt-1">{t.createDesc}</p>
+                  <p className="text-[13px] md:text-[15px] text-[#8E97A4] mt-1">{t.createDesc}</p>
                 </div>
 
                 <form onSubmit={handleCreateProject} className="space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.tradeTitle}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.tradeTitle}</label>
                       <input 
                         type="text" 
                         value={newProjName}
                         onChange={(e) => setNewProjName(e.target.value)}
                         placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.originPortLabel}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.originPortLabel}</label>
                       <input 
                         type="text" 
                         value={newProjOrigin}
                         onChange={(e) => setNewProjOrigin(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.destPortLabel}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.destPortLabel}</label>
                       <input 
                         type="text" 
                         value={newProjDest}
                         onChange={(e) => setNewProjDest(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.fundingTarget}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.fundingTarget}</label>
                       <input 
                         type="number" 
                         value={newProjTarget}
                         onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.supplierAddr}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.supplierAddr}</label>
                       <input 
                         type="text" 
                         value={newProjSupplier}
                         onChange={(e) => setNewProjSupplier(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#8E97A4]">{t.buyerAddr}</label>
+                      <label className="text-[13px] font-bold text-[#8E97A4]">{t.buyerAddr}</label>
                       <input 
                         type="text" 
                         value={newProjBuyer}
                         onChange={(e) => setNewProjBuyer(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-[13px] outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
                       />
                     </div>
                   </div>
 
                   {/* Milestone Builder */}
                   <div className="space-y-4 pt-3 border-t border-[#1E2128]">
-                    <h4 className="text-xs md:text-sm font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
+                    <h4 className="text-[13px] md:text-[15px] font-black text-[#8E97A4] uppercase tracking-wider">{t.milestoneBreakdown}</h4>
                     
                     {newProjMilestones.map((m, index) => (
                       <div key={m.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#0B0C0E]/50 p-4 border border-[#181B22] rounded-lg">
                         <div className="space-y-1">
-                          <label className="text-xs text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
+                          <label className="text-[13px] text-[#8E97A4] font-bold">{t.milestoneDesc}</label>
                           <input 
                             type="text" 
                             value={m.description}
@@ -1443,11 +1443,11 @@ export default function Home() {
                               updated[index].description = e.target.value;
                               setNewProjMilestones(updated);
                             }}
-                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-[13px] outline-none text-white font-medium"
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="text-xs text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
+                          <label className="text-[13px] text-[#8E97A4] font-bold">{t.hoursToDeadline}</label>
                           <input 
                             type="number" 
                             value={m.deadline}
@@ -1456,11 +1456,11 @@ export default function Home() {
                               updated[index].deadline = Number(e.target.value);
                               setNewProjMilestones(updated);
                             }}
-                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-[13px] outline-none text-white font-medium"
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="text-xs text-[#8E97A4] font-bold">{t.amountToRelease}</label>
+                          <label className="text-[13px] text-[#8E97A4] font-bold">{t.amountToRelease}</label>
                           <input 
                             type="number" 
                             value={m.amountToRelease}
@@ -1469,7 +1469,7 @@ export default function Home() {
                               updated[index].amountToRelease = Number(e.target.value);
                               setNewProjMilestones(updated);
                             }}
-                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-xs outline-none text-white font-medium"
+                            className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-2.5 text-[13px] outline-none text-white font-medium"
                           />
                         </div>
                       </div>
@@ -1477,7 +1477,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#1E2128]">
-                    <div className="text-xs text-orange-400 bg-orange-500/5 p-3 border border-orange-500/10 max-w-md font-medium leading-relaxed rounded-lg flex items-start gap-1.5">
+                    <div className="text-[13px] text-orange-400 bg-orange-500/5 p-3 border border-orange-500/10 max-w-md font-medium leading-relaxed rounded-lg flex items-start gap-1.5">
                       <svg className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
                         <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
@@ -1486,7 +1486,7 @@ export default function Home() {
                     </div>
                     <button 
                       type="submit"
-                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-lg"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-3 text-[13px] transition w-full md:w-auto shadow-md rounded-lg"
                     >
                       {t.submitContract}
                     </button>
@@ -1506,7 +1506,7 @@ export default function Home() {
                 ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] border-orange-500" 
                 : "border-[#1E2128]"
             }`}>
-              <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider block">
+              <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider block">
                 {lang === "tr" ? "AKTİF ROL" : "ACTIVE ROLE"}
               </span>
               
@@ -1522,7 +1522,7 @@ export default function Home() {
                     <button
                       key={role.id}
                       onClick={() => handleRoleChange(role.id as any)}
-                      className={`w-full text-left p-3 text-xs font-bold transition rounded-lg border ${
+                      className={`w-full text-left p-3 text-[13px] font-bold transition rounded-lg border ${
                         isActive
                           ? "bg-orange-950/20 text-orange-400 border-orange-500/40"
                           : "bg-[#0B0C0E]/40 text-[#8E97A4] border-[#1E2128] hover:border-[#272B35]"
@@ -1542,7 +1542,7 @@ export default function Home() {
               </div>
 
               {/* Explanatory description of how role is proven in production */}
-              <div className="text-[10px] text-[#8E97A4] leading-normal pt-2 border-t border-[#1E2128] space-y-1">
+              <div className="text-[11px] text-[#8E97A4] leading-normal pt-2 border-t border-[#1E2128] space-y-1">
                 <span className="text-orange-400 font-extrabold block">🛡️ {lang === "tr" ? "Rolümü Nasıl Kanıtlarım?" : "How do I prove my role?"}</span>
                 <p>
                   {lang === "tr" 
@@ -1560,7 +1560,7 @@ export default function Home() {
                   : "border-[#1E2128]"
               }`}>
                 <div className="flex justify-between items-center border-b border-[#1E2128] pb-2.5">
-                  <h3 className="text-xs font-bold text-white flex items-center gap-2">
+                  <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
                     <svg className="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="3" />
                       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -1569,7 +1569,7 @@ export default function Home() {
                   </h3>
                   <button 
                     onClick={() => setShowSimPanel(false)}
-                    className="text-xs text-[#8E97A4] hover:text-white font-black"
+                    className="text-[13px] text-[#8E97A4] hover:text-white font-black"
                   >
                     [ Hide ]
                   </button>
@@ -1577,13 +1577,13 @@ export default function Home() {
 
                 {/* Time Simulator */}
                 <div className="flex justify-between items-center gap-3">
-                  <div className="text-xs">
+                  <div className="text-[13px]">
                     <span className="text-[#8E97A4] block">{t.ledgerTime}</span>
                     <span className="text-white font-extrabold mt-0.5 block">{currentTime} {t.hours}</span>
                   </div>
                   <button 
                     onClick={() => fastForwardTime(24)}
-                    className="text-xs bg-[#1E2128] hover:bg-[#2A2F3D] text-white font-bold py-1.5 px-3 rounded-lg transition"
+                    className="text-[13px] bg-[#1E2128] hover:bg-[#2A2F3D] text-white font-bold py-1.5 px-3 rounded-lg transition"
                   >
                     +24 {t.hours}
                   </button>
@@ -1593,7 +1593,7 @@ export default function Home() {
                 <button
                   onClick={runAutoDemo}
                   disabled={demoActive}
-                  className={`w-full text-xs font-black py-2.5 rounded-lg border transition ${
+                  className={`w-full text-[13px] font-black py-2.5 rounded-lg border transition ${
                     demoActive
                       ? "bg-[#0B0C0E] text-slate-600 border-[#1E2128] cursor-not-allowed"
                       : "bg-orange-500/10 hover:bg-orange-500 text-orange-400 hover:text-[#111215] border-orange-500/20"
@@ -1605,12 +1605,12 @@ export default function Home() {
                 {/* Interactive log viewer */}
                 <div className="bg-[#0B0C0E] border border-[#1E2128] p-3.5 h-40 flex flex-col relative overflow-hidden rounded-lg">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-[10px] font-black text-[#5F6774] uppercase tracking-wider">{t.onChainLogs}</span>
-                    <button onClick={() => setEventLogs([])} className="text-[10px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
+                    <span className="text-[11px] font-black text-[#5F6774] uppercase tracking-wider">{t.onChainLogs}</span>
+                    <button onClick={() => setEventLogs([])} className="text-[11px] text-[#5F6774] hover:text-[#8E97A4] font-bold uppercase">{t.clearLogs}</button>
                   </div>
                   <div className="flex-1 overflow-y-auto space-y-2 pr-1.5 scrollbar-thin scrollbar-thumb-slate-800">
                     {eventLogs.map((log, i) => (
-                      <div key={i} className="text-[10px] bg-[#13151A] p-2 space-y-0.5 border border-[#1E2128] rounded">
+                      <div key={i} className="text-[11px] bg-[#13151A] p-2 space-y-0.5 border border-[#1E2128] rounded">
                         <div className="flex justify-between">
                           <span className="text-slate-500">{log.timestamp}</span>
                           <span className={`h-1.5 w-1.5 rounded-full ${log.type === "success" ? "bg-emerald-400" : log.type === "warning" ? "bg-amber-400" : "bg-red-400"}`} />
@@ -1625,7 +1625,7 @@ export default function Home() {
             ) : (
               <button 
                 onClick={() => setShowSimPanel(true)}
-                className="w-full bg-[#13151A] hover:bg-[#1E2128] border border-[#1E2128] p-4 flex items-center justify-center gap-2 text-xs font-bold text-white transition shadow-sm rounded-xl"
+                className="w-full bg-[#13151A] hover:bg-[#1E2128] border border-[#1E2128] p-4 flex items-center justify-center gap-2 text-[13px] font-bold text-white transition shadow-sm rounded-xl"
               >
                 <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="3" />
@@ -1636,7 +1636,7 @@ export default function Home() {
             )}
             
             {/* Collapsed/Active developer badge */}
-            <div className="flex justify-end pr-2 text-[10px] text-[#5F6774] font-bold gap-1 items-center">
+            <div className="flex justify-end pr-2 text-[11px] text-[#5F6774] font-bold gap-1 items-center">
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
               <span>{lang === "tr" ? "Geliştirici Araçları" : "Developer Tools"}: </span>
               <span className="text-orange-400 bg-orange-950/20 px-1.5 py-0.5 rounded border border-orange-900/30 uppercase">{getRoleTranslation(userRole, lang)}</span>
@@ -1649,25 +1649,25 @@ export default function Home() {
         {tourStep > 0 && (
           <div className="fixed bottom-24 right-6 z-50 bg-[#13151A] border-2 border-orange-500 p-5 rounded-xl shadow-2xl max-w-sm w-80 animate-fadeIn space-y-4">
             <div className="flex justify-between items-center border-b border-[#1E2128] pb-2">
-              <span className="text-[10px] text-orange-400 font-black tracking-widest uppercase">
+              <span className="text-[11px] text-orange-400 font-black tracking-widest uppercase">
                 {lang === "tr" ? `ADIM ${tourStep} / 4` : `STEP ${tourStep} / 4`}
               </span>
               <button 
                 onClick={() => setTourStep(0)}
-                className="text-xs text-[#5F6774] hover:text-white font-extrabold"
+                className="text-[13px] text-[#5F6774] hover:text-white font-extrabold"
               >
                 [ {lang === "tr" ? "Kapat" : "Close"} ]
               </button>
             </div>
 
             <div className="space-y-2">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">
+              <h4 className="text-[13px] font-black text-white uppercase tracking-wider">
                 {tourStep === 1 && (lang === "tr" ? "1. Genel Havuz İstatistikleri" : "1. Global Pool Stats")}
                 {tourStep === 2 && (lang === "tr" ? "2. Ticaret Projesi Kartları" : "2. Trade Project Cards")}
                 {tourStep === 3 && (lang === "tr" ? "3. Aktif Hesap Rolleri" : "3. Active Simulator Roles")}
                 {tourStep === 4 && (lang === "tr" ? "4. Zaman ve Akıllı Simülatör" : "4. Time & Block Simulator")}
               </h4>
-              <p className="text-[11px] text-[#8E97A4] leading-relaxed">
+              <p className="text-[12px] text-[#8E97A4] leading-relaxed">
                 {tourStep === 1 && (lang === "tr" 
                   ? "Toplam havuz büyüklüğünü, aktif projeleri, yatırımlarınızı ve beklenen getiri oranlarını buradan takip edersiniz." 
                   : "Track total pool size, active trade projects, your mock investments, and expected yield rates here.")}
@@ -1687,7 +1687,7 @@ export default function Home() {
               <button
                 disabled={tourStep === 1}
                 onClick={() => setTourStep(prev => Math.max(1, prev - 1))}
-                className={`px-3 py-1.5 text-[10px] font-bold rounded transition ${
+                className={`px-3 py-1.5 text-[11px] font-bold rounded transition ${
                   tourStep === 1 ? "text-slate-600 bg-[#0B0C0E] cursor-not-allowed" : "bg-[#1E2128] hover:bg-[#2A2F3D] text-white"
                 }`}
               >
@@ -1697,14 +1697,14 @@ export default function Home() {
               {tourStep === 4 ? (
                 <button
                   onClick={() => setTourStep(0)}
-                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[10px] rounded transition shadow-md"
+                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[11px] rounded transition shadow-md"
                 >
                   {lang === "tr" ? "Bitir" : "Finish"}
                 </button>
               ) : (
                 <button
                   onClick={() => setTourStep(prev => Math.min(4, prev + 1))}
-                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[10px] rounded transition shadow-md"
+                  className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-4 py-1.5 text-[11px] rounded transition shadow-md"
                 >
                   {lang === "tr" ? "İleri" : "Next"}
                 </button>
@@ -1716,7 +1716,7 @@ export default function Home() {
         {/* Floating Help Chain Icon Button */}
         <div className="fixed bottom-6 right-6 z-50 group flex flex-col items-end">
           {/* Tooltip balloon */}
-          <div className="bg-[#13151A] border border-orange-500/30 text-orange-400 text-[10px] font-extrabold px-3 py-1.5 rounded-lg shadow-lg mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap uppercase tracking-wider">
+          <div className="bg-[#13151A] border border-orange-500/30 text-orange-400 text-[11px] font-extrabold px-3 py-1.5 rounded-lg shadow-lg mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap uppercase tracking-wider">
             {lang === "tr" ? "Yardıma mı ihtiyacınız var?" : "Need help?"}
           </div>
           
@@ -1729,7 +1729,7 @@ export default function Home() {
               <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
               <circle cx="12" cy="12" r="1" fill="currentColor" />
             </svg>
-            <span className="absolute -top-1 -right-1 bg-orange-500 text-[#111215] font-black text-[9px] h-4 w-4 rounded-full flex items-center justify-center tracking-tighter shadow-md">i</span>
+            <span className="absolute -top-1 -right-1 bg-orange-500 text-[#111215] font-black text-[10px] h-4 w-4 rounded-full flex items-center justify-center tracking-tighter shadow-md">i</span>
           </button>
         </div>
 
