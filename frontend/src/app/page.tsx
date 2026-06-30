@@ -682,14 +682,14 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-[#0B0C0E] text-[#E2E8F0] font-sans antialiased selection:bg-teal-500/20 selection:text-white pb-12">
+    <div className="min-h-screen bg-[#0B0C0E] text-[#E2E8F0] font-sans antialiased selection:bg-orange-500/20 selection:text-white pb-12">
       
       {/* Top Header */}
       <header className="border-b border-[#1E2128] bg-[#0E0F12] px-8 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4">
         
         {/* Brand logo & tagline */}
         <div className="flex items-center gap-2.5">
-          <svg className="w-6 h-6 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-6 h-6 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
             <polygon points="12 22 12 12 2 8.5" />
             <polygon points="12 12 22 8.5" />
@@ -729,7 +729,7 @@ export default function Home() {
           <button
             onClick={() => { setShowGuide(true); }}
             className={`py-1.5 px-4 text-xs font-bold transition flex items-center gap-2 rounded-md ${
-              showGuide ? "bg-[#1E2128] text-teal-400" : "text-[#8E97A4] hover:text-white"
+              showGuide ? "bg-[#1E2128] text-orange-400" : "text-[#8E97A4] hover:text-white"
             }`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -750,13 +750,13 @@ export default function Home() {
           <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
             <button 
               onClick={() => setLang("en")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "en" ? "bg-teal-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "en" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               EN
             </button>
             <button 
               onClick={() => setLang("tr")}
-              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "tr" ? "bg-teal-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
+              className={`px-2.5 py-1 text-xs font-extrabold transition rounded ${lang === "tr" ? "bg-orange-500 text-[#111215]" : "text-[#8E97A4] hover:text-white"}`}
             >
               TR
             </button>
@@ -766,8 +766,8 @@ export default function Home() {
             onClick={connectWallet}
             className={`px-4.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 border ${
               walletConnected
-                ? "bg-teal-950/20 text-teal-400 border-teal-500/30"
-                : "bg-teal-500 hover:bg-teal-400 text-[#111215] shadow-sm font-extrabold"
+                ? "bg-orange-950/20 text-orange-400 border-orange-500/30"
+                : "bg-orange-500 hover:bg-orange-400 text-[#111215] shadow-sm font-extrabold"
             }`}
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -787,7 +787,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
             {/* Stat 1: Total Pool */}
             <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
               </div>
               <div>
@@ -799,7 +799,7 @@ export default function Home() {
 
             {/* Stat 2: Active Projects */}
             <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
               </div>
               <div>
@@ -811,7 +811,7 @@ export default function Home() {
 
             {/* Stat 3: My Investment */}
             <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
               <div>
@@ -823,12 +823,12 @@ export default function Home() {
 
             {/* Stat 4: Expected Yield */}
             <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-teal-950/40 border border-teal-900/30 rounded-lg flex items-center justify-center text-teal-400">
+              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
               </div>
               <div>
                 <span className="text-[10px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
-                <p className="text-xl font-bold text-teal-400 tracking-tight mt-0.5">+$325</p>
+                <p className="text-xl font-bold text-orange-400 tracking-tight mt-0.5">+$325</p>
                 <span className="text-[10px] text-[#5F6774] font-medium">@5% yıllık getiri</span>
               </div>
             </div>
@@ -846,7 +846,7 @@ export default function Home() {
                 
                 {/* Onboarding Header */}
                 <div className="space-y-2">
-                  <span className="text-xs text-teal-400 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
+                  <span className="text-xs text-orange-400 font-black uppercase tracking-wider">{lang === "tr" ? "İNTERAKTİF REHBER" : "INTERACTIVE TUTORIAL"}</span>
                   <h2 className="text-2xl font-bold text-white tracking-tight">{t.guideTitle}</h2>
                   <p className="text-sm text-[#8E97A4] font-medium">{t.guideSubtitle}</p>
                 </div>
@@ -865,8 +865,8 @@ export default function Home() {
                         className="relative z-10 flex flex-col items-center gap-2 group"
                       >
                         <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 transition ${
-                          isActive ? "bg-teal-400 text-[#111215] border-teal-400 font-bold" :
-                          isCompleted ? "bg-[#13151A] text-teal-400 border-teal-400" :
+                          isActive ? "bg-orange-400 text-[#111215] border-orange-400 font-bold" :
+                          isCompleted ? "bg-[#13151A] text-orange-400 border-orange-400" :
                           "bg-[#0B0C0E] text-[#5F6774] border-[#1E2128] group-hover:border-[#373F4D]"
                         }`}>
                           {step + 1}
@@ -880,7 +880,7 @@ export default function Home() {
                 <div className="bg-[#0B0C0E]/80 border border-[#1E2128] p-6 flex flex-col items-center text-center space-y-4 min-h-[220px] justify-center transition-all duration-300 rounded-xl">
                   {guideSlide === 0 && (
                     <>
-                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide1Title}</h3>
@@ -889,7 +889,7 @@ export default function Home() {
                   )}
                   {guideSlide === 1 && (
                     <>
-                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="12" cy="12" r="10" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M12 6v12" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide2Title}</h3>
@@ -898,7 +898,7 @@ export default function Home() {
                   )}
                   {guideSlide === 2 && (
                     <>
-                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide3Title}</h3>
@@ -907,7 +907,7 @@ export default function Home() {
                   )}
                   {guideSlide === 3 && (
                     <>
-                      <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
                       <h3 className="text-base font-bold text-white mt-2">{t.slide4Title}</h3>
@@ -952,7 +952,7 @@ export default function Home() {
                         key={step} 
                         onClick={() => setGuideSlide(step)}
                         className={`h-2 rounded-full transition-all duration-300 ${
-                          guideSlide === step ? "bg-teal-400 w-5" : "bg-[#1E2128] w-2"
+                          guideSlide === step ? "bg-orange-400 w-5" : "bg-[#1E2128] w-2"
                         }`}
                       />
                     ))}
@@ -961,7 +961,7 @@ export default function Home() {
                   {guideSlide === 3 ? (
                     <button
                       onClick={() => setShowGuide(false)}
-                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
                     >
                       <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <polyline points="20 6 9 17 4 12" />
@@ -971,7 +971,7 @@ export default function Home() {
                   ) : (
                     <button
                       onClick={() => setGuideSlide(prev => prev + 1)}
-                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-2.5 text-xs transition shadow-md rounded-lg flex items-center gap-1"
                     >
                       {t.next}
                       <svg className="w-3.5 h-3.5 text-[#111215]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1004,7 +1004,7 @@ export default function Home() {
                         onClick={() => setSelectedProjectId(p.id)}
                         className={`bg-[#13151A] border p-6 rounded-xl flex flex-col justify-between gap-6 transition relative cursor-pointer ${
                           p.id === selectedProjectId
-                            ? "border-teal-500/40 shadow-lg shadow-teal-950/5"
+                            ? "border-orange-500/40 shadow-lg shadow-orange-950/5"
                             : "border-[#1E2128] hover:border-[#272B35]"
                         }`}
                       >
@@ -1044,7 +1044,7 @@ export default function Home() {
                           
                           {/* Active filled line */}
                           <div 
-                            className="absolute left-[10%] h-0.5 bg-teal-400 transition-all duration-700" 
+                            className="absolute left-[10%] h-0.5 bg-orange-400 transition-all duration-700" 
                             style={{ 
                               width: p.status === "Completed" ? "80%" :
                                      p.status === "Liquidated" ? "20%" :
@@ -1054,7 +1054,7 @@ export default function Home() {
 
                           {/* Port Origin */}
                           <div className="absolute left-[10%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                            <div className="h-2.5 w-2.5 rounded-full bg-teal-400 border-2 border-[#0B0C0E]" />
+                            <div className="h-2.5 w-2.5 rounded-full bg-orange-400 border-2 border-[#0B0C0E]" />
                             <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.originPortCode}</span>
                           </div>
 
@@ -1068,14 +1068,14 @@ export default function Home() {
                               top: "10px"
                             }}
                           >
-                            <svg className="w-5 h-5 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <svg className="w-5 h-5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                               <path d="M2 17h20M2 17l2.5-8h15l2.5 8M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4M12 3v6" />
                             </svg>
                           </div>
 
                           {/* Port Destination */}
                           <div className="absolute left-[90%] top-[40%] -translate-x-1/2 flex flex-col items-center">
-                            <div className={`h-2.5 w-2.5 rounded-full border-2 border-[#0B0C0E] ${p.status === "Completed" ? "bg-teal-400" : "bg-[#1E2128]"}`} />
+                            <div className={`h-2.5 w-2.5 rounded-full border-2 border-[#0B0C0E] ${p.status === "Completed" ? "bg-orange-400" : "bg-[#1E2128]"}`} />
                             <span className="text-[10px] font-black text-[#5F6774] mt-4 whitespace-nowrap">{p.destPortCode}</span>
                           </div>
                         </div>
@@ -1089,7 +1089,7 @@ export default function Home() {
 
                           <div className="h-1.5 bg-[#1E2128] rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-teal-500 transition-all duration-500 rounded-full" 
+                              className="h-full bg-orange-500 transition-all duration-500 rounded-full" 
                               style={{ width: `${progressPercent}%` }}
                             />
                           </div>
@@ -1143,10 +1143,10 @@ export default function Home() {
                             {lang === "tr" ? "Alıcı: " : "Buyer: "}<span className="text-white">{p.buyer}</span>
                           </div>
                           <div>
-                            {lang === "tr" ? "Teminat: " : "Collateral: "}<span className="text-teal-400">{formatNumber(p.collateralLocked)} USDC</span>
+                            {lang === "tr" ? "Teminat: " : "Collateral: "}<span className="text-orange-400">{formatNumber(p.collateralLocked)} USDC</span>
                           </div>
                           <div>
-                            {lang === "tr" ? "Getiri Oranı: " : "Yield: "}<span className="text-teal-400">5%</span>
+                            {lang === "tr" ? "Getiri Oranı: " : "Yield: "}<span className="text-orange-400">5%</span>
                           </div>
                         </div>
 
@@ -1161,7 +1161,7 @@ export default function Home() {
                                     const nextPending = p.milestones.find(m => m.status === "Pending");
                                     if (nextPending) submitProof(p.id, nextPending.id);
                                   }}
-                                  className="w-full bg-teal-500 hover:bg-teal-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                                  className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
                                 >
                                   {t.submitProof}
                                 </button>
@@ -1182,7 +1182,7 @@ export default function Home() {
                                       const nextSub = p.milestones.find(m => m.status === "ProofSubmitted");
                                       if (nextSub) approveMilestone(p.id, nextSub.id, true);
                                     }}
-                                    className="flex-1 bg-teal-500 hover:bg-teal-400 text-[#111215] py-2 rounded-lg text-xs font-extrabold transition shadow-md"
+                                    className="flex-1 bg-orange-500 hover:bg-orange-400 text-[#111215] py-2 rounded-lg text-xs font-extrabold transition shadow-md"
                                   >
                                     {t.approveBtn}
                                   </button>
@@ -1197,7 +1197,7 @@ export default function Home() {
                                   }}
                                   className={`w-full py-2.5 rounded-lg text-xs font-extrabold transition shadow-md ${
                                     allApproved 
-                                      ? "bg-teal-500 hover:bg-teal-400 text-[#111215]" 
+                                      ? "bg-orange-500 hover:bg-orange-400 text-[#111215]" 
                                       : "bg-[#1E2128] text-slate-500 cursor-not-allowed"
                                   }`}
                                 >
@@ -1213,7 +1213,7 @@ export default function Home() {
                                 e.stopPropagation();
                                 fundProject(p.id, p.targetAmount - p.fundedAmount);
                               }}
-                              className="w-full bg-teal-500 hover:bg-teal-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
+                              className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-xs font-extrabold transition shadow-md"
                             >
                               {t.fillTarget}
                             </button>
@@ -1258,7 +1258,7 @@ export default function Home() {
                         value={newProjName}
                         onChange={(e) => setNewProjName(e.target.value)}
                         placeholder={lang === "tr" ? "Kakao Çekirdeği Sevkiyatı" : "Cocoa Bean Shipping"}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -1267,7 +1267,7 @@ export default function Home() {
                         type="text" 
                         value={newProjOrigin}
                         onChange={(e) => setNewProjOrigin(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -1276,7 +1276,7 @@ export default function Home() {
                         type="text" 
                         value={newProjDest}
                         onChange={(e) => setNewProjDest(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                   </div>
@@ -1288,7 +1288,7 @@ export default function Home() {
                         type="number" 
                         value={newProjTarget}
                         onChange={(e) => setNewProjTarget(Number(e.target.value))}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-white font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-white font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -1297,7 +1297,7 @@ export default function Home() {
                         type="text" 
                         value={newProjSupplier}
                         onChange={(e) => setNewProjSupplier(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
                       />
                     </div>
                     <div className="space-y-1.5">
@@ -1306,7 +1306,7 @@ export default function Home() {
                         type="text" 
                         value={newProjBuyer}
                         onChange={(e) => setNewProjBuyer(e.target.value)}
-                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-teal-500 text-[#8E97A4] font-medium"
+                        className="w-full bg-[#0B0C0E] border border-[#1E2128] rounded-lg p-3 text-xs outline-none focus:border-orange-500 text-[#8E97A4] font-medium"
                       />
                     </div>
                   </div>
@@ -1361,8 +1361,8 @@ export default function Home() {
                   </div>
 
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-4 border-t border-[#1E2128]">
-                    <div className="text-xs text-teal-400 bg-teal-500/5 p-3 border border-teal-500/10 max-w-md font-medium leading-relaxed rounded-lg flex items-start gap-1.5">
-                      <svg className="w-4 h-4 text-teal-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <div className="text-xs text-orange-400 bg-orange-500/5 p-3 border border-orange-500/10 max-w-md font-medium leading-relaxed rounded-lg flex items-start gap-1.5">
+                      <svg className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
                         <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
                       </svg>
@@ -1370,7 +1370,7 @@ export default function Home() {
                     </div>
                     <button 
                       type="submit"
-                      className="bg-teal-500 hover:bg-teal-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-lg"
+                      className="bg-orange-500 hover:bg-orange-400 text-[#111215] font-extrabold px-6 py-3 text-xs transition w-full md:w-auto shadow-md rounded-lg"
                     >
                       {t.submitContract}
                     </button>
@@ -1404,7 +1404,7 @@ export default function Home() {
                       onClick={() => setUserRole(role.id as any)}
                       className={`w-full text-left p-3 text-xs font-bold transition rounded-lg border ${
                         isActive
-                          ? "bg-teal-950/20 text-teal-400 border-teal-500/40"
+                          ? "bg-orange-950/20 text-orange-400 border-orange-500/40"
                           : "bg-[#0B0C0E]/40 text-[#8E97A4] border-[#1E2128] hover:border-[#272B35]"
                       }`}
                     >
@@ -1420,7 +1420,7 @@ export default function Home() {
               <div className="bg-[#13151A] border border-[#1E2128] p-5 shadow-md space-y-4 rounded-xl">
                 <div className="flex justify-between items-center border-b border-[#1E2128] pb-2.5">
                   <h3 className="text-xs font-bold text-white flex items-center gap-2">
-                    <svg className="w-4 h-4 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg className="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="3" />
                       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
                     </svg>
@@ -1455,7 +1455,7 @@ export default function Home() {
                   className={`w-full text-xs font-black py-2.5 rounded-lg border transition ${
                     demoActive
                       ? "bg-[#0B0C0E] text-slate-600 border-[#1E2128] cursor-not-allowed"
-                      : "bg-teal-500/10 hover:bg-teal-500 text-teal-400 hover:text-[#111215] border-teal-500/20"
+                      : "bg-orange-500/10 hover:bg-orange-500 text-orange-400 hover:text-[#111215] border-orange-500/20"
                   }`}
                 >
                   {demoActive ? t.demoRunning : t.startDemo}
@@ -1498,7 +1498,7 @@ export default function Home() {
             <div className="flex justify-end pr-2 text-[10px] text-[#5F6774] font-bold gap-1 items-center">
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
               <span>{lang === "tr" ? "Geliştirici Araçları" : "Developer Tools"}: </span>
-              <span className="text-teal-400 bg-teal-950/20 px-1.5 py-0.5 rounded border border-teal-900/30 uppercase">{getRoleTranslation(userRole, lang)}</span>
+              <span className="text-orange-400 bg-orange-950/20 px-1.5 py-0.5 rounded border border-orange-900/30 uppercase">{getRoleTranslation(userRole, lang)}</span>
             </div>
             
           </aside>
