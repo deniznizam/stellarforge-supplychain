@@ -1594,7 +1594,7 @@ export default function Home() {
                       {userRole === "Lender" && (lang === "tr" ? "Ahmet Yılmaz" : "John Lender")}
                       {userRole === "Supplier" && (lang === "tr" ? "Mehmet Demir" : "Alpha Cargo Ltd.")}
                       {userRole === "Buyer" && (lang === "tr" ? "Deniz Nizam" : "Nestle HQ Rep")}
-                      {userRole === "Validator" && (lang === "tr" ? "Dr. Ayşe Çelik" : "Stellar Swiss Oracle")}
+                      {userRole === "Validator" && (lang === "tr" ? "Kaan Öztürk" : "Stellar Swiss Oracle")}
                       {userRole !== "Lender" && userRole !== "Supplier" && userRole !== "Buyer" && userRole !== "Validator" && "Stellar Sandbox"}
                     </span>
                   </div>
