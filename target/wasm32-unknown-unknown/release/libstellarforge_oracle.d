@@ -1,1 +1,0 @@
-C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\wasm32-unknown-unknown\release\libstellarforge_oracle.rlib: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\oracle\src\lib.rs

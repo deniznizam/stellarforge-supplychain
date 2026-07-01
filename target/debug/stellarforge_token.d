@@ -1,1 +1,0 @@
-C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\debug\stellarforge_token.dll: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\token\src\lib.rs

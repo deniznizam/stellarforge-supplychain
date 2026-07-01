@@ -1,1 +1,0 @@
-C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\target\wasm32-unknown-unknown\release\stellarforge_vault.wasm: C:\Users\Monster\.gemini\antigravity\scratch\stellarforge-supplychain\contracts\vault\src\lib.rs
