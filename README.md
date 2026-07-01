@@ -5,6 +5,7 @@ StellarForge Finance is a production-grade, milestone-locked **Reverse Factoring
 ---
 
 ## 🏆 Level 3 Orange Belt Submission Details
+*(Özet: Jüri değerlendirmesi için testnet kontrat adresleri, test doğrulamaları ve işlem özetleri aşağıda listelenmiştir.)*
 
 To prevent any revisions and facilitate immediate review, here are the direct credentials and artifacts:
 
@@ -23,6 +24,7 @@ To prevent any revisions and facilitate immediate review, here are the direct cr
 ---
 
 ## 🏗️ Project Architecture
+*(Özet: Proje yapısı, bağımsız Rust akıllı sözleşmeleri ve Next.js ön yüz uygulaması olarak modüler bir düzende ayrılmıştır.)*
 
 The codebase has a decoupled, modular design divided into smart contracts and a web-based frontend:
 
@@ -45,6 +47,7 @@ stellarforge-supplychain/
 ---
 
 ## 🛡️ Smart Contract Mechanics & Payout Logic
+*(Özet: Tedarikçi %50 teminat kilitler, Alıcı sözleşmeyi onaylar, Yatırımcılar fon sağlar. Denetçiler fiziki sevkiyatı onayladıkça ödeme adım adım tedarikçiye ödenir. Mal teslim edildiğinde Alıcı geri ödemeyi yapar.)*
 
 1. **Collateral Lock**: Before capital funding starts, the Supplier locks a 50% security deposit into the `stellarforge-vault` contract as default protection.
 2. **Crowdfund Pool**: Lenders pool USDC into the `stellarforge-milestone-escrow` contract to fund the Supplier's production target.
@@ -54,7 +57,36 @@ stellarforge-supplychain/
 
 ---
 
+## 🔄 Visual Workflow Diagram (İş Akış Şeması)
+*(Özet: Sistemdeki roller arasındaki etkileşimleri ve akıllı sözleşme tetiklenmelerini gösteren akış şeması aşağıda sunulmuştur.)*
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Supplier as Tedarikçi (Supplier)
+    actor Buyer as Alıcı (Buyer)
+    actor Lender as Yatırımcı (Lender)
+    actor Validator as Denetçi (Oracle)
+    participant Vault as Collateral Vault
+    participant Escrow as Milestone Escrow
+
+    Supplier->>Escrow: 1. Proje Başvurusu Yapar (Rotalar & Kilometre Taşları)
+    Buyer->>Escrow: 2. Ticari Sözleşmeyi ve Geri Ödemeyi Onaylar
+    Supplier->>Vault: 3. %50 Güvence Teminatı (Collateral) Kilitler
+    Lender->>Escrow: 4. Kalan %50 USDC Finansmanı Havuza Fonlar
+    Note over Supplier, Escrow: Proje Aktif Hale Gelir ve Sevkiyat Başlar
+    Supplier->>Validator: 5. Sevkiyat Kanıtlarını Yükler (Konşimento vb.)
+    Validator->>Escrow: 6. Kanıtları Doğrular (On-Chain Oracle Proof)
+    Escrow->>Supplier: 7. Kilometre Taşına Ait Ödemeyi Serbest Bırakır
+    Buyer->>Escrow: 8. Kargo Varınca Anapara + %5 Faiz Geri Öder
+    Escrow->>Lender: 9. Yatırımını + Faizi Çekebilir
+    Vault->>Supplier: 10. Tedarikçinin %50 Güvence Teminatı Çözülür & İade Edilir
+```
+
+---
+
 ## 🧪 Testing Suites
+*(Özet: Hem Rust akıllı sözleşmeleri hem de Next.js arayüz kodları için geliştirilen 20 birim/entegrasyon testi 100% yeşil geçmektedir.)*
 
 ### 1. Smart Contract Integration Tests
 We have implemented 10 comprehensive Rust unit and integration tests verifying all happy paths, oracle rejections, timeouts, and liquidations.
@@ -74,6 +106,7 @@ npm run test
 ---
 
 ## 🚀 Deployment Workflow
+*(Özet: Akıllı sözleşmeleri testnet ağına yüklemek, birbirlerine bağlamak ve ön yüze tanıtmak için hazırladığımız otomatik betikler.)*
 
 To deploy the contracts to the Stellar Testnet, initialize them, and configure inter-contract linkages:
 
@@ -91,7 +124,20 @@ chmod +x deploy.sh
 ---
 
 ## 🔄 CI/CD Pipeline (GitHub Actions)
+*(Özet: Projede her push/pull işleminde otomatik derleme, güvenlik ve test kontrollerini yürüten CI/CD boru hattı kuruludur.)*
+
 The repository is fully integrated with a GitHub Actions workflow. On every push and pull request to `master` / `main` branches, the pipeline automatically:
 1. Runs Cargo check and executes the Rust unit tests.
 2. Sets up Node.js environment, installs frontend dependencies, and executes the Jest-like frontend test suite.
 3. Builds the production-ready Next.js application to verify compilation completeness.
+
+---
+
+## ☁️ Vercel Deployment Instructions
+*(Özet: Web arayüzünü Vercel üzerinde canlı önizlemeye açmak için takip edilmesi gereken adımlar.)*
+
+To deploy the Next.js frontend to **Vercel** with a live demo link:
+1. Go to [Vercel Dashboard](https://vercel.com) and click **Add New Project**.
+2. Select your imported GitHub repository: `deniznizam/stellarforge-supplychain`.
+3. In the configuration settings, set the **Root Directory** option to **`frontend`** (crucial, as the frontend folder contains the Next.js setup).
+4. Click **Deploy**. Vercel will automatically build the Next.js project and provide you with a live domain link.
