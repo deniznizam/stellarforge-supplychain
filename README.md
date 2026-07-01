@@ -11,11 +11,12 @@ To prevent any revisions and facilitate immediate review, here are the direct cr
 
 - **GitHub Repository**: [deniznizam/stellarforge-supplychain](https://github.com/deniznizam/stellarforge-supplychain)
 - **Soroban Smart Contract Addresses (Stellar Testnet)**:
-  - **USDC Token Address**: `CDLZFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA`
-  - **Collateral Vault Address**: `CBAFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6LX`
-  - **Oracle Validator Address**: `CBZFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6L`
-  - **Milestone Escrow Address**: `CBBFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6L`
-- **Contract Interaction Transaction Hash**: `82f1a9b49c37a8bd901cc22ae32ff49bb77cd8c4d8c4901c019288127a8bd901`
+  - **USDC Token Address**: `CBLHMCZ2YWVBOMSYZLZJH5NLHF5MNC24CJ6PX5XDTZDNTJBBJ7A4VAGD`
+  - **Collateral Vault Address**: `CDBYFJVVYC4H7E6SZ3PERACLEAF4HMPZ7KTONIP7IX5RJ7UAZLCUQKVM`
+  - **Oracle Validator Address**: `CD3G4UOUKEFRK3OUG4UUMV5SULG6HJTZUTQDPV5ZACUNLIW4UIXNA4U6`
+  - **Milestone Escrow Address**: `CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7`
+- **Deployer Account Address**: `GBT5ZYMJIHL3D4XGIWQ2LUNF5J637BXAQUEI72UW7AAFP7N3IPMNCWAP`
+- **Contract Interaction Transaction Hash**: `a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6324a`
 - **Testing Verification**: 
   - **Smart Contract Tests**: 10 tests passed (`cargo test --workspace`)
   - **Frontend UI Tests**: 10 tests passed (`npm run test` inside `frontend`)
