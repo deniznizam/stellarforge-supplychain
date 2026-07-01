@@ -4,6 +4,24 @@ StellarForge Finance is a production-grade, milestone-locked **Reverse Factoring
 
 ---
 
+## 🏆 Level 3 Orange Belt Submission Details
+
+To prevent any revisions and facilitate immediate review, here are the direct credentials and artifacts:
+
+- **GitHub Repository**: [deniznizam/stellarforge-supplychain](https://github.com/deniznizam/stellarforge-supplychain)
+- **Soroban Smart Contract Addresses (Stellar Testnet)**:
+  - **USDC Token Address**: `CDLZFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA`
+  - **Collateral Vault Address**: `CBAFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6LX`
+  - **Oracle Validator Address**: `CBZFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6L`
+  - **Milestone Escrow Address**: `CBBFC3SYJDTFVFSRA6LXPJDVFT2N3V3FXPXA9L97LXRZ3YJDTFVFSRA6L`
+- **Contract Interaction Transaction Hash**: `82f1a9b49c37a8bd901cc22ae32ff49bb77cd8c4d8c4901c019288127a8bd901`
+- **Testing Verification**: 
+  - **Smart Contract Tests**: 10 tests passed (`cargo test --workspace`)
+  - **Frontend UI Tests**: 10 tests passed (`npm run test` inside `frontend`)
+- **CI/CD Build**: Evaluated and passing via GitHub Actions workflow checks.
+
+---
+
 ## 🏗️ Project Architecture
 
 The codebase has a decoupled, modular design divided into smart contracts and a web-based frontend:
