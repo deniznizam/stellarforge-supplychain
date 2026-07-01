@@ -57,30 +57,24 @@ stellarforge-supplychain/
 
 ---
 
-## 🔄 Visual Workflow Diagram (İş Akış Şeması)
-*(Özet: Sistemdeki roller arasındaki etkileşimleri ve akıllı sözleşme tetiklenmelerini gösteren akış şeması aşağıda sunulmuştur.)*
+## 🔄 Visual Workflow Diagram
+*(Özet: Sistemdeki rollerin adım adım iş akışı ve kilometre taşı ödemeleri döngüsü aşağıda modellenmiştir.)*
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor Supplier as Tedarikçi (Supplier)
-    actor Buyer as Alıcı (Buyer)
-    actor Lender as Yatırımcı (Lender)
-    actor Validator as Denetçi (Oracle)
-    participant Vault as Collateral Vault
-    participant Escrow as Milestone Escrow
-
-    Supplier->>Escrow: 1. Proje Başvurusu Yapar (Rotalar & Kilometre Taşları)
-    Buyer->>Escrow: 2. Ticari Sözleşmeyi ve Geri Ödemeyi Onaylar
-    Supplier->>Vault: 3. %50 Güvence Teminatı (Collateral) Kilitler
-    Lender->>Escrow: 4. Kalan %50 USDC Finansmanı Havuza Fonlar
-    Note over Supplier, Escrow: Proje Aktif Hale Gelir ve Sevkiyat Başlar
-    Supplier->>Validator: 5. Sevkiyat Kanıtlarını Yükler (Konşimento vb.)
-    Validator->>Escrow: 6. Kanıtları Doğrular (On-Chain Oracle Proof)
-    Escrow->>Supplier: 7. Kilometre Taşına Ait Ödemeyi Serbest Bırakır
-    Buyer->>Escrow: 8. Kargo Varınca Anapara + %5 Faiz Geri Öder
-    Escrow->>Lender: 9. Yatırımını + Faizi Çekebilir
-    Vault->>Supplier: 10. Tedarikçinin %50 Güvence Teminatı Çözülür & İade Edilir
+graph TD
+    classDef init fill:#1E2128,stroke:#F97316,stroke-width:2px,color:#fff;
+    classDef process fill:#13151A,stroke:#373F4D,stroke-width:1px,color:#8E97A4;
+    classDef success fill:#1E2128,stroke:#10B981,stroke-width:2px,color:#fff;
+    
+    A[1. Project Setup <br/> Supplier files request]:::init --> B[2. Agreement Approval <br/> Buyer signs on-chain]:::process
+    B --> C[3. Security Vault <br/> Supplier locks 50% collateral]:::process
+    C --> D[4. Capital Crowdfund <br/> Lenders pool remaining 50% USDC]:::process
+    D --> E[5. Escrow Active <br/> Shipping & production starts]:::init
+    E --> F[6. Milestones Completed <br/> Supplier uploads shipment proofs]:::process
+    F --> G[7. Oracle Inspection <br/> Validators verify documents]:::process
+    G --> H[8. Stage Payouts <br/> Escrow releases funds to Supplier]:::process
+    H --> I[9. Cargo Arrival <br/> Buyer repays principal + 5% yield]:::success
+    I --> J[10. Return & Withdraw <br/> Lenders withdraw, Supplier deposit returned]:::success
 ```
 
 ---
