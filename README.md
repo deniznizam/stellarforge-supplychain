@@ -58,23 +58,34 @@ stellarforge-supplychain/
 ---
 
 ## 🔄 Visual Workflow Diagram
-*(Özet: Sistemdeki rollerin adım adım iş akışı ve kilometre taşı ödemeleri döngüsü aşağıda modellenmiştir.)*
+*(Özet: Sistemdeki rollerin adım adım iş akışı, karar ağaçları ve teminat iade/tasfiye döngüleri aşağıda modellenmiştir.)*
 
 ```mermaid
 graph TD
     classDef init fill:#1E2128,stroke:#F97316,stroke-width:2px,color:#fff;
     classDef process fill:#13151A,stroke:#373F4D,stroke-width:1px,color:#8E97A4;
+    classDef decision fill:#2A1E15,stroke:#F59E0B,stroke-width:2px,color:#fff;
     classDef success fill:#1E2128,stroke:#10B981,stroke-width:2px,color:#fff;
+    classDef fail fill:#2E1B1B,stroke:#EF4444,stroke-width:2px,color:#fff;
+
+    A[1. Project Setup <br/> Supplier files request]:::init --> B[2. Agreement Check]:::process
+    B -->|Buyer signs on-chain| C[3. Collateral Vault <br/> Supplier locks 50% deposit]:::process
+    B -->|Buyer rejects| X[Project Cancelled]:::fail
     
-    A[1. Project Setup <br/> Supplier files request]:::init --> B[2. Agreement Approval <br/> Buyer signs on-chain]:::process
-    B --> C[3. Security Vault <br/> Supplier locks 50% collateral]:::process
-    C --> D[4. Capital Crowdfund <br/> Lenders pool remaining 50% USDC]:::process
-    D --> E[5. Escrow Active <br/> Shipping & production starts]:::init
-    E --> F[6. Milestones Completed <br/> Supplier uploads shipment proofs]:::process
-    F --> G[7. Oracle Inspection <br/> Validators verify documents]:::process
-    G --> H[8. Stage Payouts <br/> Escrow releases funds to Supplier]:::process
-    H --> I[9. Cargo Arrival <br/> Buyer repays principal + 5% yield]:::success
-    I --> J[10. Return & Withdraw <br/> Lenders withdraw, Supplier deposit returned]:::success
+    C --> D[4. Capital Crowdfund <br/> Lenders pool 50% USDC]:::process
+    D --> E[5. Escrow Activated <br/> Shipping & production starts]:::init
+    
+    E --> F[6. Milestone Completed <br/> Supplier uploads proofs]:::process
+    F --> G{7. Oracle Inspection}:::decision
+    G -->|Approved| H[8. Stage Payout <br/> Escrow pays Supplier]:::process
+    G -->|Rejected / Pending| F
+    
+    H --> I{9. Cargo Arrival <br/> and Deadlines met?}:::decision
+    I -->|Yes| J[10. Invoice Repayment <br/> Buyer settles total bill]:::process
+    I -->|No - Default| Y[11. Default Liquidation <br/> Collateral sent to Lenders]:::fail
+    
+    J --> K[12. Fund Settlement <br/> Lenders withdraw, Supplier deposit returned]:::success
+    K --> Z((Done)):::success
 ```
 
 ---
