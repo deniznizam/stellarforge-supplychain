@@ -11,6 +11,7 @@ To prevent any revisions and facilitate immediate review, here are the direct cr
 
 - **GitHub Repository**: [deniznizam/stellarforge-supplychain](https://github.com/deniznizam/stellarforge-supplychain)
 - **Live Web App (Vercel)**: [stellarforge-supplychain.vercel.app](https://stellarforge-supplychain.vercel.app/)
+- **Interactive Demo & Slides (Canva)**: [canva.link/cgb1a1uv1jl6wc5](https://canva.link/cgb1a1uv1jl6wc5)
 - **Soroban Smart Contract Addresses (Stellar Testnet)**:
   - **USDC Token Address**: `CBLHMCZ2YWVBOMSYZLZJH5NLHF5MNC24CJ6PX5XDTZDNTJBBJ7A4VAGD`
   - **Collateral Vault Address**: `CDBYFJVVYC4H7E6SZ3PERACLEAF4HMPZ7KTONIP7IX5RJ7UAZLCUQKVM`
