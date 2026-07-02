@@ -100,7 +100,7 @@ graph TD
 
 *Overview of the Supply Chain Finance interface featuring live portfolio statistics, active pipelines, and event streaming.*
 
-![Dashboard Overview](./docs/screenshots/screenshot_01.png)
+![Dashboard Overview](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_01.png)
 
 </details>
 
@@ -109,7 +109,7 @@ graph TD
 
 *Supplier defines origin, destination, USDC funding target, and divides the payments into custom milestones.*
 
-![Supplier Registration](./docs/screenshots/screenshot_02.png)
+![Supplier Registration](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_02.png)
 
 </details>
 
@@ -118,7 +118,7 @@ graph TD
 
 *Buyer reviews the pipeline on-chain and binds their balance sheet to settle the final repayment invoice.*
 
-![Buyer Authorization](./docs/screenshots/screenshot_03.png)
+![Buyer Authorization](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_03.png)
 
 </details>
 
@@ -127,7 +127,7 @@ graph TD
 
 *DeFi investors supply USDC to fill the target pool. Funds are locked into the escrow smart contract.*
 
-![Lender Capital Pooling](./docs/screenshots/screenshot_04.png)
+![Lender Capital Pooling](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_04.png)
 
 </details>
 
@@ -136,7 +136,7 @@ graph TD
 
 *Visual cargo tracking updates as shipping starts. The progress bar displays the exact amount of pooled funds.*
 
-![Active Shipment Route Tracker](./docs/screenshots/screenshot_05.png)
+![Active Shipment Route Tracker](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_05.png)
 
 </details>
 
@@ -145,7 +145,7 @@ graph TD
 
 *Supplier uploads shipping manifest files, which are securely pinned to IPFS via the server-side Pinata API.*
 
-![Document Upload IPFS](./docs/screenshots/screenshot_06.png)
+![Document Upload IPFS](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_06.png)
 
 </details>
 
@@ -154,7 +154,7 @@ graph TD
 
 *Independent validators check the IPFS document. Upon approval, the milestone's payout is automatically released.*
 
-![Oracle Milestone Verification](./docs/screenshots/screenshot_07.png)
+![Oracle Milestone Verification](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_07.png)
 
 </details>
 
@@ -163,7 +163,7 @@ graph TD
 
 *Buyer settles the final payment (principal + 5% yield) on-chain once cargo arrives safely at destination.*
 
-![Buyer Settlement Repayment](./docs/screenshots/screenshot_08.png)
+![Buyer Settlement Repayment](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_08.png)
 
 </details>
 
@@ -172,7 +172,7 @@ graph TD
 
 *Deal finalized. Lenders withdraw yield, and the Supplier's vault collateral is automatically returned to their wallet.*
 
-![Finalized Deal Ledger](./docs/screenshots/screenshot_09.png)
+![Finalized Deal Ledger](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_09.png)
 
 </details>
 
