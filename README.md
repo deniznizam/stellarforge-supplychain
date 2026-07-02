@@ -184,27 +184,33 @@ graph TD
 To experience the complete lifecycle of a milestone-locked trade, follow this walkthrough using the **Developer Tools** panel (on the right sidebar of the website) to swap between active accounts:
 
 ### 1. Act as the **Supplier (KOBİ / Tedarikçi)**
+*(Özet: Sağ menüden Tedarikçi rolünü seçin. "Register Supply Trade" sekmesinden yeni sevkiyat projesi oluşturup gönderin. Tedarikçinin %50 güvence teminatı kasaya kilitlenir.)*
 *   **Action**: Select the **Supplier** role in the sidebar. Go to the **Register Supply Trade** tab.
 *   **Parameters**: Input a project name (e.g. *Cocoa Bean Shipping*), origin, destination, and target funding amount. Submit.
 *   **Result**: The trade request is published. The Supplier's 50% security deposit is locked in the Collateral Vault.
 
 ### 2. Act as the **Buyer (Nestle / Alıcı)**
+*(Özet: Rolü Alıcı yapın. Kakao projesini bulup "Geri Ödeme Taahhüdünü Onayla" butonuna basın. Alıcı nihai ödemeyi yapacağını zincir üstünde taahhüt eder.)*
 *   **Action**: Swap your role to **Buyer**. Go to **Active Projects**, find your project, and click **Confirm Repayment Obligation**.
 *   **Result**: The Buyer legally binds their balance sheet to settle the invoice upon cargo delivery.
 
 ### 3. Act as the **Lender (Investor / Yatırımcı)**
+*(Özet: Rolü Yatırımcı yapın. "Fund Project" diyerek kalan fon hedefini tamamlayın. Havuz dolunca proje aktifleşir ve nakliye başlar.)*
 *   **Action**: Swap your role to **Lender**. Click **Fund Project** to supply the remaining capital needed.
 *   **Result**: Lenders supply the liquidity pool. The project status transitions to **Active**. Production and shipping begin.
 
 ### 4. Act as the **Supplier (KOBİ / Tedarikçi) - Upload Proof**
+*(Özet: Rolü tekrar Tedarikçi yapın. Aşama listesinden kanıt yükle butonuna basıp bir PDF yükleyin. Sunucu arkasında Pinata ile IPFS hash'i üretilir.)*
 *   **Action**: Swap back to the **Supplier** role. Under the milestones list, click **Submit Milestone Proof** and upload any shipment document (e.g., Bill of Lading PDF).
 *   **Result**: The PDF is securely pinned to **IPFS** via our server-side Pinata API route, attaching the unique `ipfs://Qm...` hash.
 
 ### 5. Act as the **Validator (Oracle / Doğrulayıcı)**
+*(Özet: Rolü Doğrulayıcı yapın. Yüklenen IPFS evrakını inceleyip onaylayın. Akıllı sözleşme aşamaya ait hakedişi tedarikçinin cüzdanına gönderir.)*
 *   **Action**: Swap your role to **Validator**. Inspect the uploaded IPFS document hash link and click **Approve**.
 *   **Result**: The smart contract automatically releases the milestone's payout directly into the Supplier's balance.
 
 ### 6. Act as the **Buyer (Nestle / Alıcı) - Repayment**
+*(Özet: Tüm aşamalar bittiğinde rolü Alıcı yapın ve geri ödemeyi onaylayın. Yatırımcılar paralarını faiziyle çeker, tedarikçinin teminatı çözülür.)*
 *   **Action**: Swap your role to **Buyer** once all milestones are completed. Click **Confirm Repayment**.
 *   **Result**: The Buyer repays the principal plus a **5% yield** to the Lenders. The Supplier's locked vault deposit is fully released back to their wallet.
 
