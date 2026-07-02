@@ -950,7 +950,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#0B0C0E] text-[#E2E8F0] font-sans antialiased selection:bg-orange-500/20 selection:text-white pb-12">
       
       {/* Top Header */}
-      <header className="border-b border-[#1E2128] bg-[#0E0F12] px-8 py-4.5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <header className="border-b border-[#1E2128] bg-[#0E0F12] px-4 md:px-8 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
         
         {/* Brand logo & tagline */}
         <div className="flex items-center gap-2.5">
@@ -968,10 +968,10 @@ export default function Home() {
         </div>
 
         {/* Global Nav Tabs */}
-        <div className="flex bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg">
+        <div className="flex flex-wrap justify-center bg-[#121418] border border-[#1E2128] p-0.5 rounded-lg w-full sm:w-auto">
           <button
             onClick={() => { setActiveTab("pipelines"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               activeTab === "pipelines" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -982,7 +982,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setActiveTab("create"); setShowGuide(false); }}
-            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               activeTab === "create" && !showGuide ? "bg-[#1E2128] text-white" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -993,7 +993,7 @@ export default function Home() {
           </button>
           <button
             onClick={() => { setShowGuide(true); }}
-            className={`py-1.5 px-4 text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
+            className={`py-1.5 px-2.5 sm:px-4 text-[12px] sm:text-[13px] font-bold transition flex items-center gap-2 rounded-md ${
               showGuide ? "bg-[#1E2128] text-orange-400" : "text-[#8E97A4] hover:text-white"
             }`}
           >
@@ -1005,7 +1005,7 @@ export default function Home() {
         </div>
 
         {/* Primary Wallet connection */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 w-full lg:w-auto">
           
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 text-[#10B981] border border-emerald-900/60 text-[11px] font-bold uppercase tracking-wider">
             <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
@@ -1029,17 +1029,23 @@ export default function Home() {
 
           <button
             onClick={connectWallet}
-            className={`px-4.5 py-2 rounded-lg text-[13px] font-bold transition flex items-center gap-2 border ${
+            className={`px-4 py-2 rounded-lg text-[13px] font-bold transition flex items-center gap-2 border max-w-xs truncate ${
               walletConnected
                 ? "bg-orange-950/20 text-orange-400 border-orange-500/30"
                 : "bg-orange-500 hover:bg-orange-400 text-[#111215] shadow-sm font-extrabold"
             }`}
           >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3" />
               <path d="M22 10h-6a2 2 0 0 0 0 4h6" />
             </svg>
-            {walletConnected ? walletAddress : t.connectWallet}
+            <span className="truncate">
+              {walletConnected 
+                ? (walletAddress.startsWith("G") && walletAddress.length > 20 
+                    ? walletAddress.slice(0, 6) + "..." + walletAddress.slice(-4) 
+                    : walletAddress) 
+                : t.connectWallet}
+            </span>
           </button>
         </div>
       </header>
@@ -1120,54 +1126,54 @@ export default function Home() {
 
         {/* Stats Row Cards */}
         {!showGuide && activeTab === "pipelines" && (
-          <div className={`grid grid-cols-1 md:grid-cols-4 gap-5 transition-all duration-300 ${
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 transition-all duration-300 ${
             tourStep === 1 ? "ring-4 ring-orange-500 shadow-2xl shadow-orange-500/20 scale-[1.01] p-2 bg-[#13151A]/40 rounded-2xl" : ""
           }`}>
             {/* Stat 1: Total Pool */}
-            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
+            <div className="bg-[#13151A] border border-[#1E2128] p-3.5 sm:p-5 rounded-xl flex items-center gap-3 sm:gap-4">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400 flex-shrink-0">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
               </div>
-              <div>
-                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.totalPool}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(totalPoolVal)}</p>
-                <span className="text-[11px] text-[#5F6774] font-medium">USDC — {projects.length} {lang === "tr" ? "projede" : "projects"}</span>
+              <div className="min-w-0">
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-black uppercase tracking-wider block truncate">{t.totalPool}</span>
+                <p className="text-lg sm:text-xl font-bold text-white tracking-tight mt-0.5 truncate">${formatNumber(totalPoolVal)}</p>
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-medium block truncate">USDC — {projects.length} {lang === "tr" ? "projede" : "projects"}</span>
               </div>
             </div>
 
             {/* Stat 2: Active Projects */}
-            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
+            <div className="bg-[#13151A] border border-[#1E2128] p-3.5 sm:p-5 rounded-xl flex items-center gap-3 sm:gap-4">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400 flex-shrink-0">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
               </div>
-              <div>
-                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.activeProjectsLabel}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">{activeProjectsVal}</p>
-                <span className="text-[11px] text-[#5F6774] font-medium">{lang === "tr" ? "proje devam ediyor" : "projects running"}</span>
+              <div className="min-w-0">
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-black uppercase tracking-wider block truncate">{t.activeProjectsLabel}</span>
+                <p className="text-lg sm:text-xl font-bold text-white tracking-tight mt-0.5 truncate">{activeProjectsVal}</p>
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-medium block truncate">{lang === "tr" ? "proje aktif" : "projects running"}</span>
               </div>
             </div>
 
             {/* Stat 3: My Investment */}
-            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div className="bg-[#13151A] border border-[#1E2128] p-3.5 sm:p-5 rounded-xl flex items-center gap-3 sm:gap-4">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400 flex-shrink-0">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
-              <div>
-                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.myInvestment}</span>
-                <p className="text-xl font-bold text-white tracking-tight mt-0.5">${formatNumber(myInvestmentVal)}</p>
-                <span className="text-[11px] text-[#5F6774] font-medium">{walletConnected ? (lang === "tr" ? "Cüzdan Aktif" : "Wallet Active") : (lang === "tr" ? "Bağlı değil" : "Disconnected")}</span>
+              <div className="min-w-0">
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-black uppercase tracking-wider block truncate">{t.myInvestment}</span>
+                <p className="text-lg sm:text-xl font-bold text-white tracking-tight mt-0.5 truncate">${formatNumber(myInvestmentVal)}</p>
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-medium block truncate">{walletConnected ? (lang === "tr" ? "Cüzdan Aktif" : "Wallet Active") : (lang === "tr" ? "Bağlı değil" : "Disconnected")}</span>
               </div>
             </div>
 
             {/* Stat 4: Expected Yield */}
-            <div className="bg-[#13151A] border border-[#1E2128] p-5 rounded-xl flex items-center gap-4">
-              <div className="h-10 w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <div className="bg-[#13151A] border border-[#1E2128] p-3.5 sm:p-5 rounded-xl flex items-center gap-3 sm:gap-4">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 bg-orange-950/40 border border-orange-900/30 rounded-lg flex items-center justify-center text-orange-400 flex-shrink-0">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
               </div>
-              <div>
-                <span className="text-[11px] text-[#5F6774] font-black uppercase tracking-wider">{t.expectedYield}</span>
-                <p className="text-xl font-bold text-orange-400 tracking-tight mt-0.5">+${formatNumber(expectedYieldVal)}</p>
-                <span className="text-[11px] text-[#5F6774] font-medium">@5% {lang === "tr" ? "yıllık getiri" : "annual yield"}</span>
+              <div className="min-w-0">
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-black uppercase tracking-wider block truncate">{t.expectedYield}</span>
+                <p className="text-lg sm:text-xl font-bold text-orange-400 tracking-tight mt-0.5 truncate">+${formatNumber(expectedYieldVal)}</p>
+                <span className="text-[10px] sm:text-[11px] text-[#5F6774] font-medium block truncate">@5% {lang === "tr" ? "yıllık getiri" : "annual yield"}</span>
               </div>
             </div>
           </div>
@@ -1177,7 +1183,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Main Workspace (Left Column) */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 order-2 lg:order-1 space-y-6">
             
             {showGuide ? (
               <div className="bg-[#13151A] border border-[#1E2128] p-8 space-y-6 relative min-h-[550px] flex flex-col justify-between transition-all duration-300 rounded-xl">
@@ -1741,8 +1747,8 @@ export default function Home() {
 
           </div>
 
-          {/* Right Sidebar Column exactly matching the Figma layout */}
-          <aside className="lg:col-span-1 space-y-6">
+          {/* Right Sidebar Column exactly mapping the Figma layout */}
+          <aside className="lg:col-span-1 order-1 lg:order-2 space-y-6">
             
             {/* Active Role Control Block */}
             <div className={`bg-[#13151A] border p-5 rounded-xl space-y-4 transition-all duration-300 ${
