@@ -95,86 +95,41 @@ graph TD
 ## 📸 User Interface & Dashboard Gallery
 *(Özet: Platformun modern arayüzünden alınmış, aşama aşama sevkiyat finansmanı döngüsünü gösteren ekran görüntüleri.)*
 
-<details>
-<summary><b>🔍 1. Dashboard Overview / Genel Bakış</b></summary>
-
+### 🔍 1. Dashboard Overview / Genel Bakış
 *Overview of the Supply Chain Finance interface featuring live portfolio statistics, active pipelines, and event streaming.*
+![Dashboard Overview](docs/screenshots/screenshot_01.png)
 
-![Dashboard Overview](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_01.png)
-
-</details>
-
-<details>
-<summary><b>📦 2. Registering a Supply Trade / Tedarik Sözleşmesi Kaydı</b></summary>
-
+### 📦 2. Registering a Supply Trade / Tedarik Sözleşmesi Kaydı
 *Supplier defines origin, destination, USDC funding target, and divides the payments into custom milestones.*
+![Supplier Registration](docs/screenshots/screenshot_02.png)
 
-![Supplier Registration](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_02.png)
-
-</details>
-
-<details>
-<summary><b>🖋️ 3. Buyer Authorization / Alıcı Sözleşme Onayı</b></summary>
-
+### 🖋️ 3. Buyer Authorization / Alıcı Sözleşme Onayı
 *Buyer reviews the pipeline on-chain and binds their balance sheet to settle the final repayment invoice.*
+![Buyer Authorization](docs/screenshots/screenshot_03.png)
 
-![Buyer Authorization](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_03.png)
-
-</details>
-
-<details>
-<summary><b>💰 4. Lender Capital Pooling / Yatırımcı Fonlaması</b></summary>
-
+### 💰 4. Lender Capital Pooling / Yatırımcı Fonlaması
 *DeFi investors supply USDC to fill the target pool. Funds are locked into the escrow smart contract.*
+![Lender Capital Pooling](docs/screenshots/screenshot_04.png)
 
-![Lender Capital Pooling](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_04.png)
-
-</details>
-
-<details>
-<summary><b>🚢 5. Active Shipment Route Tracker / Canlı Sevkiyat Haritası</b></summary>
-
+### 🚢 5. Active Shipment Route Tracker / Canlı Sevkiyat Haritası
 *Visual cargo tracking updates as shipping starts. The progress bar displays the exact amount of pooled funds.*
+![Active Shipment Route Tracker](docs/screenshots/screenshot_05.png)
 
-![Active Shipment Route Tracker](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_05.png)
-
-</details>
-
-<details>
-<summary><b>📂 6. Document Upload (IPFS) / Tedarikçiden Kanıt Yükleme</b></summary>
-
+### 📂 6. Document Upload (IPFS) / Tedarikçiden Kanıt Yükleme
 *Supplier uploads shipping manifest files, which are securely pinned to IPFS via the server-side Pinata API.*
+![Document Upload IPFS](docs/screenshots/screenshot_06.png)
 
-![Document Upload IPFS](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_06.png)
-
-</details>
-
-<details>
-<summary><b>⚖️ 7. Oracle Milestone Verification / Denetçi Onayı ve Ödeme Salınımı</b></summary>
-
+### ⚖️ 7. Oracle Milestone Verification / Denetçi Onayı ve Ödeme Salınımı
 *Independent validators check the IPFS document. Upon approval, the milestone's payout is automatically released.*
+![Oracle Milestone Verification](docs/screenshots/screenshot_07.png)
 
-![Oracle Milestone Verification](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_07.png)
-
-</details>
-
-<details>
-<summary><b>💳 8. Buyer Settlement & Repayment / Fatura Kapatma</b></summary>
-
+### 💳 8. Buyer Settlement & Repayment / Fatura Kapatma
 *Buyer settles the final payment (principal + 5% yield) on-chain once cargo arrives safely at destination.*
+![Buyer Settlement Repayment](docs/screenshots/screenshot_08.png)
 
-![Buyer Settlement Repayment](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_08.png)
-
-</details>
-
-<details>
-<summary><b>✅ 9. Finalized Deal Ledger / Kapanmış İşlem ve Teminat İadesi</b></summary>
-
+### ✅ 9. Finalized Deal Ledger / Kapanmış İşlem ve Teminat İadesi
 *Deal finalized. Lenders withdraw yield, and the Supplier's vault collateral is automatically returned to their wallet.*
-
-![Finalized Deal Ledger](https://raw.githubusercontent.com/deniznizam/stellarforge-supplychain/master/docs/screenshots/screenshot_09.png)
-
-</details>
+![Finalized Deal Ledger](docs/screenshots/screenshot_09.png)
 
 ---
 
