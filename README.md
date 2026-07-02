@@ -183,11 +183,14 @@ cargo test --workspace
 
 ### 2. Frontend Unit Tests
 We have integrated a robust Jest unit testing suite verifying translation consistency, component layout rules, and simulation state setups.
+
 ```bash
 # Run all frontend tests
 cd frontend
 npm run test
 ```
+
+![Frontend Jest Test Output](docs/screenshots/test_output.png)
 
 ---
 
@@ -216,5 +219,7 @@ The repository is fully integrated with a GitHub Actions workflow. On every push
 1. Runs Cargo check and executes the Rust unit tests.
 2. Sets up Node.js environment, installs frontend dependencies, and executes the Jest-like frontend test suite.
 3. Builds the production-ready Next.js application to verify compilation completeness.
+
+![CI/CD Pipeline Passing](docs/screenshots/cicd_pipeline.png)
 
 
