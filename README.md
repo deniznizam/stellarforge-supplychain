@@ -20,7 +20,7 @@ To prevent any revisions and facilitate immediate review, here are the direct cr
 - **Contract Interaction Transaction Hash**: `a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6324a`
 - **Testing Verification**: 
   - **Smart Contract Tests**: 10 tests passed (`cargo test --workspace`)
-  - **Frontend UI Tests**: 10 tests passed (`npm run test` inside `frontend`)
+  - **Frontend UI Tests**: 3 Jest test suites passed (`npm run test` inside `frontend`)
 - **CI/CD Build**: Evaluated and passing via GitHub Actions workflow checks.
 
 ---
@@ -41,7 +41,7 @@ stellarforge-supplychain/
 │   └── stellarforge-milestone-escrow/ # Escrow pipeline coordinator (Core Logic)
 ├── frontend/               # Next.js 16 Web Dashboard Application
 │   ├── src/app/page.tsx               # Main Interactive dashboard and simulation panel
-│   └── src/tests/ui.test.js           # Automated frontend unit testing suite
+│   └── src/tests/                     # Automated Jest unit testing suites (3 test files)
 ├── deploy.sh               # Unix/Linux contract compilation & deployment automation
 └── deploy.ps1              # Windows PowerShell compilation & deployment automation
 ```
@@ -103,7 +103,7 @@ cargo test --workspace
 ```
 
 ### 2. Frontend Unit Tests
-We have integrated a lightweight, zero-dependency unit testing suite verifying translation consistency, component layout rules, and simulation state setups.
+We have integrated a robust Jest unit testing suite verifying translation consistency, component layout rules, and simulation state setups.
 ```bash
 # Run all frontend tests
 cd frontend
@@ -138,13 +138,4 @@ The repository is fully integrated with a GitHub Actions workflow. On every push
 2. Sets up Node.js environment, installs frontend dependencies, and executes the Jest-like frontend test suite.
 3. Builds the production-ready Next.js application to verify compilation completeness.
 
----
 
-## ☁️ Vercel Deployment Instructions
-*(Özet: Web arayüzünü Vercel üzerinde canlı önizlemeye açmak için takip edilmesi gereken adımlar.)*
-
-To deploy the Next.js frontend to **Vercel** with a live demo link:
-1. Go to [Vercel Dashboard](https://vercel.com) and click **Add New Project**.
-2. Select your imported GitHub repository: `deniznizam/stellarforge-supplychain`.
-3. In the configuration settings, set the **Root Directory** option to **`frontend`** (crucial, as the frontend folder contains the Next.js setup).
-4. Click **Deploy**. Vercel will automatically build the Next.js project and provide you with a live domain link.
