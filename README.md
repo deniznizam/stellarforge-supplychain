@@ -133,6 +133,21 @@ graph TD
 
 ---
 
+## 📱 Mobile Responsive Interface
+*(Özet: Platformun cep telefonu ekranlarıyla tam uyumlu, duyarlı (responsive) mobil arayüz görünümleri.)*
+
+Below are screenshots demonstrating the fully mobile responsive layout of StellarForge Finance on portable devices:
+
+<table width="100%">
+  <tr>
+    <td width="33.3%"><p align="center"><b>Mobile Dashboard (TR)</b></p><img src="docs/screenshots/mobile_screenshot_01.png" alt="Mobile Dashboard" width="100%"/></td>
+    <td width="33.3%"><p align="center"><b>Mobile Active Project Details</b></p><img src="docs/screenshots/mobile_screenshot_02.png" alt="Mobile Project Details" width="100%"/></td>
+    <td width="33.3%"><p align="center"><b>Mobile Developer Simulator</b></p><img src="docs/screenshots/mobile_screenshot_03.png" alt="Mobile Simulator" width="100%"/></td>
+  </tr>
+</table>
+
+---
+
 ## 🎮 Step-by-Step Simulator Playbook (How to Use All Roles)
 *(Özet: Platformdaki rolleri (Tedarikçi, Alıcı, Yatırımcı ve Doğrulayıcı) sırayla simüle ederek uçtan uca akışı nasıl test edeceğinizi anlatan basit kullanım rehberi.)*
 
