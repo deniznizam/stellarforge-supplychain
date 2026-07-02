@@ -93,43 +93,43 @@ graph TD
 ---
 
 ## 📸 User Interface & Dashboard Gallery
-*(Özet: Platformun modern arayüzünden alınmış, aşama aşama sevkiyat finansmanı döngüsünü gösteren ekran görüntüleri.)*
+*(Özet: Platformun modern arayüzünden alınmış, Türkçe/İngilizce dil desteğini, etkileşimli eğitim turlarını ve kayıt formlarını gösteren ekran görüntüleri.)*
 
-### 🔍 1. Dashboard Overview / Genel Bakış
-*Overview of the Supply Chain Finance interface featuring live portfolio statistics, active pipelines, and event streaming.*
-![Dashboard Overview](docs/screenshots/screenshot_01.png)
+### 🔍 1. Dashboard Overview (English) / Genel Arayüz (İngilizce)
+*Main dashboard overview with live portfolio stats, active project listings, and Freighter wallet status.*
+![Dashboard EN](docs/screenshots/screenshot_01.png)
 
-### 📦 2. Registering a Supply Trade / Tedarik Sözleşmesi Kaydı
-*Supplier defines origin, destination, USDC funding target, and divides the payments into custom milestones.*
-![Supplier Registration](docs/screenshots/screenshot_02.png)
+### 🇹🇷 2. Dashboard Overview (Turkish) / Genel Arayüz (Türkçe)
+*Turkish localized version of the dashboard including full content translations for local users.*
+![Dashboard TR](docs/screenshots/screenshot_02.png)
 
-### 🖋️ 3. Buyer Authorization / Alıcı Sözleşme Onayı
-*Buyer reviews the pipeline on-chain and binds their balance sheet to settle the final repayment invoice.*
-![Buyer Authorization](docs/screenshots/screenshot_03.png)
+### 📋 3. Project Details & Milestones / Proje Detayları ve Kilometre Taşları
+*Detailed view of project cards displaying milestones (e.g. Malzeme Tedariki, Bileşen Montajı), collateral vaults, and historical ledger events.*
+![Project Details](docs/screenshots/screenshot_03.png)
 
-### 💰 4. Lender Capital Pooling / Yatırımcı Fonlaması
-*DeFi investors supply USDC to fill the target pool. Funds are locked into the escrow smart contract.*
-![Lender Capital Pooling](docs/screenshots/screenshot_04.png)
+### 🚀 4. Onboarding Tour - Step 1 / Eğitim Turu - Adım 1: Genel Havuz İstatistikleri
+*Interactive user onboarding guide highlighting total pooled funds, active contracts, and expected yields.*
+![Tour Step 1](docs/screenshots/screenshot_04.png)
 
-### 🚢 5. Active Shipment Route Tracker / Canlı Sevkiyat Haritası
-*Visual cargo tracking updates as shipping starts. The progress bar displays the exact amount of pooled funds.*
-![Active Shipment Route Tracker](docs/screenshots/screenshot_05.png)
+### 📦 5. Onboarding Tour - Step 2 / Eğitim Turu - Adım 2: Ticaret Projesi Kartları
+*Onboarding step highlighting active trade routes, shipping lines, and escrow funding progress.*
+![Tour Step 2](docs/screenshots/screenshot_05.png)
 
-### 📂 6. Document Upload (IPFS) / Tedarikçiden Kanıt Yükleme
-*Supplier uploads shipping manifest files, which are securely pinned to IPFS via the server-side Pinata API.*
-![Document Upload IPFS](docs/screenshots/screenshot_06.png)
+### 👥 6. Onboarding Tour - Step 3 / Eğitim Turu - Adım 3: Aktif Hesap Rolleri
+*Onboarding step explaining the sidebar simulator roles (Supplier, Buyer, Lender, Validator).*
+![Tour Step 3](docs/screenshots/screenshot_06.png)
 
-### ⚖️ 7. Oracle Milestone Verification / Denetçi Onayı ve Ödeme Salınımı
-*Independent validators check the IPFS document. Upon approval, the milestone's payout is automatically released.*
-![Oracle Milestone Verification](docs/screenshots/screenshot_07.png)
+### ⏰ 7. Onboarding Tour - Step 4 / Eğitim Turu - Adım 4: Zaman ve Akıllı Simülatör
+*Onboarding step highlighting the virtual clock controls for advanced smart contract lifecycle tests.*
+![Tour Step 4](docs/screenshots/screenshot_07.png)
 
-### 💳 8. Buyer Settlement & Repayment / Fatura Kapatma
-*Buyer settles the final payment (principal + 5% yield) on-chain once cargo arrives safely at destination.*
-![Buyer Settlement Repayment](docs/screenshots/screenshot_08.png)
+### 📝 8. Supplier Trade Registration / Tedarikçi Sözleşme Kayıt Formu
+*Form for SMEs/Suppliers to define shipping details, custom milestones, funding targets, and lock collateral.*
+![Supplier Registration Form](docs/screenshots/screenshot_08.png)
 
-### ✅ 9. Finalized Deal Ledger / Kapanmış İşlem ve Teminat İadesi
-*Deal finalized. Lenders withdraw yield, and the Supplier's vault collateral is automatically returned to their wallet.*
-![Finalized Deal Ledger](docs/screenshots/screenshot_09.png)
+### 💡 9. How it Works Guide / Platform Çalışma Mantığı ve Rehber
+*Interactive visual guide showcasing the end-to-end supply chain finance flow and on-chain milestones.*
+![How it Works Guide](docs/screenshots/screenshot_09.png)
 
 ---
 
