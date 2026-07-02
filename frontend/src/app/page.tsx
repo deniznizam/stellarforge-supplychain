@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { isConnected, getAddress } from "@stellar/freighter-api";
+import { parsePortfolio } from "./utils/parsePortfolio";
+import { signAndSubmitSorobanTx } from "./utils/stellarTx";
 
 // Business types
 interface Milestone {
@@ -229,6 +231,34 @@ export default function Home() {
     "SF-004": 0,
   });
 
+  // Secure IPFS Upload States
+  const [uploading, setUploading] = useState(false);
+  const [activeUploadProj, setActiveUploadProj] = useState<string | null>(null);
+  const [activeUploadMilestone, setActiveUploadMilestone] = useState<number | null>(null);
+
+  // Live Horizon Portfolio State
+  const [horizonPortfolio, setHorizonPortfolio] = useState<{
+    totalInvested: number;
+    expectedYield: number;
+    activeProjectsCount: number;
+    investments: Array<{
+      projectId: string;
+      projectName: string;
+      amount: number;
+      timestamp: string;
+      status: "Active" | "Pending" | "Completed";
+      txHash: string;
+    }>;
+  }>({
+    totalInvested: 6500,
+    expectedYield: 325,
+    activeProjectsCount: 2,
+    investments: [
+      { projectId: "SF-001", projectName: "Acme Logistics", amount: 3000, timestamp: "10:32", status: "Active", txHash: "82f1a9b49c37a8bd901cc22ae32ff49bb77cd8c4d8c4901c019288127a8bd901" },
+      { projectId: "SF-002", projectName: "Orion Textiles", amount: 3500, timestamp: "10:35", status: "Pending", txHash: "12a9c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6324a" }
+    ]
+  });
+
   const handleRoleChange = (role: "Lender" | "Supplier" | "Buyer" | "Validator") => {
     setUserRole(role);
     if (role === "Lender") {
@@ -449,6 +479,83 @@ export default function Home() {
     ]);
   }, [lang]);
 
+  // Fetch live Horizon portfolio data if real wallet is connected
+  useEffect(() => {
+    if (!walletAddress || walletAddress.includes("...") || walletAddress.startsWith("GB...") || walletAddress.startsWith("GC...") || walletAddress.startsWith("GD...")) {
+      // Default to simulator values for mockup addresses
+      return;
+    }
+
+    const fetchHorizonPortfolio = async () => {
+      try {
+        const response = await fetch(`https://horizon-testnet.stellar.org/accounts/${walletAddress}/operations?limit=25&order=desc`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch Horizon operations");
+        }
+        const data = await response.json();
+        const records = data._embedded?.records || [];
+
+        const tokenAddress = "CBLHMCZ2YWVBOMSYZLZJH5NLHF5MNC24CJ6PX5XDTZDNTJBBJ7A4VAGD";
+        const escrowAddress = "CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7";
+
+        const parsed = parsePortfolio(records, tokenAddress, escrowAddress);
+        
+        if (parsed.investments.length > 0) {
+          setHorizonPortfolio({
+            totalInvested: parsed.totalInvested,
+            expectedYield: parsed.expectedYield,
+            activeProjectsCount: parsed.activeProjectsCount,
+            investments: parsed.investments
+          });
+          logEvent("success", lang === "tr" 
+            ? "Stellar Horizon API'sinden canlı portföy verileri başarıyla senkronize edildi!"
+            : "Successfully synchronized live portfolio operations from Stellar Horizon API!"
+          );
+        }
+      } catch (err: any) {
+        console.warn("Horizon API unavailable or new account. Sticking to mockups.", err.message);
+      }
+    };
+
+    fetchHorizonPortfolio();
+  }, [walletAddress, lang]);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeUploadProj || activeUploadMilestone === null) return;
+
+    setUploading(true);
+    logEvent("info", lang === "tr" ? "Kanıt dosyası IPFS'e yükleniyor (Pinata)..." : "Uploading proof document to IPFS (Pinata)...");
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) {
+        throw new Error("Pinata server-side upload failed");
+      }
+
+      const data = await res.json();
+      submitProof(activeUploadProj, activeUploadMilestone, data.ipfsHash);
+      logEvent("success", lang === "tr"
+        ? `Kanıt başarıyla IPFS'e yüklendi: ${data.ipfsHash}`
+        : `Proof successfully pinned to IPFS: ${data.ipfsHash}`
+      );
+    } catch (err: any) {
+      logEvent("error", lang === "tr" ? "IPFS yüklemesi başarısız oldu!" : "IPFS upload failed!");
+    } finally {
+      setUploading(false);
+      setActiveUploadProj(null);
+      setActiveUploadMilestone(null);
+      e.target.value = "";
+    }
+  };
+
   const formatNumber = (num: number) => {
     return num.toLocaleString(lang === "tr" ? "tr-TR" : "en-US");
   };
@@ -496,7 +603,7 @@ export default function Home() {
     }
   };
 
-  const handleCreateProject = (e: React.FormEvent) => {
+  const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newProjName) return;
 
@@ -510,6 +617,27 @@ export default function Home() {
     }
 
     const nextId = "SF-00" + (projects.length + 1);
+
+    if (isRealAddress) {
+      logEvent("info", lang === "tr" 
+        ? "Freighter cüzdanı ile akıllı sözleşme işlemi imzalanıyor..." 
+        : "Signing smart contract transaction via Freighter..."
+      );
+      
+      const vaultAddress = "CDBYFJVVYC4H7E6SZ3PERACLEAF4HMPZ7KTONIP7IX5RJ7UAZLCUQKVM";
+      const result = await signAndSubmitSorobanTx(vaultAddress, "lock_collateral", [], walletAddress);
+      if (result.success) {
+        logEvent("success", lang === "tr"
+          ? `On-chain işlem başarıyla gönderildi! Tx: ${result.txHash}`
+          : `On-chain transaction successfully submitted! Tx: ${result.txHash}`
+        );
+      } else {
+        logEvent("warning", lang === "tr"
+          ? `Cüzdan işlemi reddedildi veya başarısız oldu. Simülasyon moduna geçiliyor.`
+          : `Wallet transaction rejected or failed. Sticking with simulation.`
+        );
+      }
+    }
 
     const newProject: Project = {
       id: nextId,
@@ -541,7 +669,28 @@ export default function Home() {
     setSelectedProjectId(nextId);
   };
 
-  const fundProject = (id: string, amount: number) => {
+  const fundProject = async (id: string, amount: number) => {
+    if (isRealAddress) {
+      logEvent("info", lang === "tr" 
+        ? "Yatırım işlemi Freighter ile imzalanıyor..." 
+        : "Signing investment transaction via Freighter..."
+      );
+      
+      const escrowAddress = "CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7";
+      const result = await signAndSubmitSorobanTx(escrowAddress, "fund_project", [], walletAddress);
+      if (result.success) {
+        logEvent("success", lang === "tr"
+          ? `On-chain yatırım işlemi başarıyla gönderildi! Tx: ${result.txHash}`
+          : `On-chain investment successfully submitted! Tx: ${result.txHash}`
+        );
+      } else {
+        logEvent("warning", lang === "tr"
+          ? "Cüzdan işlemi reddedildi veya başarısız. Yerel simülasyon tamamlanıyor."
+          : "Wallet transaction rejected or failed. Completing locally on emulator."
+        );
+      }
+    }
+
     setProjects(prev => prev.map(p => {
       if (p.id === id) {
         const nextFunded = Math.min(p.targetAmount, p.fundedAmount + amount);
@@ -560,17 +709,39 @@ export default function Home() {
     }));
   };
 
-  const submitProof = (projectId: string, milestoneId: number) => {
+  const submitProof = async (projectId: string, milestoneId: number, ipfsHash?: string) => {
+    const finalHash = ipfsHash || `ipfs://freight-manifest-${milestoneId}-cid-${Math.random().toString(36).substring(4, 8)}`;
+    
+    if (isRealAddress) {
+      logEvent("info", lang === "tr" 
+        ? "Teslimat kanıtı işlemi Freighter ile imzalanıyor..." 
+        : "Signing shipment proof transaction via Freighter..."
+      );
+      
+      const escrowAddress = "CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7";
+      const result = await signAndSubmitSorobanTx(escrowAddress, "submit_milestone_proof", [], walletAddress);
+      if (result.success) {
+        logEvent("success", lang === "tr"
+          ? `Kanıt zincire başarıyla işlendi! Tx: ${result.txHash}`
+          : `Proof successfully recorded on-chain! Tx: ${result.txHash}`
+        );
+      } else {
+        logEvent("warning", lang === "tr"
+          ? "Cüzdan işlemi reddedildi. Simülasyon modunda devam ediliyor."
+          : "Wallet transaction rejected. Sticking with simulation."
+        );
+      }
+    }
+
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const updatedMilestones = p.milestones.map(m => {
           if (m.id === milestoneId) {
-            const mockIpfs = `ipfs://freight-manifest-${m.id}-cid-${Math.random().toString(36).substring(4, 8)}`;
             logEvent("info", lang === "tr"
-              ? `Tedarikçi teslimat kanıtı yükledi: ${mockIpfs}`
-              : `Supplier submitted delivery proof: ${mockIpfs}`
+              ? `Tedarikçi teslimat kanıtı yükledi: ${finalHash}`
+              : `Supplier submitted delivery proof: ${finalHash}`
             );
-            return { ...m, proofHash: mockIpfs, status: "ProofSubmitted" as const };
+            return { ...m, proofHash: finalHash, status: "ProofSubmitted" as const };
           }
           return m;
         });
@@ -580,7 +751,28 @@ export default function Home() {
     }));
   };
 
-  const approveMilestone = (projectId: string, milestoneId: number, accept: boolean) => {
+  const approveMilestone = async (projectId: string, milestoneId: number, accept: boolean) => {
+    if (isRealAddress) {
+      logEvent("info", lang === "tr" 
+        ? "Doğrulama işlemi Freighter ile imzalanıyor..." 
+        : "Signing validator transaction via Freighter..."
+      );
+      
+      const escrowAddress = "CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7";
+      const result = await signAndSubmitSorobanTx(escrowAddress, "approve_milestone", [], walletAddress);
+      if (result.success) {
+        logEvent("success", lang === "tr"
+          ? `Aşama onay işlemi zincire gönderildi! Tx: ${result.txHash}`
+          : `Milestone approval transaction submitted! Tx: ${result.txHash}`
+        );
+      } else {
+        logEvent("warning", lang === "tr"
+          ? "Cüzdan onaylama işlemi başarısız. Yerel simülatör tamamlanıyor."
+          : "Wallet approval transaction failed. Completing locally on emulator."
+        );
+      }
+    }
+
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const updatedMilestones = p.milestones.map(m => {
@@ -601,7 +793,28 @@ export default function Home() {
     }));
   };
 
-  const buyerRepay = (projectId: string) => {
+  const buyerRepay = async (projectId: string) => {
+    if (isRealAddress) {
+      logEvent("info", lang === "tr" 
+        ? "Geri ödeme işlemi Freighter ile imzalanıyor..." 
+        : "Signing repayment transaction via Freighter..."
+      );
+      
+      const escrowAddress = "CAPQJDB6IDNFSMHYQJOHFPCO4BEY4FXG3PMW4DUQ6FY4RO3MZ5XDFJX7";
+      const result = await signAndSubmitSorobanTx(escrowAddress, "repay_and_finalize", [], walletAddress);
+      if (result.success) {
+        logEvent("success", lang === "tr"
+          ? `Geri ödeme işlemi ağa başarıyla gönderildi! Tx: ${result.txHash}`
+          : `Repayment transaction successfully submitted! Tx: ${result.txHash}`
+        );
+      } else {
+        logEvent("warning", lang === "tr"
+          ? "Cüzdan işlemi reddedildi. Simülasyon modunda fatura kapatılıyor."
+          : "Wallet transaction rejected. Settling invoice locally on emulator."
+        );
+      }
+    }
+
     setProjects(prev => prev.map(p => {
       if (p.id === projectId) {
         const repayment = p.targetAmount * 1.05;
@@ -723,6 +936,13 @@ export default function Home() {
     .filter(p => p.status === "Active" || p.status === "Pending")
     .reduce((acc, p) => acc + (userInvestments[p.id] || 0), 0);
   const expectedYieldVal = myInvestmentVal * 0.05;
+
+  const isRealAddress = !!(
+    walletAddress &&
+    !walletAddress.includes("...") &&
+    !walletAddress.includes("(") &&
+    walletAddress.length > 30
+  );
 
   if (!mounted) return null;
 
@@ -1285,14 +1505,25 @@ export default function Home() {
                             <>
                               {userRole === "Supplier" && p.milestones.some(m => m.status === "Pending") && (
                                 <button
+                                  disabled={uploading}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     const nextPending = p.milestones.find(m => m.status === "Pending");
-                                    if (nextPending) submitProof(p.id, nextPending.id);
+                                    if (nextPending) {
+                                      setActiveUploadProj(p.id);
+                                      setActiveUploadMilestone(nextPending.id);
+                                      setTimeout(() => {
+                                        document.getElementById("ipfs-file-uploader")?.click();
+                                      }, 50);
+                                    }
                                   }}
-                                  className="w-full bg-orange-500 hover:bg-orange-400 text-[#111215] py-2.5 rounded-lg text-[13px] font-extrabold transition shadow-md"
+                                  className={`w-full py-2.5 rounded-lg text-[13px] font-extrabold transition shadow-md ${
+                                    uploading
+                                      ? "bg-[#1E2128] text-slate-500 cursor-not-allowed"
+                                      : "bg-orange-500 hover:bg-orange-400 text-[#111215]"
+                                  }`}
                                 >
-                                  {t.submitProof}
+                                  {uploading ? (lang === "tr" ? "IPFS'e Yükleniyor..." : "Uploading to IPFS...") : t.submitProof}
                                 </button>
                               )}
                               {userRole === "Validator" && p.milestones.some(m => m.status === "ProofSubmitted") && (
@@ -1618,11 +1849,11 @@ export default function Home() {
                       <>
                         <div>
                           <span className="text-[#5F6774] block">{lang === "tr" ? "Portföy Hacmi" : "Active Portfolio"}</span>
-                          <span className="text-white font-bold block mt-0.5">${formatNumber(myInvestmentVal)}</span>
+                          <span className="text-white font-bold block mt-0.5">${formatNumber(isRealAddress ? horizonPortfolio.totalInvested : myInvestmentVal)}</span>
                         </div>
                         <div>
                           <span className="text-[#5F6774] block">{lang === "tr" ? "Beklenen Getiri" : "Expected Yield"}</span>
-                          <span className="text-orange-400 font-bold block mt-0.5">+${formatNumber(expectedYieldVal)}</span>
+                          <span className="text-orange-400 font-bold block mt-0.5">+${formatNumber(isRealAddress ? horizonPortfolio.expectedYield : expectedYieldVal)}</span>
                         </div>
                       </>
                     )}
@@ -1685,21 +1916,35 @@ export default function Home() {
                   <div className="space-y-1.5 text-[10px]">
                     {userRole === "Lender" && (
                       <>
-                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
-                          <span className="text-slate-400 font-mono">tx_82f1...7a8b</span>
-                          <span className="text-[#8E97A4]">{lang === "tr" ? "Teminat Yatırma" : "Deposit Funds"}</span>
-                          <span className="text-emerald-400 font-bold">+$3,000</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
-                          <span className="text-slate-400 font-mono">tx_12a9...f49b</span>
-                          <span className="text-[#8E97A4]">{lang === "tr" ? "Sözleşme Fonlama" : "Fund Contract"}</span>
-                          <span className="text-emerald-400 font-bold">+$3,500</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
-                          <span className="text-slate-400 font-mono">tx_49c3...901c</span>
-                          <span className="text-[#8E97A4]">{lang === "tr" ? "Bekleyen Yatırım" : "Escrow Yield"}</span>
-                          <span className="text-amber-400 font-bold">Pending</span>
-                        </div>
+                        {isRealAddress && horizonPortfolio.investments.length > 0 ? (
+                          horizonPortfolio.investments.slice(0, 3).map((inv, idx) => (
+                            <div key={idx} className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                              <span className="text-slate-400 font-mono">
+                                tx_{inv.txHash.substring(0, 4)}...{inv.txHash.substring(inv.txHash.length - 4)}
+                              </span>
+                              <span className="text-[#8E97A4]">{inv.projectName}</span>
+                              <span className="text-emerald-400 font-bold">+${formatNumber(inv.amount)}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <>
+                            <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                              <span className="text-slate-400 font-mono">tx_82f1...7a8b</span>
+                              <span className="text-[#8E97A4]">{lang === "tr" ? "Teminat Yatırma" : "Deposit Funds"}</span>
+                              <span className="text-emerald-400 font-bold">+$3,000</span>
+                            </div>
+                            <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                              <span className="text-slate-400 font-mono">tx_12a9...f49b</span>
+                              <span className="text-[#8E97A4]">{lang === "tr" ? "Sözleşme Fonlama" : "Fund Contract"}</span>
+                              <span className="text-emerald-400 font-bold">+$3,500</span>
+                            </div>
+                            <div className="flex justify-between items-center bg-[#0B0C0E] border border-[#1E2128]/50 p-2 rounded">
+                              <span className="text-slate-400 font-mono">tx_49c3...901c</span>
+                              <span className="text-[#8E97A4]">{lang === "tr" ? "Bekleyen Yatırım" : "Escrow Yield"}</span>
+                              <span className="text-amber-400 font-bold">Pending</span>
+                            </div>
+                          </>
+                        )}
                       </>
                     )}
                     {userRole === "Supplier" && (
@@ -1955,6 +2200,14 @@ export default function Home() {
         </div>
 
       </main>
+
+      <input 
+        type="file" 
+        id="ipfs-file-uploader" 
+        className="hidden" 
+        onChange={handleFileChange}
+        disabled={uploading}
+      />
 
     </div>
   );
