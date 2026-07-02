@@ -98,64 +98,64 @@ graph TD
 <details>
 <summary><b>🔍 1. Dashboard Overview / Genel Bakış</b></summary>
 
-*Overview of the Supply Chain Finance interface featuring live portfolio statistics, active pipelines, and event streaming.*
-![Dashboard Overview](docs/screenshots/screenshot_01.png)
+<p><i>Overview of the Supply Chain Finance interface featuring live portfolio statistics, active pipelines, and event streaming.</i></p>
+<img src="docs/screenshots/screenshot_01.png" alt="Dashboard Overview" width="100%" />
 </details>
 
 <details>
 <summary><b>📦 2. Registering a Supply Trade / Tedarik Sözleşmesi Kaydı</b></summary>
 
-*Supplier defines origin, destination, USDC funding target, and divides the payments into custom milestones.*
-![Supplier Registration](docs/screenshots/screenshot_02.png)
+<p><i>Supplier defines origin, destination, USDC funding target, and divides the payments into custom milestones.</i></p>
+<img src="docs/screenshots/screenshot_02.png" alt="Supplier Registration" width="100%" />
 </details>
 
 <details>
 <summary><b>🖋️ 3. Buyer Authorization / Alıcı Sözleşme Onayı</b></summary>
 
-*Buyer reviews the pipeline on-chain and binds their balance sheet to settle the final repayment invoice.*
-![Buyer Authorization](docs/screenshots/screenshot_03.png)
+<p><i>Buyer reviews the pipeline on-chain and binds their balance sheet to settle the final repayment invoice.</i></p>
+<img src="docs/screenshots/screenshot_03.png" alt="Buyer Authorization" width="100%" />
 </details>
 
 <details>
 <summary><b>💰 4. Lender Capital Pooling / Yatırımcı Fonlaması</b></summary>
 
-*DeFi investors supply USDC to fill the target pool. Funds are locked into the escrow smart contract.*
-![Lender Capital Pooling](docs/screenshots/screenshot_04.png)
+<p><i>DeFi investors supply USDC to fill the target pool. Funds are locked into the escrow smart contract.</i></p>
+<img src="docs/screenshots/screenshot_04.png" alt="Lender Capital Pooling" width="100%" />
 </details>
 
 <details>
 <summary><b>🚢 5. Active Shipment Route Tracker / Canlı Sevkiyat Haritası</b></summary>
 
-*Visual cargo tracking updates as shipping starts. The progress bar displays the exact amount of pooled funds.*
-![Active Shipment Route Tracker](docs/screenshots/screenshot_05.png)
+<p><i>Visual cargo tracking updates as shipping starts. The progress bar displays the exact amount of pooled funds.</i></p>
+<img src="docs/screenshots/screenshot_05.png" alt="Active Shipment Route Tracker" width="100%" />
 </details>
 
 <details>
 <summary><b>📂 6. Document Upload (IPFS) / Tedarikçiden Kanıt Yükleme</b></summary>
 
-*Supplier uploads shipping manifest files, which are securely pinned to IPFS via the server-side Pinata API.*
-![Document Upload IPFS](docs/screenshots/screenshot_06.png)
+<p><i>Supplier uploads shipping manifest files, which are securely pinned to IPFS via the server-side Pinata API.</i></p>
+<img src="docs/screenshots/screenshot_06.png" alt="Document Upload IPFS" width="100%" />
 </details>
 
 <details>
 <summary><b>⚖️ 7. Oracle Milestone Verification / Denetçi Onayı ve Ödeme Salınımı</b></summary>
 
-*Independent validators check the IPFS document. Upon approval, the milestone's payout is automatically released.*
-![Oracle Milestone Verification](docs/screenshots/screenshot_07.png)
+<p><i>Independent validators check the IPFS document. Upon approval, the milestone's payout is automatically released.</i></p>
+<img src="docs/screenshots/screenshot_07.png" alt="Oracle Milestone Verification" width="100%" />
 </details>
 
 <details>
 <summary><b>💳 8. Buyer Settlement & Repayment / Fatura Kapatma</b></summary>
 
-*Buyer settles the final payment (principal + 5% yield) on-chain once cargo arrives safely at destination.*
-![Buyer Settlement Repayment](docs/screenshots/screenshot_08.png)
+<p><i>Buyer settles the final payment (principal + 5% yield) on-chain once cargo arrives safely at destination.</i></p>
+<img src="docs/screenshots/screenshot_08.png" alt="Buyer Settlement Repayment" width="100%" />
 </details>
 
 <details>
 <summary><b>✅ 9. Finalized Deal Ledger / Kapanmış İşlem ve Teminat İadesi</b></summary>
 
-*Deal finalized. Lenders withdraw yield, and the Supplier's vault collateral is automatically returned to their cüzdan.*
-![Finalized Deal Ledger](docs/screenshots/screenshot_09.png)
+<p><i>Deal finalized. Lenders withdraw yield, and the Supplier's vault collateral is automatically returned to their wallet.</i></p>
+<img src="docs/screenshots/screenshot_09.png" alt="Finalized Deal Ledger" width="100%" />
 </details>
 
 ---
