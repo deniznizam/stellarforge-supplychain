@@ -26,6 +26,31 @@ To prevent any revisions and facilitate immediate review, here are the direct cr
 
 ---
 
+## 🎯 Submission Overview & Evaluation Criteria
+*(Özet: Jüri değerlendirmesi için fikir tanımı, teknik uygulama, yapay zeka kullanımı ve kullanıcı deneyimi özetleri.)*
+
+### 💡 Fikir ve Problem Tanımı (Idea & Problem Definition)
+StellarForge Finance, Stellar (Soroban) blokzinciri üzerinde çalışan, milestone (kilometre taşı) kilitli bir **Tedarik Zinciri Finansmanı (Reverse Factoring) dApp** uygulamasıdır.
+- **Problem**: KOBİ'ler (Tedarikçiler), büyük kurumsal alıcılardan (Nestle vb.) aldıkları siparişleri üretmek için nakit sıkışıklığı yaşarlar. Bankacılık kredileri yavaş ve maliyetlidir.
+- **Çözüm**: Büyük alıcı ödeme taahhüdünü zincir üstünde onaylar, DeFi yatırımcıları fona katkı sağlar. Akıllı sözleşme, fonları tek seferde değil, tedarikçi nakliye belgelerini **Pinata/IPFS** üzerinden kanıt olarak yükledikçe ve **Oracle denetçisi** bunu onayladıkça aşamalı (milestone bazlı) olarak öder. Teslimatta alıcı faturayı faiziyle kapatır; tedarikçinin teminatı çözülür ve yatırımcılar %5 nema kazanır.
+
+### ⚙️ Teknik Uygulama (Technical Implementation)
+- **Akıllı Sözleşmeler (Soroban/Rust)**: Mock USDC Token, Collateral Vault, Oracle Validator ve Core Milestone Escrow olarak 4 modüler sözleşme yazılmış ve Stellar Testnet'e otomatik scriptlerle (`deploy.sh` / `deploy.ps1`) deploy edilmiştir.
+- **Ön Yüz (Frontend)**: Next.js 16 (App Router, TypeScript, Tailwind CSS) kullanılarak tasarlanmıştır. Mobil ve tablet cihazlara %100 uyumludur.
+- **Blokzincir Entegrasyonu**: Gerçek cüzdan bağlantısı (Freighter Wallet) ve tarayıcıda doğrudan test için gelişmiş cüzdan simülatörü kuruludur.
+- **Veri ve Depolama**: Evrak doğrulamaları için **Pinata/IPFS API**, canlı havuz istatistikleri için **Stellar Horizon API** kullanılmıştır.
+- **Test ve Kalite**: Akıllı sözleşmeler için 10 adet Rust testi (`cargo test`), ön yüz için 3 farklı Jest test süiti (`npm run test` inside `frontend`) yazılmıştır. Tüm kontroller **GitHub Actions** ile kurulan CI/CD boru hattında otomatik çalışmaktadır.
+
+### 🤖 AI Kullanımı (AI Tools & Impact)
+- **Antigravity AI** kodlama asistanı, projenin başından sonuna kadar aktif bir **pair programmer** olarak kullanılmıştır.
+- **Katkı**: Rust akıllı sözleşmelerinin sınır koşullarının (likidasyon süreleri, yetki kontrolleri) yazılmasında, Next.js mobil duyarlı arayüz optimizasyonlarında ve karmaşık Stellar CLI komutlarının otomatikleştirilmesinde yapay zeka kritik rol oynamıştır.
+
+### 🎨 Kullanıcı Deneyimi (User Experience)
+- Karanlık mod (dark mode) odaklı, canlı grafik akışına (live event stream) ve interactive onboarding tour (adım adım eğitim turu) yapısına sahip premium bir arayüz tasarlanmıştır.
+- **Mobil Uyum**: Menü kırılmaları, cüzdan adresi kısaltmaları ve geliştirici araçlarının mobil ekranda üste alınmasıyla kusursuz bir mobil kullanıcı deneyimi sunulmaktadır.
+
+---
+
 ## 🏗️ Project Architecture
 *(Özet: Proje yapısı, bağımsız Rust akıllı sözleşmeleri ve Next.js ön yüz uygulaması olarak modüler bir düzende ayrılmıştır.)*
 
